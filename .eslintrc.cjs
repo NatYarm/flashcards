@@ -1,27 +1,6 @@
-// module.exports = {
-  // root: true,
-  // env: { browser: true, es2020: true },
-  // extends: [
-  //   '@it-incubator/eslint-config'
-    // 'eslint:recommended',
-    // 'plugin:@typescript-eslint/recommended',
-    // 'plugin:react-hooks/recommended',
-  //],
-  // ignorePatterns: ['dist', '.eslintrc.cjs'],
-  // parser: '@typescript-eslint/parser',
-  // plugins: ['react-refresh'],
-  // rules: {
-  //   'react-refresh/only-export-components': [
-  //     'warn',
-  //     { allowConstantExport: true },
-  //   ],
-  //},
-
-  
-//}
 
 module.exports = {
-  extends: '@it-incubator/eslint-config',
+  extends: ['@it-incubator/eslint-config', 'plugin:storybook/recommended'],
   rules: {
     'perfectionist/sort-imports': 'off'
   }
