@@ -8,6 +8,7 @@ export function App() {
       <BrowserRouter>
         <Button as={Link} to={'https://google.com'}>
           Hello
+          <span>Test_Mger</span>
         </Button>
       </BrowserRouter>
     </div>
