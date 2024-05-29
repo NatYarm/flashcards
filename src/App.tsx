@@ -1,6 +1,8 @@
 import { BrowserRouter, Link } from 'react-router-dom'
 
 import { Button } from './components/ui/button'
+import { Card } from './components/ui/card'
+import { Select } from './components/ui/select/select'
 
 export function App() {
   return (
@@ -9,6 +11,8 @@ export function App() {
         <Button as={Link} to={'https://google.com'}>
           Hello
         </Button>
+        <Select />
+        <Card as={'section'}>Card content</Card>
       </BrowserRouter>
     </div>
   )
