@@ -41,5 +41,3 @@ export const Typography = <T extends ElementType = 'p'>({
 
   return <Component className={classNames} {...rest} />
 }
-
-
