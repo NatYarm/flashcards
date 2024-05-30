@@ -24,21 +24,19 @@
   width: 18px;
   height: 18px;
 
-  background-color: var(--color-dark-900);
-  border: 2px solid var(--color-light-900);
+  background-color: var(--color-transparent);
+  border: 2px solid var(--color-light-100);
   border-radius: 2px;
 
   &:focus {
-    background-color: var(--color-bg-focus);
+    background-color: var(--color-dark-100);
+    border-color: var(--color-light-900);
   }
 
   &:disabled {
     cursor: initial;
+    background-color: var(--color-transparent);
     border-color: var(--color-dark-100);
-  }
-
-  &[data-state='checked']:disabled {
-    background-color: var(--color-checkbox-disabled);
   }
 }
 
@@ -54,8 +52,17 @@
 
   border-radius: 50%;
 
+  &:active {
+    background-color: var(--color-dark-100);
+  }
+
   &.disabled {
     cursor: initial;
+    background-color: var(--color-transparent);
+  }
+
+  &:focus {
+    background-color: var(--color-dark-100);
   }
 
   &:focus-within,
@@ -63,61 +70,27 @@
   &:hover .root:not([data-state='checked']) {
     background-color: var(--color-dark-500);
   }
-
-  &:active:not(.disabled) {
-    background-color: var(--color-dark-100);
-  }
-
-  &.left {
-    margin-left: -9px;
-  }
 }
 
 .indicator {
   width: 18px;
   height: 18px;
+
+  &.checked {
+    background-color: var(--color-light-100);
+  }
+
+  &.disabled {
+    background-color: var(--color-transparent);
+  }
 }
 
-/*
-!*
-@import '@radix-ui/colors/black-alpha.css';
-@import '@radix-ui/colors/violet.css';
-*!
+.checkIcon {
+  &.checked {
+    fill: var(--color-dark-900); // Цвет галочки при checked
+  }
 
-.box {
-  display: flex;
-  align-items: center;
+  &.disabled {
+    fill: var(--color-light-100); // Цвет галочки при disabled
+  }
 }
-
-.CheckboxRoot {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 25px;
-  height: 25px;
-
-  background-color: white;
-  border-radius: 4px;
-  box-shadow: 0 2px 10px var(--black-a7);
-}
-
-.CheckboxRoot:hover {
-  background-color: var(--color-dark-100);
-}
-
-.CheckboxRoot:focus {
-  box-shadow: 0 0 0 2px black;
-}
-
-.CheckboxIndicator {
-  color: var(--color-danger-100);
-}
-
-.Label {
-  padding-left: 15px;
-  font-size: 15px;
-  line-height: 1;
-  color: white;
-}
-*/

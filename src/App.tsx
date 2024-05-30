@@ -9,7 +9,7 @@ export function App() {
       <br />
       <p></p>
       <p></p>
-      <Checkbox />
+      <Checkbox label={'Check-box'} />
       <p></p>
       <p></p>
       <br />
