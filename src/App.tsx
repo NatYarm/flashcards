@@ -6,13 +6,9 @@ export function App() {
   return (
     <div>
       <Button>Hello</Button>
-      <br />
-      <p></p>
       <p></p>
       <Checkbox label={'Check-box'} />
       <p></p>
-      <p></p>
-      <br />
       <Typography variant={'h1'}>H1</Typography>
     </div>
   )
