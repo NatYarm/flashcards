@@ -1,0 +1,10 @@
+.label {
+  margin: 0;
+}
+.labelRoot {
+  color: var(--color-dark-100);
+
+  &:disabled {
+    color: var(--color-dark-300);
+  }
+}

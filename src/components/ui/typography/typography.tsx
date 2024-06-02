@@ -20,14 +20,20 @@ type TypographyVariants =
   | 'subtitle1'
   | 'subtitle2'
 
+<<<<<<< HEAD
 // Базовый тип без рекурсивного использования Omit
+=======
+>>>>>>> 37d4cfb1c08411463195afd61ce5a962862991e3
 type BaseTypographyProps<T extends ElementType> = {
   as?: T
   className?: string
   variant?: TypographyVariants
 }
 
+<<<<<<< HEAD
 // Итоговый тип, объединяющий базовый тип и стандартные пропсы
+=======
+>>>>>>> 37d4cfb1c08411463195afd61ce5a962862991e3
 type TypographyProps<T extends ElementType = 'p'> = BaseTypographyProps<T> &
   Omit<ComponentPropsWithoutRef<T>, keyof BaseTypographyProps<T>>
 
@@ -37,6 +43,7 @@ export const Typography = <T extends ElementType = 'p'>({
   variant = 'body1',
   ...rest
 }: TypographyProps<T>) => {
+<<<<<<< HEAD
   const Component = as || 'p' // Уточнение типа
 
   const classNames = clsx(s.typography, s[variant], className)
@@ -101,3 +108,11 @@ export const Typography = <T extends ElementType = 'p'>(props: TypographyProps<T
 
   return <Component className={classNames} {...rest} />
 }*/
+=======
+  const Component = as || 'p'
+
+  const classNames = clsx(s.typography, s[variant], className)
+
+  return <Component className={classNames} {...rest} />
+}
+>>>>>>> 37d4cfb1c08411463195afd61ce5a962862991e3

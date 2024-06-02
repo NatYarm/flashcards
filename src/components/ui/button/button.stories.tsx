@@ -31,6 +31,7 @@ export const FullWidth: Story = {
     variant: 'primary',
   },
 }
+<<<<<<< HEAD
 
 export const IconButton: Story = {
   args: {
@@ -71,6 +72,8 @@ export const IconButton: Story = {
   },
 }
 
+=======
+>>>>>>> 37d4cfb1c08411463195afd61ce5a962862991e3
 export const AsLink: Story = {
   args: {
     as: 'a',
