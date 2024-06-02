@@ -1,3 +1,5 @@
+
+
 import {
   ComponentPropsWithoutRef,
   ElementRef,
@@ -8,9 +10,11 @@ import {
   forwardRef,
 } from 'react'
 
+
 import { clsx } from 'clsx'
 
 import s from './card.module.scss'
+
 
 type InferType<T> = T extends ElementType<infer U> ? U : never
 
@@ -21,6 +25,7 @@ export type CardProps<T extends ElementType = 'div'> = {
 
 export const Card = forwardRef(
   <T extends ElementType = 'div'>(props: CardProps<T>, ref: ForwardedRef<InferType<T>>) => {
+
     const { as: Component = 'div', children, className, ...restProps } = props
     const classNames = clsx(s.root, className)
 
@@ -37,3 +42,4 @@ export default Card as <T extends ElementType = 'div'>(
     ref?: ForwardedRef<ElementRef<T>>
   } & CardProps<T>
 ) => ReactElement
+

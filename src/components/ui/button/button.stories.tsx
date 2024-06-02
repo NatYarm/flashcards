@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Button } from '.'
+
+import { LogOut } from '@/assets/icons/components'
+
+import { Button } from './button'
 
 const meta = {
   component: Button,
@@ -31,6 +34,21 @@ export const FullWidth: Story = {
     variant: 'primary',
   },
 }
+
+
+export const IconButton: Story = {
+  args: {
+    children: (
+      <>
+        <LogOut />
+        Button
+      </>
+    ),
+    disabled: false,
+    variant: 'primary',
+  },
+}
+
 export const AsLink: Story = {
   args: {
     as: 'a',
