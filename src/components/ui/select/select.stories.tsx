@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import s from './select.module.scss'
 
-import { Label } from '../label/label'
+import { Typography } from '../typography'
 import { Select } from './select'
 import { SelectItem } from './selectItem'
 
@@ -19,7 +19,9 @@ export const Default: Story = {
   args: {},
   render: () => (
     <>
-      <Label style={{ color: '#808080', fontSize: '14px' }}>Select-box</Label>
+      <Typography as={'label'} className={s.selectLabel} variant={'body2'}>
+        select-box
+      </Typography>
       <Select className={s.selectSize} placeholder={'select-box'}>
         <SelectItem value={'apple'}>Apple</SelectItem>
         <SelectItem value={'banana'}>Banana</SelectItem>
@@ -33,7 +35,9 @@ export const Disabled: Story = {
   args: {},
   render: () => (
     <>
-      <Label style={{ color: '#4C4C4C', fontSize: '14px' }}>Select-box</Label>
+      <Typography as={'label'} className={s.disabledSelectLabel} variant={'body2'}>
+        select-box
+      </Typography>
       <Select className={s.selectSize} disabled placeholder={'select-box'}>
         <SelectItem value={'apple'}>Apple</SelectItem>
         <SelectItem value={'banana'}>Banana</SelectItem>
