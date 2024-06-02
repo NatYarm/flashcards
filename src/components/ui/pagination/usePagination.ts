@@ -9,21 +9,22 @@ const range = (start: number, end: number) => {
 
 type PaginationParams = {
   currentPage: number
-  onChange: (pageNumber: number) => void
-  pageSize: number
+  //itemsPerPage: number
+  onPageChange: (pageNumber: number) => void
   siblingCount?: number
-  totalCount: number
+  totalPageCount: number
 }
+
+type PaginationRange = ('...' | number)[]
 
 export const usePagination = ({
   currentPage,
-  onChange,
-  pageSize,
+  //itemsPerPage,
+  onPageChange,
   siblingCount = 1,
-  totalCount,
+  totalPageCount,
 }: PaginationParams) => {
   const paginationRange = useMemo(() => {
-    const totalPageCount = Math.ceil(totalCount / pageSize)
     const DOTS = '...'
 
     // Pages count is determined as siblingCount + firstPage + lastPage + currentPage + 2*DOTS
@@ -81,30 +82,30 @@ export const usePagination = ({
 
       return [firstPageIndex, DOTS, ...middleRange, DOTS, lastPageIndex]
     }
-  }, [totalCount, pageSize, siblingCount, currentPage])
+  }, [totalPageCount, siblingCount, currentPage]) as PaginationRange
 
-  const lastPage = paginationRange?.at(-1)
+  const isLastPage = paginationRange?.at(-1)
 
-  const isFirstPage = currentPage === 1
-  const isLastPage = currentPage === lastPage
+  const firstPage = currentPage === 1
+  const lastPage = currentPage === isLastPage
 
   const handleNextPageClicked = useCallback(() => {
-    onChange(currentPage + 1)
-  }, [currentPage, onChange])
+    onPageChange(currentPage + 1)
+  }, [currentPage, onPageChange])
   const handlePrevPageClicked = useCallback(() => {
-    onChange(currentPage - 1)
-  }, [currentPage, onChange])
+    onPageChange(currentPage - 1)
+  }, [currentPage, onPageChange])
 
   const handleMainPageClicked = (pageNumber: number) => {
-    return () => onChange(pageNumber)
+    return () => onPageChange(pageNumber)
   }
 
   return {
+    firstPage,
     handleMainPageClicked,
     handleNextPageClicked,
     handlePrevPageClicked,
-    isFirstPage,
-    isLastPage,
+    lastPage,
     paginationRange,
   }
 }
