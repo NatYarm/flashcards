@@ -3,6 +3,7 @@ import { BrowserRouter, Link } from 'react-router-dom'
 import s from './app.module.scss'
 
 import { Button } from './components/ui/button'
+import { Card } from './components/ui/card'
 import { Label } from './components/ui/label/label'
 import { Select } from './components/ui/select'
 import { SelectItem } from './components/ui/select/selectItem'
@@ -21,6 +22,7 @@ export function App() {
           <SelectItem value={'banana'}>Banana</SelectItem>
           <SelectItem value={'grapes'}>Grapes</SelectItem>
         </Select>
+        <Card>Card</Card>
       </BrowserRouter>
     </div>
   )
