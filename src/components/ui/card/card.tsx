@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef, ElementType, ReactNode, forwardRef } from 'react'
+import { ComponentPropsWithoutRef, ElementType, ReactNode, forwardRef } from 'react'
 
 import { clsx } from 'clsx'
 
@@ -10,7 +10,7 @@ export type CardProps<T extends ElementType = 'div'> = {
   className?: string
 } & ComponentPropsWithoutRef<T>
 
-const Card = forwardRef<ElementType, CardProps<ElementType>>((props, ref) => {
+export const Card = forwardRef<ElementType, CardProps<ElementType>>((props, ref) => {
   const { as: Component = 'div', children, className, ...restProps } = props
   const classNames = clsx(s.root, className)
 
@@ -20,5 +20,3 @@ const Card = forwardRef<ElementType, CardProps<ElementType>>((props, ref) => {
     </Component>
   )
 })
-
-export default Card
