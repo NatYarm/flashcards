@@ -3,13 +3,6 @@ import { Meta, StoryObj } from '@storybook/react'
 import { Checkbox } from './checkbox'
 
 const meta = {
-  argTypes: {
-    checked: { control: 'boolean' },
-    disabled: { control: 'boolean' },
-    label: { control: 'text' },
-    onChange: { action: 'changed' },
-    required: { control: 'boolean' },
-  },
   component: Checkbox,
   tags: ['autodocs'],
   title: 'Components/Checkbox',
@@ -69,28 +62,6 @@ export const HoverChecked: Story = {
   },
   parameters: {
     pseudo: { hover: true },
-  },
-}
-
-export const Focus: Story = {
-  args: {
-    checked: false,
-    disabled: false,
-    label: 'Check-box',
-  },
-  parameters: {
-    pseudo: { focus: true },
-  },
-}
-
-export const FocusChecked: Story = {
-  args: {
-    checked: true,
-    disabled: false,
-    label: 'Check-box',
-  },
-  parameters: {
-    pseudo: { focus: true },
   },
 }
 

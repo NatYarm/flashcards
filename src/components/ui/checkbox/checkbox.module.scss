@@ -24,19 +24,25 @@
   width: 18px;
   height: 18px;
 
-  background-color: var(--color-transparent);
-  border: 2px solid var(--color-light-100);
+  background-color: var(--color-dark-900);
+  border: 2px solid var(--color-light-900);
   border-radius: 2px;
 
   &:focus {
-    background-color: var(--color-dark-100);
-    border-color: var(--color-light-900);
+    background-color: var(--color-bg-focus);
   }
 
   &:disabled {
     cursor: initial;
-    background-color: var(--color-transparent);
     border-color: var(--color-dark-100);
+  }
+
+  &[data-state='checked']:disabled {
+    background-color: var(--color-dark-100);
+  }
+
+  &[data-state='checked']:disabled .indicator {
+    color: var(--color-light-900);
   }
 }
 
@@ -52,45 +58,33 @@
 
   border-radius: 50%;
 
-  &:active {
-    background-color: var(--color-dark-100);
-  }
-
   &.disabled {
     cursor: initial;
-    background-color: var(--color-transparent);
   }
 
-  &:focus {
+  &:focus-within {
     background-color: var(--color-dark-100);
   }
 
-  &:focus-within,
   &:hover:not(.disabled),
   &:hover .root:not([data-state='checked']) {
     background-color: var(--color-dark-500);
   }
+
+  &:active:not(.disabled) {
+    background-color: var(--color-dark-100);
+  }
+
+  &.left {
+    margin-left: -9px;
+  }
 }
 
 .indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   width: 18px;
   height: 18px;
-
-  &.checked {
-    background-color: var(--color-light-100);
-  }
-
-  &.disabled {
-    background-color: var(--color-transparent);
-  }
-}
-
-.checkIcon {
-  &.checked {
-    fill: var(--color-dark-900); // Цвет галочки при checked
-  }
-
-  &.disabled {
-    fill: var(--color-light-100); // Цвет галочки при disabled
-  }
 }
