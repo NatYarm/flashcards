@@ -4,7 +4,6 @@ import s from './app.module.scss'
 
 import { Button } from './components/ui/button'
 import { Card } from './components/ui/card'
-import { Label } from './components/ui/label/label'
 import { Select } from './components/ui/select'
 import { SelectItem } from './components/ui/select/selectItem'
 
@@ -16,8 +15,8 @@ export function App() {
           Hello
           <span>Test_Mger</span>
         </Button>
-        <Label>Select-box</Label>
-        <Select className={s.selectStyle} placeholder={'select-box'}>
+
+        <Select className={s.selectStyle} label={'select-box'} placeholder={'select-box'}>
           <SelectItem value={'apple'}>Apple</SelectItem>
           <SelectItem value={'banana'}>Banana</SelectItem>
           <SelectItem value={'grapes'}>Grapes</SelectItem>
