@@ -13,7 +13,6 @@ export function App() {
       <BrowserRouter>
         <Button as={Link} to={'https://google.com'}>
           Hello
-          <span>Test_Mger</span>
         </Button>
 
         <Select className={s.selectStyle} label={'select-box'} placeholder={'select-box'}>
