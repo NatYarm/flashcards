@@ -4,7 +4,7 @@ import { clsx } from 'clsx'
 
 import s from './button.module.scss'
 
-type InferType<T> = T extends ElementType<infer U> ? U : never
+/*type InferType<T> = T extends ElementType<infer U> ? U : never*/
 
 export type ButtonProps<T extends ElementType = 'button'> = {
   as?: T
