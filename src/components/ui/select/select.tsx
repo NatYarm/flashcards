@@ -8,13 +8,26 @@ import s from './select.module.scss'
 
 import { Typography } from '../typography'
 
+export type SelectOptions = { label: number | string; value: string }
+
 type Props = {
   className?: string
   label?: string
+  options: SelectOptions[]
   placeholder?: string
+  variant?: 'default' | 'small'
 } & ComponentPropsWithoutRef<typeof RadixSelect.Root>
 
-export const Select = ({ children, className, disabled, label, placeholder, ...rest }: Props) => {
+export const Select = ({
+  children,
+  className,
+  disabled,
+  label,
+  options,
+  placeholder,
+  variant = 'default',
+  ...rest
+}: Props) => {
   return (
     <div>
       {label && (
@@ -27,7 +40,10 @@ export const Select = ({ children, className, disabled, label, placeholder, ...r
         </Typography>
       )}
       <RadixSelect.Root {...rest}>
-        <RadixSelect.Trigger className={clsx(s.selectTrigger, className)} disabled={disabled}>
+        <RadixSelect.Trigger
+          className={clsx(s.selectTrigger, s[variant], className)}
+          disabled={disabled}
+        >
           <RadixSelect.Value placeholder={placeholder} />
           <RadixSelect.Icon className={s.selectIcon}>
             <ChevronDownIcon />

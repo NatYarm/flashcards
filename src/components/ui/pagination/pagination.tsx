@@ -5,6 +5,7 @@ import s from './pagination.module.scss'
 
 import { Select } from '../select'
 import { SelectItem } from '../select/selectItem'
+import { Typography } from '../typography'
 import { usePagination } from './usePagination'
 
 type Props = {
@@ -128,15 +129,19 @@ export const ItemsPerPageSelect = ({
 
   return (
     <div className={s.selectContainer}>
-      Show
-      <Select className={s.select}>
+      <Typography as={'label'} variant={'body2'}>
+        Show
+      </Typography>
+      {/* <Select className={s.select} options={itemsPerPage} variant={'small'}>
         {options.map(opt => (
           <SelectItem key={opt.option} value={opt.option.toString()}>
             {opt.label}
           </SelectItem>
         ))}
-      </Select>
-      items per page
+      </Select> */}
+      <Typography as={'label'} variant={'body2'}>
+        items per page
+      </Typography>
     </div>
   )
 }

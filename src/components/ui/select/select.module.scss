@@ -27,6 +27,16 @@
   }
 }
 
+.default {
+  padding: 10px;
+  gap: 10px;
+}
+
+.small {
+  padding: 0 5px;
+  gap: 5px;
+}
+
 .selectIcon {
   transition: 0.3s;
   [data-state='open'] & {

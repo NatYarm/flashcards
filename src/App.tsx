@@ -11,6 +11,7 @@ import { SelectItem } from './components/ui/select/selectItem'
 
 export function App() {
   const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage, setItemsPerPage] = useState(10)
 
   return (
     <div style={{ margin: 'auto', maxWidth: '1000px' }}>
@@ -20,11 +21,6 @@ export function App() {
           <span>Test_Mger</span>
         </Button>
 
-        <Select className={s.selectStyle} label={'select-box'} placeholder={'select-box'}>
-          <SelectItem value={'apple'}>Apple</SelectItem>
-          <SelectItem value={'banana'}>Banana</SelectItem>
-          <SelectItem value={'grapes'}>Grapes</SelectItem>
-        </Select>
         <Card>Card</Card>
         <Pagination
           currentPage={currentPage}
