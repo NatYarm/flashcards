@@ -27,6 +27,7 @@ export function App() {
         <br />
         <Select />
         <br />
+        <p></p>
         <Typography variant={'h1'}>H1</Typography>
         <br />
         <Slider value={[5, 55]} />
