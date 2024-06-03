@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+
 import { LogOut } from '@/assets/icons/components'
 
 import { Button } from './button'
@@ -33,6 +34,7 @@ export const FullWidth: Story = {
     variant: 'primary',
   },
 }
+
 
 export const IconButton: Story = {
   args: {
