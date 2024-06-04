@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import { BrowserRouter, Link } from 'react-router-dom'
 
-import s from './app.module.scss'
-
 import { Button } from './components/ui/button'
 import { Card } from './components/ui/card'
 import { Pagination } from './components/ui/pagination'
@@ -10,8 +8,8 @@ import { Select } from './components/ui/select'
 import { SelectItem } from './components/ui/select/selectItem'
 
 export function App() {
-  const [currentPage, setCurrentPage] = useState(1)
-  const [itemsPerPage, setItemsPerPage] = useState(10)
+  const [currentPage, setCurrentPage] = useState<number>(1)
+  const [itemsPerPage, setItemsPerPage] = useState<number>(10)
 
   const perPageOptions = [10, 20, 30, 50]
 

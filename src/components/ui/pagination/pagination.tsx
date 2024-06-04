@@ -19,7 +19,7 @@ type PaginationConditionals =
       perPageOptions: number[]
     }
 
-type Props = {
+export type PaginationProps = {
   className?: string
   currentPage: number
   onPageChange: (page: number) => void
@@ -36,7 +36,7 @@ export const Pagination = ({
   perPageOptions,
   siblings,
   totalPageCount,
-}: Props) => {
+}: PaginationProps) => {
   const {
     firstPage,
     handleMainPageClicked,
