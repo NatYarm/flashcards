@@ -4,8 +4,6 @@ import { BrowserRouter, Link } from 'react-router-dom'
 import { Button } from './components/ui/button'
 import { Card } from './components/ui/card'
 import { Pagination } from './components/ui/pagination'
-import { Select } from './components/ui/select'
-import { SelectItem } from './components/ui/select/selectItem'
 
 export function App() {
   const [currentPage, setCurrentPage] = useState<number>(1)
