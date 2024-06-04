@@ -13,6 +13,15 @@ export function App() {
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(10)
 
+  const perPageOptions = [10, 20, 30, 50]
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page)
+  }
+  const handlePerPageChange = (count: number) => {
+    setItemsPerPage(count)
+  }
+
   return (
     <div style={{ margin: 'auto', maxWidth: '1000px' }}>
       <BrowserRouter>
@@ -23,8 +32,10 @@ export function App() {
         <Card>Card</Card>
         <Pagination
           currentPage={currentPage}
-          itemsPerPage={5}
-          onPageChange={page => setCurrentPage(page)}
+          itemsPerPage={itemsPerPage}
+          onPageChange={handlePageChange}
+          onPerPageChange={handlePerPageChange}
+          perPageOptions={perPageOptions}
           totalPageCount={10}
         />
       </BrowserRouter>
