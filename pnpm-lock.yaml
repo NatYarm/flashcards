@@ -69,10 +69,12 @@ importers:
       '@storybook/manager-api':
         specifier: ^8.1.5
         version: 8.1.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-
+      '@storybook/react':
+        specifier: ^8.1.5
+        version: 8.1.5(prettier@3.3.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.4.5)
       '@storybook/react-vite':
         specifier: ^8.1.5
-        version: 8.1.5(prettier@3.3.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.18.0)(typescript@5.4.5)(vite@5.2.12(@types/node@20.14.1)(sass@1.77.4))
+        version: 8.1.5(prettier@3.3.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.18.0)(typescript@5.4.5)(vite@5.2.12(@types/node@20.14.0)(sass@1.77.4))
       '@storybook/test':
         specifier: ^8.1.5
         version: 8.1.5
@@ -130,7 +132,6 @@ importers:
       vite:
         specifier: ^5.2.0
         version: 5.2.12(@types/node@20.14.1)(sass@1.77.4)
-
 packages:
 
   '@adobe/css-tools@4.3.3':
@@ -3494,6 +3495,9 @@ packages:
   kleur@3.0.3:
     resolution: {integrity: sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==}
     engines: {node: '>=6'}
+
+  known-css-properties@0.31.0:
+    resolution: {integrity: sha512-sBPIUGTNF0czz0mwGGUoKKJC8Q7On1GPbCSFPfyEsfHb2DyBG0Y4QtV+EVWpINSaiGKZblDNuF5AezxSgOhesQ==}
 
   known-css-properties@0.31.0:
     resolution: {integrity: sha512-sBPIUGTNF0czz0mwGGUoKKJC8Q7On1GPbCSFPfyEsfHb2DyBG0Y4QtV+EVWpINSaiGKZblDNuF5AezxSgOhesQ==}
@@ -9021,6 +9025,8 @@ snapshots:
   kind-of@6.0.3: {}
 
   kleur@3.0.3: {}
+
+  known-css-properties@0.31.0: {}
 
   known-css-properties@0.31.0: {}
 
