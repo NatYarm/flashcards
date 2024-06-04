@@ -4,28 +4,39 @@ import clsx from 'clsx'
 import s from './pagination.module.scss'
 
 import { Select } from '../select'
-import { SelectItem } from '../select/selectItem'
 import { Typography } from '../typography'
 import { usePagination } from './usePagination'
 
-type Props = {
+type PaginationConditionals =
+  | {
+      itemsPerPage?: null
+      onPerPageChange?: never
+      perPageOptions?: never
+    }
+  | {
+      itemsPerPage?: number
+      onPerPageChange: (itemsPerPage: number) => void
+      perPageOptions: number[]
+    }
+
+export type PaginationProps = {
   className?: string
   currentPage: number
-  itemsPerPage?: number
-  onItemsPerPageChange?: (itemsPerPage: number) => void
   onPageChange: (page: number) => void
-  siblingCount?: number
+  siblings?: number
   totalPageCount: number
-}
+} & PaginationConditionals
 
 export const Pagination = ({
   className,
-  currentPage,
-  itemsPerPage,
+  currentPage = 1,
+  itemsPerPage = null,
   onPageChange,
-  siblingCount,
+  onPerPageChange,
+  perPageOptions,
+  siblings,
   totalPageCount,
-}: Props) => {
+}: PaginationProps) => {
   const {
     firstPage,
     handleMainPageClicked,
@@ -33,10 +44,12 @@ export const Pagination = ({
     handlePrevPageClicked,
     lastPage,
     paginationRange,
-  } = usePagination({ currentPage, onPageChange, siblingCount, totalPageCount })
+  } = usePagination({ currentPage, onPageChange, siblings, totalPageCount })
+
+  const showPerPageSelect = !!itemsPerPage && !!perPageOptions && !!onPerPageChange
 
   return (
-    <>
+    <div className={clsx(s.root, className)}>
       <div className={s.container}>
         <PrevButton disabled={firstPage} onClick={handlePrevPageClicked} />
         <PaginationButtons
@@ -47,8 +60,10 @@ export const Pagination = ({
 
         <NextButton disabled={lastPage} onClick={handleNextPageClicked} />
       </div>
-      <ItemsPerPageSelect itemsPerPage={10} itemsPerPageOptions={[10, 20, 30]} />
-    </>
+      {showPerPageSelect && (
+        <ItemsPerPageSelect {...{ itemsPerPage, onPerPageChange, perPageOptions }} />
+      )}
+    </div>
   )
 }
 
@@ -116,29 +131,37 @@ const PaginationButtons = ({ currentPage, onClick, paginationRange }: Pagination
 
 type ItemsPerPageProps = {
   itemsPerPage: number
-  itemsPerPageOptions: number[]
-  //onItemsPerPageChange: (itemsPerPage: number) => void
+  onPerPageChange: (itemsPerPage: number) => void
+  perPageOptions: number[]
 }
 
 export const ItemsPerPageSelect = ({
   itemsPerPage,
-  itemsPerPageOptions,
-  //onItemsPerPageChange,
+  onPerPageChange,
+  perPageOptions,
 }: ItemsPerPageProps) => {
-  const options = itemsPerPageOptions.map(option => ({ label: option, option }))
+  const selectOptions = perPageOptions.map((option: number) => ({
+    label: option.toString(),
+    value: option.toString(),
+  }))
+
+  const onPerPageChangeHandler = (itemsPerPage: string) => {
+    onPerPageChange(+itemsPerPage)
+  }
 
   return (
     <div className={s.selectContainer}>
       <Typography as={'label'} variant={'body2'}>
         Show
       </Typography>
-      {/* <Select className={s.select} options={itemsPerPage} variant={'small'}>
-        {options.map(opt => (
-          <SelectItem key={opt.option} value={opt.option.toString()}>
-            {opt.label}
-          </SelectItem>
-        ))}
-      </Select> */}
+      <Select
+        className={s.select}
+        onValueChange={onPerPageChangeHandler}
+        options={selectOptions}
+        value={itemsPerPage.toString()}
+        variant={'small'}
+      ></Select>
+
       <Typography as={'label'} variant={'body2'}>
         items per page
       </Typography>

@@ -11,7 +11,7 @@ type PaginationParams = {
   currentPage: number
   //itemsPerPage: number
   onPageChange: (pageNumber: number) => void
-  siblingCount?: number
+  siblings?: number
   totalPageCount: number
 }
 
@@ -21,14 +21,14 @@ export const usePagination = ({
   currentPage,
   //itemsPerPage,
   onPageChange,
-  siblingCount = 1,
+  siblings = 1,
   totalPageCount,
 }: PaginationParams) => {
   const paginationRange = useMemo(() => {
     const DOTS = '...'
 
     // Pages count is determined as siblingCount + firstPage + lastPage + currentPage + 2*DOTS
-    const totalPageNumbers = siblingCount + 5
+    const totalPageNumbers = siblings + 5
 
     /*
       Case 1:
@@ -42,8 +42,8 @@ export const usePagination = ({
     /*
     	Calculate left and right sibling index and make sure they are within range 1 and totalPageCount
     */
-    const leftSiblingIndex = Math.max(currentPage - siblingCount, 1)
-    const rightSiblingIndex = Math.min(currentPage + siblingCount, totalPageCount)
+    const leftSiblingIndex = Math.max(currentPage - siblings, 1)
+    const rightSiblingIndex = Math.min(currentPage + siblings, totalPageCount)
 
     /*
       We do not show dots just when there is just one page number to be inserted between the extremes of sibling and the page limits i.e 1 and totalPageCount. Hence we are using leftSiblingIndex > 2 and rightSiblingIndex < totalPageCount - 2
@@ -58,7 +58,7 @@ export const usePagination = ({
     	Case 2: No left dots to show, but rights dots to be shown
     */
     if (!shouldShowLeftDots && shouldShowRightDots) {
-      const leftItemCount = 3 + 2 * siblingCount
+      const leftItemCount = 3 + 2 * siblings
       const leftRange = range(1, leftItemCount)
 
       return [...leftRange, DOTS, totalPageCount]
@@ -68,7 +68,7 @@ export const usePagination = ({
     	Case 3: No right dots to show, but left dots to be shown
     */
     if (shouldShowLeftDots && !shouldShowRightDots) {
-      const rightItemCount = 3 + 2 * siblingCount
+      const rightItemCount = 3 + 2 * siblings
       const rightRange = range(totalPageCount - rightItemCount + 1, totalPageCount)
 
       return [firstPageIndex, DOTS, ...rightRange]
@@ -82,7 +82,7 @@ export const usePagination = ({
 
       return [firstPageIndex, DOTS, ...middleRange, DOTS, lastPageIndex]
     }
-  }, [totalPageCount, siblingCount, currentPage]) as PaginationRange
+  }, [totalPageCount, siblings, currentPage]) as PaginationRange
 
   const isLastPage = paginationRange?.at(-1)
 
@@ -106,6 +106,6 @@ export const usePagination = ({
     handleNextPageClicked,
     handlePrevPageClicked,
     lastPage,
-    paginationRange,
+    paginationRange: paginationRange || [],
   }
 }

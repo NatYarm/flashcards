@@ -6,7 +6,17 @@ import { Card } from './components/ui/card'
 import { Pagination } from './components/ui/pagination'
 
 export function App() {
-  const [currentPage, setCurrentPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState<number>(1)
+  const [itemsPerPage, setItemsPerPage] = useState<number>(10)
+
+  const perPageOptions = [10, 20, 30, 50]
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page)
+  }
+  const handlePerPageChange = (count: number) => {
+    setItemsPerPage(count)
+  }
 
   return (
     <div style={{ margin: 'auto', maxWidth: '1000px' }}>
@@ -18,8 +28,10 @@ export function App() {
         <Card>Card</Card>
         <Pagination
           currentPage={currentPage}
-          itemsPerPage={5}
-          onPageChange={page => setCurrentPage(page)}
+          itemsPerPage={itemsPerPage}
+          onPageChange={handlePageChange}
+          onPerPageChange={handlePerPageChange}
+          perPageOptions={perPageOptions}
           totalPageCount={10}
         />
       </BrowserRouter>

@@ -7,8 +7,9 @@ import clsx from 'clsx'
 import s from './select.module.scss'
 
 import { Typography } from '../typography'
+import { SelectItem } from './selectItem'
 
-export type SelectOptions = { label: number | string; value: string }
+export type SelectOptions = { label: string; value: string }
 
 type Props = {
   className?: string
@@ -52,7 +53,11 @@ export const Select = ({
 
         <RadixSelect.Portal>
           <RadixSelect.Content className={s.selectContent} position={'popper'}>
-            {children}
+            {options.map((opt, idx) => (
+              <SelectItem key={idx} value={opt.value}>
+                {opt.label}
+              </SelectItem>
+            ))}
           </RadixSelect.Content>
         </RadixSelect.Portal>
       </RadixSelect.Root>
