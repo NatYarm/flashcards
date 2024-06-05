@@ -4,12 +4,13 @@ import { BrowserRouter, Link } from 'react-router-dom'
 import { Button } from './components/ui/button'
 import { Card } from './components/ui/card'
 import { Pagination } from './components/ui/pagination'
+import { Tabs } from './components/ui/tabs'
 
 export function App() {
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [itemsPerPage, setItemsPerPage] = useState<number>(10)
 
-  const perPageOptions = [10, 20, 30, 50]
+  const perPageOptions = [5, 10, 20, 30, 50]
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page)
@@ -35,6 +36,17 @@ export function App() {
           totalPageCount={10}
         />
       </BrowserRouter>
+
+      <Tabs
+        defaultValue={'tab1'}
+        label={'title'}
+        orientation={'vertical'}
+        tabs={[
+          { title: 'Switcher', value: 'tab1' },
+          { title: 'Switcher', value: 'tab2' },
+          { disabled: true, title: 'Switcher', value: 'tab3' },
+        ]}
+      />
     </div>
   )
 }
