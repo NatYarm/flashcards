@@ -1,8 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import s from './tabs.module.scss'
-
-import { Typography } from '../typography'
 import { Tabs } from './tabs'
 
 const meta = {
@@ -24,9 +21,6 @@ export const Default: Story = {
       { title: 'Contact', value: 'tab3' },
     ],
   },
-  render: args => {
-    return <Tabs {...args} />
-  },
 }
 
 export const Vertical: Story = {
@@ -39,9 +33,6 @@ export const Vertical: Story = {
       { title: 'Contact', value: 'tab3' },
     ],
   },
-  render: args => {
-    return <Tabs {...args} />
-  },
 }
 
 export const DesabledTab: Story = {
@@ -53,8 +44,5 @@ export const DesabledTab: Story = {
       { title: 'Register', value: 'tab2' },
       { disabled: true, title: 'Contact', value: 'tab3' },
     ],
-  },
-  render: args => {
-    return <Tabs {...args} />
   },
 }

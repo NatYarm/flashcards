@@ -6,7 +6,7 @@ import clsx from 'clsx'
 
 import s from './select.module.scss'
 
-import { Typography } from '../typography'
+import { Label } from '../label/label'
 import { SelectItem } from './selectItem'
 
 export type SelectOptions = { label: string; value: string }
@@ -31,15 +31,7 @@ export const Select = ({
 }: Props) => {
   return (
     <div>
-      {label && (
-        <Typography
-          as={'label'}
-          className={disabled ? s.disabledSelectLabel : s.selectLabel}
-          variant={'body2'}
-        >
-          {label}
-        </Typography>
-      )}
+      {label && <Label className={disabled ? s.disabledSelectLabel : s.selectLabel}>{label}</Label>}
       <RadixSelect.Root {...rest}>
         <RadixSelect.Trigger
           className={clsx(s.selectTrigger, s[variant], className)}
