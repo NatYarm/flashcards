@@ -5,7 +5,7 @@ import clsx from 'clsx'
 
 import s from './tabs.module.scss'
 
-import { Typography } from '../typography'
+import { Label } from '../label/label'
 
 type Tab = {
   disabled?: boolean
@@ -33,11 +33,7 @@ export const Tabs = ({
 }: TabsProps) => {
   return (
     <div>
-      {label && (
-        <Typography as={'label'} variant={'body2'}>
-          {label}
-        </Typography>
-      )}
+      {label && <Label>{label}</Label>}
       <RadixTabs.Root
         className={s.root}
         defaultValue={defaultValue}
