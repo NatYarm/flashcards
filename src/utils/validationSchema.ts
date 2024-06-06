@@ -6,6 +6,7 @@ export const loginSchema = z.object({
     .string()
     .min(3, { message: 'Пароль должен содержать минимум 3 символа' })
     .max(30, { message: 'Пароль должен содержать максимум 30 символов' }),
+  radioGroup: z.boolean().optional().default(false),
   rememberMe: z.boolean().optional().default(false),
 })
 

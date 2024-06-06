@@ -1,8 +1,7 @@
 import { useForm } from 'react-hook-form'
 
 import { Button } from '@/components/ui/button'
-import { ControlledTextField } from '@/components/ui/controlled'
-import { ControlledCheckbox } from '@/components/ui/controlled/controlled-checkbox/controlled-checkbox'
+import { ControlledCheckbox, ControlledTextField } from '@/components/ui/controlled'
 import { LoginFormProps, loginSchema } from '@/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 
