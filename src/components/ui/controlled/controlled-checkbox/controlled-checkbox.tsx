@@ -8,7 +8,7 @@ type Props<T extends FieldValues> = Omit<
 > &
   UseControllerProps<T>
 
-export const FormCheckbox = <T extends FieldValues>({
+export const ControlledCheckbox = <T extends FieldValues>({
   control,
   defaultValue,
   disabled,
