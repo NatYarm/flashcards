@@ -1,3 +1,5 @@
+import React from 'react'
+
 import {
   Edit2Outline,
   MoreVerticalOutline,
@@ -8,13 +10,8 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
 import s from './DropdownMenu.module.scss'
 
-type DropdownMenuComponentProps = {
-  defaultOpen?: boolean
-  modal?: boolean
-  onOpenChange?: () => void
-  open?: boolean
-}
-export const DropdownMenuComponent = () => {
+type DropdownMenuComponentProps = {}
+export const DropdownMenuComponent: React.FC<DropdownMenuComponentProps> = () => {
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
