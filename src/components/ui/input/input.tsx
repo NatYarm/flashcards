@@ -26,6 +26,7 @@ export const Input = forwardRef(
       error,
       fullWidth,
       label,
+      type,
       variant = 'primary',
       ...restProps
     } = props
@@ -40,12 +41,12 @@ export const Input = forwardRef(
 
     return (
       <div className={s.inputWrapper}>
-        <label className={s.label}>
-          {label}
-          <Component className={classNames} ref={ref} {...restProps}>
-            {children}
-          </Component>
-        </label>
+        {label && <label className={s.label}>{label} </label>}
+
+        <Component className={classNames} ref={ref} {...restProps}>
+          {children}
+        </Component>
+
         {error && <span style={{ color: 'red' }}>Error!</span>}
       </div>
     )
