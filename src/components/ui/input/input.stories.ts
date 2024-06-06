@@ -25,6 +25,7 @@ export const Secondary: Story = {
     error: false,
     label: 'Input',
     placeholder: 'Input',
+    type: 'password',
     variant: 'secondary',
   },
 }
