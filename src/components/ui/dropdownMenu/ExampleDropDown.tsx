@@ -10,13 +10,13 @@ import { DropdownMenuComponent } from './DropdownMenuComponent'
 type Props = {
   email?: string
   name?: string
-  photo: string
+  photo?: string
   photoDesc?: string
   profilePageHref?: string
 }
 export const ExampleDropDown = ({ email, name, photo, photoDesc, profilePageHref }: Props) => {
   return (
-    <DropdownMenuComponent trigger={<img alt={photoDesc} src={photo} />}>
+    <DropdownMenuComponent trigger={<img alt={photoDesc} className={s.trigger_img} src={photo} />}>
       <DropDownItem>
         <div className={s.DropdownMenuItem}>
           <img alt={photoDesc} className={s.DropdownMenuItem_img} src={photo} />
@@ -33,13 +33,13 @@ export const ExampleDropDown = ({ email, name, photo, photoDesc, profilePageHref
       <DropDownSeparator />
       <DropDownItem asChild>
         <a href={profilePageHref}>
-          <PersonOutline color={'white'} height={'16px'} width={'16px'} />
+          <PersonOutline className={s.rightSlot} />
           My Profile
         </a>
       </DropDownItem>
       <DropDownSeparator />
       <DropDownItem>
-        <LogOut color={'white'} height={'16px'} width={'16px'} />
+        <LogOut className={s.rightSlot} />
         Sing out
       </DropDownItem>
     </DropdownMenuComponent>

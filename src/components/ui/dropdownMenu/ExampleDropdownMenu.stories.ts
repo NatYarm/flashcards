@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import UserPhoto from '../../../assets/icons/ellipse.png'
 import { ExampleDropDown } from './ExampleDropDown'
 
 const meta = {
@@ -13,10 +14,9 @@ type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
   args: {
-    email: 'XXXXXXXXXXXX',
+    email: 'gds@ewerw.coom',
     name: 'John Doe',
-    photo: '../../../assets/icons/ellipse.png',
-    photoDesc: 'Photo',
+    photo: UserPhoto,
     profilePageHref: '#',
   },
 }

@@ -1,10 +1,8 @@
-/* reset */
 button {
   all: unset;
 }
 
 .DropdownMenuContent {
-  will-change: transform, opacity;
   cursor: pointer;
 
   min-width: 80px;
@@ -22,41 +20,42 @@ button {
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.DropdownMenuContent[data-side='bottom'],
-.DropdownMenuSubContent[data-side='bottom'] {
+.DropdownMenuContent[data-side='bottom'] {
   animation-name: slidedownandfade;
 }
 
-.DropdownMenuContent[data-side='left'],
-.DropdownMenuSubContent[data-side='left'] {
+.DropdownMenuContent[data-side='left'] {
   animation-name: slideleftandfade;
 }
 
-.DropdownMenuContent[data-side='top'],
-.DropdownMenuSubContent[data-side='top'] {
+.DropdownMenuContent[data-side='top'] {
   animation-name: slideupandfade;
 }
 
-.DropdownMenuContent[data-side='right'],
-.DropdownMenuSubContent[data-side='right'] {
+.DropdownMenuContent[data-side='right'] {
   animation-name: sliderightandfade;
 }
 
 .DropdownMenuItem {
-  user-select: none;
-
-  position: relative;
-
   display: flex;
-  align-items: center;
 
-  height: 15px;
+  height: 100%;
 
   font-size: 12px;
   line-height: 16px;
   color: var(--color-light-100);
+}
 
-  outline: none;
+.DropdownMenuItem_img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.trigger_img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
 }
 
 .DropdownMenuSeparator {
@@ -77,9 +76,29 @@ button {
   fill: var(--color-dark-700);
 }
 
-.RightSlot {
+.rightSlot {
+  width: 18px;
+  height: 18px;
   padding-right: 6px;
   color: var(--color-light-100);
+}
+
+.userName {
+  padding-left: 8px;
+
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 24px;
+  color: var(--color-light-100);
+}
+
+.userEmail {
+  padding-left: 8px;
+
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14px;
+  color: var(--color-dark-100);
 }
 
 @keyframes slideupandfade {
