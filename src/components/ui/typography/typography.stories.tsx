@@ -7,6 +7,7 @@ const meta = {
     variant: {
       control: { type: 'radio' },
       options: [
+        'div',
         'h1',
         'h2',
         'h3',

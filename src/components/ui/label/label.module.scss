@@ -1,10 +1,8 @@
 .label {
-  margin: 0;
-}
-.labelRoot {
-  color: var(--color-dark-100);
+  display: inline-block;
 
-  &:disabled {
-    color: var(--color-dark-300);
-  }
+  margin-bottom: 1px;
+
+  font-size: var(--font-size-s);
+  line-height: var(--line-height-m);
 }

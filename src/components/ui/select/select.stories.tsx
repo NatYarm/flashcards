@@ -1,10 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import s from './select.module.scss'
-
 import { Typography } from '../typography'
 import { Select } from './select'
-import { SelectItem } from './selectItem'
 
 const meta = {
   component: Select,
@@ -25,24 +22,11 @@ export const Default: Story = {
     ],
     placeholder: 'select-fruit',
   },
-  render: ({ label, options, placeholder }) => (
-    <>
-      <Typography as={'label'} className={s.selectLabel} variant={'body2'}>
-        {label}
-      </Typography>
-      <Select options={options} placeholder={placeholder}>
-        {options.map((opt, idx) => (
-          <SelectItem key={idx} value={opt.value}>
-            {opt.label}
-          </SelectItem>
-        ))}
-      </Select>
-    </>
-  ),
 }
 
 export const Disabled: Story = {
   args: {
+    disabled: true,
     label: 'select-box',
     options: [
       { label: 'Apple', value: 'apple' },
@@ -51,44 +35,24 @@ export const Disabled: Story = {
     ],
     placeholder: 'select-fruit',
   },
-  render: ({ label, options, placeholder }) => (
-    <>
-      <Typography as={'label'} className={s.disabledSelectLabel} variant={'body2'}>
-        {label}
-      </Typography>
-      <Select disabled options={options} placeholder={placeholder}>
-        {options.map((opt, idx) => (
-          <SelectItem key={idx} value={opt.value}>
-            {opt.label}
-          </SelectItem>
-        ))}
-      </Select>
-    </>
-  ),
 }
 
 export const Small: Story = {
   args: {
     options: [
-      { label: 10, value: '10' },
-      { label: 20, value: '20' },
-      { label: 50, value: '50' },
+      { label: '10', value: '10' },
+      { label: '20', value: '20' },
+      { label: '50', value: '50' },
     ],
     variant: 'small',
   },
-  render: ({ options }) => (
-    <div style={{ alignItems: 'center', display: 'flex', gap: '5px' }}>
+  render: args => (
+    <div style={{ alignItems: 'center', display: 'flex', gap: '10px' }}>
       <Typography as={'label'} variant={'body2'}>
         Show
       </Typography>
 
-      <Select className={s.selectSize} options={options} variant={'small'}>
-        {options.map((opt, idx) => (
-          <SelectItem key={idx} value={opt.value}>
-            {opt.label}
-          </SelectItem>
-        ))}
-      </Select>
+      <Select {...args} />
 
       <Typography as={'label'} variant={'body2'}>
         items per page

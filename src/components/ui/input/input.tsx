@@ -10,7 +10,9 @@ import {
 } from 'react'
 
 import { EyeOffOutline, EyeOutline } from '@/assets/icons/components'
+
 import { Typography } from '@/components/ui/typography'
+
 import { clsx } from 'clsx'
 
 import s from './input.module.scss'
@@ -82,12 +84,15 @@ export const Input = forwardRef(
 
     return (
       <div className={s.inputWrapper}>
+
         <Label className={s.label}>{label}</Label>
         <div className={s.inputContainer}>
+
           <Component
             className={classNames}
             onChange={handleChange}
             ref={ref}
+
             type={finalType}
             {...restProps}
           />
@@ -103,6 +108,8 @@ export const Input = forwardRef(
             {errorMessage}
           </Typography>
         )}
+
+           
       </div>
     )
   }
