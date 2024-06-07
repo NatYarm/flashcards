@@ -1,11 +1,11 @@
 import { z } from 'zod'
 
 export const loginSchema = z.object({
-  email: z.string().email({ message: 'Неверный формат email' }),
+  email: z.string().email({ message: 'Invalid email' }),
   password: z
     .string()
-    .min(3, { message: 'Пароль должен содержать минимум 3 символа' })
-    .max(30, { message: 'Пароль должен содержать максимум 30 символов' }),
+    .min(3, { message: 'Minimum length is 3 characters' })
+    .max(30, { message: 'Maximum length is 30 characters' }),
   radioGroup: z.boolean().optional().default(false),
   rememberMe: z.boolean().optional().default(false),
 })

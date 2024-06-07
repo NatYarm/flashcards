@@ -21,7 +21,8 @@ export function App() {
         <br />
         <Card>Card</Card>
         <br />
-        <Input />
+        <Input type={'password'} />
+        <br />
         <br />
         <Pagination
           currentPage={currentPage}

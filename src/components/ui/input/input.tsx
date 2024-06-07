@@ -10,6 +10,7 @@ import {
 } from 'react'
 
 import { EyeOffOutline, EyeOutline } from '@/assets/icons/components'
+import { Typography } from '@/components/ui/typography'
 import { clsx } from 'clsx'
 
 import s from './input.module.scss'
@@ -18,9 +19,10 @@ import { Label } from '../label/label'
 
 export type InputProps<T extends ElementType = 'input'> = {
   as?: T
-  children: ReactNode
+  children?: ReactNode
   className?: string
   error?: boolean
+  errorMessage?: string
   fullWidth?: boolean
   label?: string
   onValueChange?: (value: string) => void
@@ -39,6 +41,7 @@ export const Input = forwardRef(
       children,
       className,
       error,
+      errorMessage,
       fullWidth,
       label,
       onChange,
@@ -79,25 +82,27 @@ export const Input = forwardRef(
 
     return (
       <div className={s.inputWrapper}>
-        <Label className={s.label}>
-          {label}
+        <Label className={s.label}>{label}</Label>
+        <div className={s.inputContainer}>
           <Component
             className={classNames}
             onChange={handleChange}
             ref={ref}
             type={finalType}
             {...restProps}
-          >
-            {children}
-          </Component>
+          />
           {isRevealPasswordButtonShown && (
             <button className={s.showPassword} onClick={handleShowPasswordClick} type={'button'}>
               {revealPassword ? <EyeOffOutline /> : <EyeOutline />}
             </button>
           )}
-        </Label>
+        </div>
 
-        {error && <span style={{ color: 'red' }}>Error!</span>}
+        {error && (
+          <Typography className={'error'} variant={'error'}>
+            {errorMessage}
+          </Typography>
+        )}
       </div>
     )
   }
