@@ -19,6 +19,7 @@ export function App() {
           Button
         </Button>
         <br />
+        <br />
         <Card>Card</Card>
         <br />
         <Input type={'password'} />
