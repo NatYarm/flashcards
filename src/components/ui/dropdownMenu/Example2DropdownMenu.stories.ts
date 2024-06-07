@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { MoreVerticalOutline } from '@/assets/icons/components'
-
 import { Example2DropDown } from './Example2DropDown'
 
 const meta = {
