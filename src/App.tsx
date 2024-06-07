@@ -23,7 +23,6 @@ export function App() {
         <br />
         <Input type={'password'} />
         <br />
-        <br />
         <Pagination
           currentPage={currentPage}
           itemsPerPage={5}
