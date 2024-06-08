@@ -9,9 +9,11 @@ type RadioItem = {
   value: string
 }
 
-type RadioGroupComponentProps = {
+export type RadioGroupComponentProps = {
   currentValue?: string
   defaultValue?: string
+  errorMessage?: string
+  id: string
   label?: string
   radioGroupItems: RadioItem[]
   setCurrentValue?: (value: string) => void
