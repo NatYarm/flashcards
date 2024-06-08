@@ -1,10 +1,17 @@
 import { useState } from 'react'
 import { BrowserRouter, Link } from 'react-router-dom'
 
-import { Button } from './components/ui/button'
-import { Card } from './components/ui/card'
-import { Pagination } from './components/ui/pagination'
+
+import { LogOutOutline } from '@/assets/icons/components'
+import { LoginForm } from '@/components/auth/login-form'
+import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Pagination } from '@/components/ui/pagination'
+
+
 import { Tabs } from './components/ui/tabs'
+
 
 export function App() {
   const [currentPage, setCurrentPage] = useState<number>(1)
@@ -23,10 +30,15 @@ export function App() {
     <div style={{ margin: 'auto', maxWidth: '1000px' }}>
       <BrowserRouter>
         <Button as={Link} to={'https://google.com'}>
-          Hello
+          <LogOutOutline />
+          Button
         </Button>
-
+        <br />
+        <br />
         <Card>Card</Card>
+        <br />
+        <Input type={'password'} />
+        <br />
         <Pagination
           currentPage={currentPage}
           itemsPerPage={itemsPerPage}
@@ -35,6 +47,8 @@ export function App() {
           perPageOptions={perPageOptions}
           totalPageCount={10}
         />
+        <br />
+        <LoginForm />
       </BrowserRouter>
 
       <Tabs
