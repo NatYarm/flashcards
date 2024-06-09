@@ -50,7 +50,9 @@ export const SignIn = () => {
       </form>
       <div className={s.footer}>
         <Typography variant={'body2'}>Don't have an account?</Typography>
-        <Typography variant={'link1'}>Sign Up</Typography>
+        <Typography as={Link} className={s.signUpLink} to={'/sign-up'} variant={'link1'}>
+          Sign Up
+        </Typography>
       </div>
     </Card>
   )
