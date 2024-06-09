@@ -1,17 +1,15 @@
-import { ReactNode } from 'react'
 import { useForm } from 'react-hook-form'
 
+import { Button } from '@/components/ui/button'
+import { ControlledCheckbox } from '@/components/ui/controlled'
+import { ControlledInput } from '@/components/ui/controlled/controlled-input'
 import { LoginFormProps, loginSchema } from '@/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import s from './login-form.module.scss'
 
-type LoginFormComponentProps = {
-  children?: ReactNode
-}
-
-export const LoginForm = ({ children }: LoginFormComponentProps) => {
-  const { handleSubmit } = useForm<LoginFormProps>({
+export const LoginForm = () => {
+  const { control, handleSubmit } = useForm<LoginFormProps>({
     resolver: zodResolver(loginSchema),
   })
 
@@ -21,7 +19,11 @@ export const LoginForm = ({ children }: LoginFormComponentProps) => {
 
   return (
     <form className={s.loginForm} onSubmit={onSubmit}>
-      {children}
+      <ControlledInput control={control} label={'Email'} name={'email'} />
+      <ControlledInput control={control} label={'Password'} name={'password'} type={'password'} />
+
+      <ControlledCheckbox control={control} label={'Remember me'} name={'rememberMe'} />
+      <Button type={'submit'}>Submit</Button>
     </form>
   )
 }
