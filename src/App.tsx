@@ -1,18 +1,21 @@
 import { useState } from 'react'
 import { BrowserRouter, Link } from 'react-router-dom'
 
-
-import { LogOutOutline } from '@/assets/icons/components'
 import { LoginForm } from '@/components/auth/login-form'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Pagination } from '@/components/ui/pagination'
 
-
+import {
+  LogOut,
+  MoreHorizontal,
+  MoreVerticalOutline,
+  PersonOutline,
+} from './assets/icons/components'
+import { DropdownMenu, DropdownSeparator } from './components/ui/dropdown'
+import { DropdownMenuItem } from './components/ui/dropdown/dropdownMenuItem'
 import { Tabs } from './components/ui/tabs'
-
-
 export function App() {
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [itemsPerPage, setItemsPerPage] = useState<number>(10)
@@ -30,7 +33,6 @@ export function App() {
     <div style={{ margin: 'auto', maxWidth: '1000px' }}>
       <BrowserRouter>
         <Button as={Link} to={'https://google.com'}>
-          <LogOutOutline />
           Button
         </Button>
         <br />
@@ -61,6 +63,17 @@ export function App() {
           { disabled: true, title: 'Switcher', value: 'tab3' },
         ]}
       />
+      <br />
+      <DropdownMenu trigger={<MoreVerticalOutline />}>
+        <DropdownMenuItem>
+          <PersonOutline /> Profile
+        </DropdownMenuItem>
+        <DropdownSeparator />
+        <DropdownMenuItem>
+          <LogOut /> Logout
+        </DropdownMenuItem>
+        <DropdownSeparator />
+      </DropdownMenu>
     </div>
   )
 }
