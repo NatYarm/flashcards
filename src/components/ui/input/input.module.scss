@@ -19,7 +19,7 @@
   color: var(--color-light-100);
 
   background: transparent;
-  border: 1px solid var(--color-dark-300);
+  border: 2px solid var(--color-dark-300);
   outline: 0;
 
   transition: border-color 0.2s;
@@ -29,9 +29,8 @@
   }
 
   &:focus-visible {
-    //border-color: var(--color-info-700);
-
-    //outline: 1px solid var(--color-info-700);
+    border-color: var(--color-info-700);
+    outline: 1px solid var(--color-info-700);
   }
 
   &:hover {
