@@ -22,7 +22,7 @@ export const LoginForm = () => {
       <ControlledInput control={control} label={'Email'} name={'email'} />
       <ControlledInput control={control} label={'Password'} name={'password'} type={'password'} />
 
-      <ControlledCheckbox control={control} label={'Remember me'} name={'rememberMe'} />
+      <ControlledCheckbox control={control} label={'Remember Me'} name={'rememberMe'} />
       <Button type={'submit'}>Submit</Button>
     </form>
   )
