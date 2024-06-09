@@ -36,22 +36,6 @@ button {
   }
 }
 
-// .dropdownMenuContent[data-side='bottom'] {
-//   animation-name: slidedownandfade;
-// }
-
-// .dropdownMenuContent[data-side='left'] {
-//   animation-name: slideleftandfade;
-// }
-
-// .dropdownMenuContent[data-side='top'] {
-//   animation-name: slideupandfade;
-// }
-
-// .dropdownMenuContent[data-side='right'] {
-//   animation-name: sliderightandfade;
-// }
-
 .dropdownMenuItem {
   cursor: pointer;
   display: flex;
@@ -89,6 +73,6 @@ button {
 .separator {
   width: 100%;
   height: 1px;
-  margin: 12px 0;
+  margin: 6px 0;
   background-color: var(--color-dark-500);
 }

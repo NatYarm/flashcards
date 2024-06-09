@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { LogOut, MoreVerticalOutline, PersonOutline } from '@/assets/icons/components'
 import UserPhoto from '@/assets/img/user-12.jpeg'
 
+import { Avatar } from '../avatar/avatar'
 import { Button } from '../button'
 import { DropdownMenu, DropdownSeparator } from './dropdownMenu'
 import { DropdownMenuItem } from './dropdownMenuItem'
@@ -20,6 +21,22 @@ export const Primary: Story = {
   args: {},
   render: () => (
     <DropdownMenu trigger={<MoreVerticalOutline />}>
+      <DropdownMenuItem>
+        <PersonOutline /> Profile
+      </DropdownMenuItem>
+      <DropdownSeparator />
+      <DropdownMenuItem>
+        <LogOut /> Logout
+      </DropdownMenuItem>
+      <DropdownSeparator />
+    </DropdownMenu>
+  ),
+}
+
+export const HeaderDropdown: Story = {
+  args: {},
+  render: () => (
+    <DropdownMenu trigger={<Avatar src={'https://avatars.githubusercontent.com/u/1196875?v=4'} />}>
       <DropdownMenuItem>
         <PersonOutline /> Profile
       </DropdownMenuItem>
