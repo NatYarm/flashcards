@@ -1,9 +1,7 @@
 .inputWrapper {
-
   width: 100%;
   min-width: 284px;
 }
-
 
 .inputContainer {
   position: relative;
@@ -12,10 +10,6 @@
 
 .input {
   width: 100%;
-
-
-
-
   padding: 6px 12px;
 
   font-family: inherit;
@@ -25,8 +19,7 @@
   color: var(--color-light-100);
 
   background: transparent;
-  border: 1px solid var(--color-dark-300);
-
+  border: 2px solid var(--color-dark-300);
   outline: 0;
 
   transition: border-color 0.2s;
@@ -47,7 +40,6 @@
   &.error {
     color: var(--color-danger-300);
     border-color: var(--color-danger-300);
-
   }
 }
 
@@ -72,11 +64,7 @@
 
 .error {
   color: var(--color-danger-300);
-
   background-color: var(--color-dark-700);
-
- 
-
   border: 1px solid var(--color-danger-300);
 
   &::placeholder {
@@ -101,29 +89,22 @@
   cursor: pointer;
 
   position: absolute;
-
   top: 50%;
   right: 0;
   bottom: 50%;
-
-
   transform: translateY(-50%);
 
   width: 20px;
   height: 20px;
-
   margin-right: 12px;
   padding: 0;
-
 
   color: var(--color-light-100);
 
   background: transparent;
-
   border: 0;
   border-radius: 0.25rem;
   outline: 0;
-
 
   &:focus-visible {
     outline: var(--outline-focus);

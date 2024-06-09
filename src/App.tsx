@@ -1,3 +1,4 @@
+
 import { useState } from 'react'
 import { BrowserRouter, Link } from 'react-router-dom'
 
@@ -16,22 +17,13 @@ import {
 import { DropdownMenu, DropdownSeparator } from './components/ui/dropdown'
 import { DropdownMenuItem } from './components/ui/dropdown/dropdownMenuItem'
 import { Tabs } from './components/ui/tabs'
+
 export function App() {
-  const [currentPage, setCurrentPage] = useState<number>(1)
-  const [itemsPerPage, setItemsPerPage] = useState<number>(10)
-
-  const perPageOptions = [5, 10, 20, 30, 50]
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page)
-  }
-  const handlePerPageChange = (count: number) => {
-    setItemsPerPage(count)
-  }
-
   return (
     <div style={{ margin: 'auto', maxWidth: '1000px' }}>
       <BrowserRouter>
+
+
         <Button as={Link} to={'https://google.com'}>
           Button
         </Button>
@@ -74,6 +66,7 @@ export function App() {
         </DropdownMenuItem>
         <DropdownSeparator />
       </DropdownMenu>
+
     </div>
   )
 }
