@@ -6,17 +6,25 @@ import clsx from 'clsx'
 import s from './dropdown.module.scss'
 
 type DropdownMenuProps = {
+  align?: 'center' | 'end' | 'start'
   children?: ReactNode
+  sideOffset?: number
   trigger?: ReactNode
 } & ComponentPropsWithoutRef<typeof RadixDropdownMenu.Root>
 
-export const DropdownMenu = ({ children, trigger, ...rest }: DropdownMenuProps) => {
+export const DropdownMenu = ({
+  align = 'end',
+  children,
+  sideOffset = 8,
+  trigger,
+  ...rest
+}: DropdownMenuProps) => {
   return (
     <RadixDropdownMenu.Root {...rest}>
-      <RadixDropdownMenu.Trigger>{trigger}</RadixDropdownMenu.Trigger>
+      <RadixDropdownMenu.Trigger className={s.trigger}>{trigger}</RadixDropdownMenu.Trigger>
 
       <RadixDropdownMenu.Portal>
-        <RadixDropdownMenu.Content className={s.content} sideOffset={5}>
+        <RadixDropdownMenu.Content align={align} className={s.content} sideOffset={sideOffset}>
           {children}
           <RadixDropdownMenu.Arrow className={s.arrow} />
         </RadixDropdownMenu.Content>
@@ -31,3 +39,10 @@ export const DropdownSeparator = ({
 }: ComponentPropsWithoutRef<typeof RadixDropdownMenu.Separator>) => {
   return <RadixDropdownMenu.Separator className={clsx(s.separator, className)} {...rest} />
 }
+
+export const DropdownMenuLabel = ({
+  className,
+  ...props
+}: ComponentPropsWithoutRef<typeof RadixDropdownMenu.Label>) => (
+  <RadixDropdownMenu.Label className={clsx(s.label, className)} {...props} />
+)

@@ -1,11 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { LogOut, MoreVerticalOutline, PersonOutline } from '@/assets/icons/components'
-import UserPhoto from '@/assets/img/user-12.jpeg'
 
 import { Avatar } from '../avatar/avatar'
-import { Button } from '../button'
-import { DropdownMenu, DropdownSeparator } from './dropdownMenu'
+import { DropdownMenu, DropdownMenuLabel, DropdownSeparator } from './dropdownMenu'
 import { DropdownMenuItem } from './dropdownMenuItem'
 
 const meta = {
@@ -37,6 +35,7 @@ export const HeaderDropdown: Story = {
   args: {},
   render: () => (
     <DropdownMenu trigger={<Avatar src={'https://avatars.githubusercontent.com/u/1196875?v=4'} />}>
+      <DropdownMenuLabel>Info</DropdownMenuLabel>
       <DropdownMenuItem>
         <PersonOutline /> Profile
       </DropdownMenuItem>
