@@ -8,12 +8,12 @@ import { SignUp } from '@/components/auth/sign-up'
 export function App() {
   return (
     <BrowserRouter>
-      <Routes>
+      {/*<Routes>
         <Route element={<Navigate to={'/sign-in'} />} path={'/'} />
         <Route element={<SignIn />} path={'/sign-in'} />
         <Route element={<SignUp />} path={'/sign-up'} />
         <Route element={<RecoveryPassword />} path={'/recovery-password'} />
-      </Routes>
+      </Routes>*/}
       <CheckEmail />
     </BrowserRouter>
   )

@@ -22,7 +22,7 @@ export const CheckEmail = ({ email }: Props) => {
       <div className={s.iconContainer}>
         <Email />
       </div>
-      <Typography className={s.instructions} variant={'body2'}>
+      <Typography className={s.instructions} variant={'body1'}>
         {message}
       </Typography>
       <Button as={Link} fullWidth to={'/sing-in'}>
