@@ -4,6 +4,7 @@ import s from './decks-page.module.scss'
 
 import { Button } from '../../ui/button'
 import { Page } from '../../ui/page/page'
+//import { Pagination } from '../../ui/pagination'
 import { Slider } from '../../ui/slider'
 import {
   Table,
@@ -63,6 +64,7 @@ export const DecksPage = () => {
           </TableRow>
         </TableBody>
       </Table>
+      {/* <Pagination currentPage={1} itemsPerPage={5} totalPageCount={10} onPageChange={}/> */}
     </Page>
   )
 }

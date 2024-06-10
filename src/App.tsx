@@ -12,11 +12,8 @@ import { DecksPage } from './components/pages/decks-page/decks-page'
 import { DropdownMenu, DropdownSeparator } from './components/ui/dropdown'
 import { DropdownMenuItem } from './components/ui/dropdown/dropdownMenuItem'
 import { Tabs } from './components/ui/tabs'
+import { Router } from './router'
 
 export function App() {
-  return (
-    <Layout>
-      <DecksPage />
-    </Layout>
-  )
+  return <Router />
 }
