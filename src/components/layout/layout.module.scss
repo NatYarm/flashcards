@@ -2,8 +2,10 @@
   width: 100%;
 }
 .mainContent {
-  // display: flex;
-  // flex-direction: column;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding-top: var(--header-height);
   padding-inline: var(--horizontal-padding);
   max-width: var(--max-width);
