@@ -33,9 +33,12 @@
   align-items: center;
   justify-content: space-between;
 
-  & p:last-child {
+  color: var(--color-light-900);
+
+  & .signUpLink {
     font-size: var(--font-size-m);
     color: var(--color-accent-500);
+    text-decoration: none;
 
     &:hover {
       text-decoration: underline;

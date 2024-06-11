@@ -43,7 +43,7 @@ export const SignIn = ({ onSubmit }: Props) => {
           <Typography
             as={Link}
             className={s.recoverPasswordLink}
-            to={'/recover-password'}
+            to={'/recovery-password'}
             variant={'body2'}
           >
             Forgot Password?
@@ -54,8 +54,11 @@ export const SignIn = ({ onSubmit }: Props) => {
         </Button>
       </form>
       <div className={s.footer}>
+
         <Typography variant={'body2'}>Don&apos;t have an account?</Typography>
-        <Typography variant={'link1'}>Sign Up</Typography>
+        <Typography variant={'link1'}>Sign Up</Typography
+      
+
       </div>
     </Card>
   )
