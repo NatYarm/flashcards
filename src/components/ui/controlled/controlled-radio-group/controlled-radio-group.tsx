@@ -1,12 +1,11 @@
 import { Control, FieldPath, FieldValues, useController } from 'react-hook-form'
 
-import { RadioGroupComponent } from '@/components/ui/radioGroup'
-import { RadioGroupComponentProps } from '@/components/ui/radioGroup/RadioGroupComponent'
+import { RadioGroup, RadioGroupProps } from '../../radioGroup/radioGroup'
 
 export type ControlledRadioGroupProps<TFieldValues extends FieldValues> = {
   control: Control<TFieldValues>
   name: FieldPath<TFieldValues>
-} & Omit<RadioGroupComponentProps, 'currentValue' | 'defaultValue' | 'setCurrentValue'>
+} & Omit<RadioGroupProps, 'id' | 'onChange' | 'value'>
 
 export const ControlledRadioGroup = <TFieldValues extends FieldValues>(
   props: ControlledRadioGroupProps<TFieldValues>
@@ -18,7 +17,5 @@ export const ControlledRadioGroup = <TFieldValues extends FieldValues>(
     name: props.name,
   })
 
-  return (
-    <RadioGroupComponent {...props} {...field} currentValue={value} setCurrentValue={onChange} />
-  )
+  return <RadioGroup {...props} {...field} id={props.name} onValueChange={onChange} />
 }
