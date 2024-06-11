@@ -6,11 +6,10 @@ import { Typography } from '../../../ui/typography'
 export type UserDropdownProps = {
   avatar: null | string
   email: string
-  onLogout: () => void
   userName: string
 }
 
-export const UserDropdown = ({ avatar, email, onLogout, userName }: UserDropdownProps) => {
+export const UserDropdown = ({ avatar, email, userName }: UserDropdownProps) => {
   if (!avatar) {
     avatar = 'https://avatars.githubusercontent.com/u/1196875?v=4'
   }

@@ -1,11 +1,10 @@
-button {
-  all: unset;
-}
-
-.RadioGroupRoot {
+.root {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  &[data-orientation='horizontal'] {
+    flex-direction: row;
+  }
 }
 
 .RadioGroupWrapper {
@@ -17,13 +16,14 @@ button {
   flex-direction: column;
 }
 
-.RadioGroupItemWrapper {
+.itemWrapper {
   display: flex;
   gap: 10px;
   align-items: center;
 }
 
-.RadioGroupItem {
+.item {
+  cursor: pointer;
   position: relative;
 
   display: block;
@@ -31,19 +31,15 @@ button {
   width: 16px;
   height: 16px;
 
-  background-color: rgb(0 0 0 / 100%);
+  background-color: var(--color-dark-900);
   border: 2px solid var(--color-accent-500);
   border-radius: 100%;
-
-  &:disabled {
-    opacity: 0.5;
-  }
 
   &:hover::after {
     content: '';
 
     position: absolute;
-    top: -59%;
+    top: -60%;
     left: -10px;
 
     display: block;
@@ -51,9 +47,10 @@ button {
     width: 36px;
     height: 36px;
 
-    opacity: 0.7;
+    opacity: 0.6;
     background-color: var(--color-dark-500);
     border-radius: 100%;
+    z-index: -2;
   }
 
   &:active::after {
@@ -85,13 +82,19 @@ button {
     width: 36px;
     height: 36px;
 
-    opacity: 0.4;
+    opacity: 0.5;
     background-color: var(--color-dark-700);
     border-radius: 100%;
+    z-index: -2;
+  }
+
+  &[data-disabled] {
+    pointer-events: none;
+    border-color: var(--color-accent-900);
   }
 }
 
-.RadioGroupIndicator {
+.indicator {
   position: relative;
 
   display: flex;
@@ -114,9 +117,6 @@ button {
   }
 }
 
-.Label {
-  padding-left: 14px;
-  font-size: 14px;
-  line-height: 24px;
-  color: white;
+.disabledLabel {
+  color: var(--color-light-900);
 }
