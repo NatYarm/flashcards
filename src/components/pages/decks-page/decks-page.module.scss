@@ -1,0 +1,18 @@
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.filters {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 36px;
+  margin-top: 10px;
+}
+
+.searchField {
+  width: 300px;
+}

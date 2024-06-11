@@ -7,7 +7,7 @@ import s from './tabs.module.scss'
 
 import { Label } from '../label/label'
 
-type Tab = {
+export type Tab = {
   disabled?: boolean
   title: string
   /** A unique value that associates the trigger with a content. */

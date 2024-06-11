@@ -2,6 +2,7 @@ import { ChangeEvent, ComponentProps, ComponentPropsWithoutRef, forwardRef, useS
 
 import { EyeOffOutline, EyeOutline } from '@/assets/icons/components'
 import { Typography } from '@/components/ui/typography'
+import { Label } from '@radix-ui/react-label'
 import { clsx } from 'clsx'
 
 import s from './text-field.module.scss'
@@ -55,11 +56,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
 
     return (
       <div className={classNames.root}>
-        {label && (
-          <Typography as={'label'} className={classNames.label} variant={'body2'}>
-            {label}
-          </Typography>
-        )}
+        {label && <Label />}
         <div className={classNames.fieldContainer}>
           <input
             className={classNames.field}
