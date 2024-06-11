@@ -10,6 +10,7 @@ const config: StorybookConfig = {
     'storybook-addon-pseudo-states',
     '@chromatic-com/storybook',
     '@storybook/addon-interactions',
+    'storybook-addon-react-router-v6',
   ],
 
   framework: {

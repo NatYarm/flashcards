@@ -8,7 +8,7 @@ import { Typography } from '@/components/ui/typography'
 import s from './check-email.module.scss'
 
 type Props = {
-  email?: string
+  email: string
 }
 
 export const CheckEmail = ({ email }: Props) => {
@@ -25,8 +25,8 @@ export const CheckEmail = ({ email }: Props) => {
       <Typography className={s.instructions} variant={'body1'}>
         {message}
       </Typography>
-      <Button as={Link} fullWidth to={'/sing-in'}>
-        Back to Sign In
+      <Button as={Link} fullWidth to={'/sign-in'}>
+        Back to SignIn
       </Button>
     </Card>
   )
