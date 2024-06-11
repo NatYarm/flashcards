@@ -1,1 +1,1 @@
-export { RadioGroupComponent } from './radioGroup'
+export * from './radioGroup'
