@@ -54,11 +54,8 @@ export const SignIn = ({ onSubmit }: Props) => {
         </Button>
       </form>
       <div className={s.footer}>
-
         <Typography variant={'body2'}>Don&apos;t have an account?</Typography>
-        <Typography variant={'link1'}>Sign Up</Typography
-      
-
+        <Typography variant={'link1'}>Sign Up</Typography>
       </div>
     </Card>
   )

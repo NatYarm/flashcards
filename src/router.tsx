@@ -17,10 +17,10 @@ const publicRoutes: RouteObject[] = [
     children: [
       {
         element: <SignInPage />,
-        path: '/sign-in',
+        path: '/login',
       },
     ],
-    element: <Outlet />,
+    //element: <Outlet />,
   },
 ]
 
@@ -56,5 +56,5 @@ function PrivateRoutes() {
   //const { isAuthenticated } = useAuthContext()
   const isAuthenticated = true
 
-  return isAuthenticated ? <Outlet /> : <Navigate to={'/sign-in'} />
+  return isAuthenticated ? <Outlet /> : <Navigate to={'/login'} />
 }

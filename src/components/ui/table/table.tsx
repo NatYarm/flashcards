@@ -1,6 +1,7 @@
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 
-import { ArrowDown, ArrowUp } from '@/assets/icons/components'
+import ArrowDown from '@/assets/icons/components/ArrowDown'
+import ArrowUp from '@/assets/icons/components/ArrowUp'
 import clsx from 'clsx'
 
 import s from './table.module.scss'
