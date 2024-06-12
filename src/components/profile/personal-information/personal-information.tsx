@@ -13,9 +13,9 @@ type Props = {
   avatar: string
   email: string
   name: string
-  onAvatarChange?: (newAvatar: string) => void
-  onLogout?: () => void
-  onNameChange?: (newName: string) => void
+  onAvatarChange: (newAvatar: string) => void
+  onLogout: () => void
+  onNameChange: (newName: string) => void
 }
 export const PersonalInformation = ({
   avatar,
@@ -77,14 +77,12 @@ export const PersonalInformation = ({
           </div>
         </div>
       )}
-
       {isEditingName && (
         <div className={s.saveName}>
-          <Typography className={s.nickName} variant={'body2'}>
-            Nickname
-          </Typography>
-          <Input />
-          <Button onClick={saveNameChanged}>Save Changes</Button>
+          <Input className={s.inputName} label={'Nickname'} variant={'primary'} />
+          <Button className={s.saveNameButton} fullWidth onClick={saveNameChanged}>
+            Save Changes
+          </Button>
         </div>
       )}
     </Card>
