@@ -1,4 +1,5 @@
 import { TrashOutline } from '@/assets/icons/components'
+import { useGetDecksQuery } from '@/services/flashcards-api'
 
 import s from './decks-page.module.scss'
 
@@ -17,6 +18,7 @@ import {
 import { Tabs } from '../../ui/tabs/tabs'
 import { TextField } from '../../ui/text-field'
 import { Typography } from '../../ui/typography'
+import { Loader } from '../../loader/loader'
 
 const tabs = [
   { title: 'My decks', value: 'my' },
@@ -25,6 +27,12 @@ const tabs = [
 ]
 
 export const DecksPage = () => {
+  const { data, error, isLoading } = useGetDecksQuery()
+
+  if (isLoading) {
+    return <Loader/>
+  }
+
   return (
     <Page>
       <div className={s.pageHeader}>
