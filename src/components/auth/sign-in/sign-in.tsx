@@ -6,13 +6,13 @@ import { Card } from '@/components/ui/card'
 import { ControlledCheckbox } from '@/components/ui/controlled'
 import { ControlledInput } from '@/components/ui/controlled/controlled-input'
 import { Typography } from '@/components/ui/typography'
-import { LoginFormProps, loginSchema } from '@/utils'
+import { LoginFormProps, loginScheme } from '@/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import s from './sign-in.module.scss'
 
-type FormType = z.infer<typeof loginSchema>
+type FormType = z.infer<typeof loginScheme>
 
 type Props = {
   onSubmit: (data: FormType) => void
@@ -20,7 +20,7 @@ type Props = {
 
 export const SignIn = ({ onSubmit }: Props) => {
   const { control, handleSubmit } = useForm<LoginFormProps>({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(loginScheme),
   })
 
   const formSubmitHandler = handleSubmit(onSubmit)

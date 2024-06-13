@@ -7,18 +7,12 @@ import { Button } from '../../ui/button'
 import { Page } from '../../ui/page/page'
 //import { Pagination } from '../../ui/pagination'
 import { Slider } from '../../ui/slider'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeadCell,
-  TableRow,
-} from '../../ui/table/table'
+
+import { Loader } from '../../loader/loader'
 import { Tabs } from '../../ui/tabs/tabs'
 import { TextField } from '../../ui/text-field'
 import { Typography } from '../../ui/typography'
-import { Loader } from '../../loader/loader'
+import { DecksTable } from './decks-table/decks-table'
 
 const tabs = [
   { title: 'My decks', value: 'my' },
@@ -27,10 +21,14 @@ const tabs = [
 ]
 
 export const DecksPage = () => {
-  const { data, error, isLoading } = useGetDecksQuery()
+  const {data: decks, error, isLoading } = useGetDecksQuery()
 
   if (isLoading) {
     return <Loader/>
+  }
+
+  if(error) {
+    return <h1>{JSON.stringify(error)}</h1>
   }
 
   return (
@@ -54,24 +52,7 @@ export const DecksPage = () => {
           Clear Filter
         </Button>
       </div>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableHeadCell>Name</TableHeadCell>
-            <TableHeadCell>Cards</TableHeadCell>
-            <TableHeadCell>Last updated</TableHeadCell>
-            <TableHeadCell>Created by</TableHeadCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          <TableRow>
-            <TableCell>New Deck</TableCell>
-            <TableCell>4</TableCell>
-            <TableCell>23.12.2023</TableCell>
-            <TableCell>John Dow</TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
+      <DecksTable decks={decks?.items}/>
       {/* <Pagination currentPage={1} itemsPerPage={5} totalPageCount={10} onPageChange={}/> */}
     </Page>
   )

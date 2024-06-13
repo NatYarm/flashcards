@@ -5,14 +5,14 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { ControlledInput } from '@/components/ui/controlled/controlled-input'
 import { Typography } from '@/components/ui/typography'
-import { LoginFormProps, loginSchema } from '@/utils'
+import { LoginFormProps, loginScheme } from '@/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import s from './recovery-password.module.scss'
 
 export const RecoveryPassword = () => {
   const { control, handleSubmit } = useForm<LoginFormProps>({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(loginScheme),
   })
 
   const onSubmit = handleSubmit(data => {

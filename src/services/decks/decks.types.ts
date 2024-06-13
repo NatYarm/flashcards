@@ -1,5 +1,5 @@
 export type DecksListResponse = {
-  decks: Deck[]
+  items: Deck[]
   pagination: Pagination
 }
 
