@@ -6,7 +6,8 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
-//import { DeckPage } from '@/pages/deck-page/deck-page'
+import { RecoveryPasswordPage } from '@/components/pages/recovery-password-page/recovery-password-page'
+import { SignUpPage } from '@/components/pages/sign-up-page/sign-up-page'
 
 import { Layout } from './components/layout/layout'
 import { DecksPage } from './components/pages/decks-page/decks-page'
@@ -19,6 +20,14 @@ const publicRoutes: RouteObject[] = [
         element: <SignInPage />,
         path: '/sign-in',
       },
+      {
+        element: <SignUpPage />,
+        path: '/sign-up',
+      },
+      {
+        element: <RecoveryPasswordPage />,
+        path: '/recovery-password',
+      },
     ],
     element: <Outlet />,
   },
@@ -29,10 +38,6 @@ const privateRoutes: RouteObject[] = [
     element: <DecksPage />,
     path: '/',
   },
-  // {
-  //   element: <DeckPage />,
-  //   path: '/decks/:deckId',
-  // },
 ]
 
 const router = createBrowserRouter([

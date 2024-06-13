@@ -56,7 +56,11 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
 
     return (
       <div className={classNames.root}>
-        {label && <Label />}
+        {label && (
+          <Label {...labelProps} className={classNames.label} htmlFor={restProps.id}>
+            {label}
+          </Label>
+        )}
         <div className={classNames.fieldContainer}>
           <input
             className={classNames.field}
