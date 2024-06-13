@@ -5,7 +5,7 @@ import s from './decks-page.module.scss'
 
 import { Button } from '../../ui/button'
 import { Page } from '../../ui/page/page'
-//import { Pagination } from '../../ui/pagination'
+import { Pagination } from '../../ui/pagination'
 import { Slider } from '../../ui/slider'
 
 import { Loader } from '../../loader/loader'
@@ -13,15 +13,35 @@ import { Tabs } from '../../ui/tabs/tabs'
 import { TextField } from '../../ui/text-field'
 import { Typography } from '../../ui/typography'
 import { DecksTable } from './decks-table/decks-table'
+import { useState } from 'react'
 
-const tabs = [
-  { title: 'My decks', value: 'my' },
-  { title: 'All decks', value: 'all' },
-  { title: 'Favorites', value: 'favorites' },
-]
+
 
 export const DecksPage = () => {
-  const {data: decks, error, isLoading } = useGetDecksQuery()
+  const [currentPage, setCurrentPage] = useState(1)
+  const [search, setSearch] = useState('')
+  const [itemsPerPage, setItemsPerPage] = useState(10)
+  const [currentTab, setCurrentTab]= useState('all')
+  const {data: decks, error, isLoading } = useGetDecksQuery({name: search,  currentPage, itemsPerPage})
+
+  const tabs = [
+    { title: 'My decks', value: 'my' },
+    { title: 'All decks', value: 'all' },
+    { title: 'Favorites', value: 'favorites' },
+  ]
+
+  const handlePageChange = (page: number)=> {
+    setCurrentPage(page)
+  }
+
+  const handleItemsPerPageChange = (items: number) => {
+    setItemsPerPage(items)
+  }
+
+  const handleCurrentTabChange = (tab: string)=> {
+    setCurrentTab(tab)
+  }
+ 
 
   if (isLoading) {
     return <Loader/>
@@ -32,6 +52,7 @@ export const DecksPage = () => {
   }
 
   return (
+
     <Page>
       <div className={s.pageHeader}>
         <Typography as={'h1'} variant={'h1'}>
@@ -41,10 +62,10 @@ export const DecksPage = () => {
       </div>
       <div className={s.filters}>
         <div className={s.searchField}>
-          <TextField placeholder={'Search'} type={'search'} />
+          <TextField placeholder={'Search'} type={'search'} value={search} onChange={e=>setSearch(e.currentTarget.value)}/>
         </div>
 
-        <Tabs label={'Show decks cards'} tabs={tabs} />
+        <Tabs label={'Show decks cards'} tabs={tabs} value={currentTab ?? undefined} onValueChange={handleCurrentTabChange}/>
 
         <Slider label={'Number of cards'} value={[2, 10]} />
         <Button variant={'secondary'}>
@@ -53,7 +74,8 @@ export const DecksPage = () => {
         </Button>
       </div>
       <DecksTable decks={decks?.items}/>
-      {/* <Pagination currentPage={1} itemsPerPage={5} totalPageCount={10} onPageChange={}/> */}
+      
+      <Pagination currentPage={currentPage || 1} totalPageCount={decks?.pagination.totalPages || 1} onPageChange={handlePageChange} className={s.pagination} itemsPerPage={itemsPerPage} onPerPageChange={handleItemsPerPageChange} perPageOptions={[5, 10, 20, 30]}/>
     </Page>
   )
 }

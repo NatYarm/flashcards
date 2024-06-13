@@ -27,3 +27,13 @@ export type Deck = {
   updated: string
   userId: string
 }
+
+export type GetDecksArgs = {
+  minCardsCount?: number
+  maxCardsCount?: number
+  name?: string
+  authorId?: string
+  currentPage?: number
+  itemsPerPage?: number
+  orderBy?: string
+}
