@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom'
 
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { ControlledCheckbox } from '@/components/ui/controlled'
-import { ControlledInput } from '@/components/ui/controlled/controlled-input'
+import { ControlledCheckbox, ControlledTextField } from '@/components/ui/controlled'
 import { Typography } from '@/components/ui/typography'
 import { LoginFormProps, loginSchema } from '@/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -32,8 +31,8 @@ export const SignIn = ({ onSubmit }: Props) => {
       </Typography>
       <form className={s.form} onSubmit={formSubmitHandler}>
         <div className={s.controlled}>
-          <ControlledInput control={control} label={'Email'} name={'email'} />
-          <ControlledInput
+          <ControlledTextField control={control} label={'Email'} name={'email'} />
+          <ControlledTextField
             control={control}
             label={'Password'}
             name={'password'}
@@ -55,7 +54,9 @@ export const SignIn = ({ onSubmit }: Props) => {
       </form>
       <div className={s.footer}>
         <Typography variant={'body2'}>Don&apos;t have an account?</Typography>
-        <Typography variant={'link1'}>Sign Up</Typography>
+        <Typography as={Link} className={s.signUpLink} to={'/sign-up'} variant={'link1'}>
+          Sign Up
+        </Typography>
       </div>
     </Card>
   )

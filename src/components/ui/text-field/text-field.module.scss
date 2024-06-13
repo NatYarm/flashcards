@@ -34,7 +34,8 @@
   }
 
   &:hover {
-    background: var(--color-dark-700);
+    background: var(--color-dark-500);
+    transition: background-color 0.3s;
   }
 
   &.error {
