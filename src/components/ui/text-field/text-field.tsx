@@ -18,6 +18,7 @@ export type TextFieldProps = {
 export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
   (
     {
+      children,
       className,
       containerProps,
       errorMessage,
@@ -62,6 +63,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
           </Label>
         )}
         <div className={classNames.fieldContainer}>
+          {children && <div className={s.icon}>{children}</div>}
           <input
             className={classNames.field}
             onChange={handleChange}

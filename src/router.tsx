@@ -6,6 +6,7 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
+import { MyDeck } from '@/components/decks/my-deck'
 import { RecoveryPasswordPage } from '@/components/pages/recovery-password-page/recovery-password-page'
 import { SignUpPage } from '@/components/pages/sign-up-page/sign-up-page'
 
@@ -27,6 +28,10 @@ const publicRoutes: RouteObject[] = [
       {
         element: <RecoveryPasswordPage />,
         path: '/recovery-password',
+      },
+      {
+        element: <MyDeck />,
+        path: '/my-deck',
       },
     ],
     element: <Outlet />,
