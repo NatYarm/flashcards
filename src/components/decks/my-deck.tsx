@@ -1,7 +1,15 @@
 import { Link } from 'react-router-dom'
 
-import { ArrowBackOutline, Search } from '@/assets/icons/components'
+import { ArrowBackOutline, ArrowIosUp, Search, Star } from '@/assets/icons/components'
 import { Button } from '@/components/ui/button'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeadCell,
+  TableRow,
+} from '@/components/ui/table'
 import { TextField } from '@/components/ui/text-field'
 import { Typography } from '@/components/ui/typography'
 
@@ -37,20 +45,93 @@ export const MyDeck = () => {
           <TextField className={s.field} placeholder={'input search'} />
         </div>
       </div>
-      <table className={`${s.table} ${s.tableRoot}`}>
-        <thead className={s.thead}>
-          <tr className={s.row}>
-            <th className={`${s.headCell} ${s.tableHeadCellCards}`}>
+      <Table className={`${s.table} ${s.tableRoot}`}>
+        <TableHead className={s.thead}>
+          <TableRow className={s.row}>
+            <TableHeadCell className={`${s.headCell} ${s.tableHeadCellCards}`}>
               <div className={s.answer}>
                 <button className={`${s.subtitle2} ${s.nameSortBtn}`}>Вопрос</button>
               </div>
-            </th>
-            <th className={`${s.headCell} ${s.tableHeadCellCards}`}>
+            </TableHeadCell>
+            <TableHeadCell className={`${s.headCell} ${s.tableHeadCellCards}`}>
               <div className={s.answer}>
                 <button className={`${s.subtitle2} ${s.nameSortBtn}`}>Ответ</button>
                 <div className={s.boxEye}>
                   <svg>EyeOffIcon</svg>
                 </div>
+              </div>
+            </TableHeadCell>
+            <TableHeadCell className={`${s.headCell} ${s.tableHeadCellCards}`}>
+              <div className={s.answer}>
+                <button className={`${s.subtitle2} ${s.nameSortBtn}`}>Оценка</button>
+              </div>
+            </TableHeadCell>
+            <TableHeadCell className={`${s.headCell} ${s.lastTableHeadCell}`}></TableHeadCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow className={s.row}>
+            <TableCell className={s.cell}>
+              <div className={s.imgWrapper}>
+                <div className={s.wrapperCoverImg}>
+                  <img
+                    alt={'default card img'}
+                    className={`${s.coverImg} ${s.wrapperCoverImg} ${s.withImg}`}
+                    src={'/assets/defaultCard-4aAwMWTJ.jpg'}
+                  />
+                </div>
+                <p className={s.body1}>ddd</p>
+              </div>
+            </TableCell>
+            <TableCell className={`${s.cell} ${s.sell}`}>
+              <div className={s.blur}>
+                <div className={s.imgWrapper}>
+                  <div className={s.wrapperCoverImg}>
+                    <img
+                      alt={'default card img'}
+                      className={`${s.coverImg} ${s.wrapperCoverImg} ${s.withImg}`}
+                      src={'/assets/defaultCard-4aAwMWTJ.jpg'}
+                    />
+                  </div>
+                  <p className={s.body1}>ddd</p>
+                </div>
+              </div>
+            </TableCell>
+            <TableCell className={`${s.cell} ${s.grade}`}>
+              <Star className={s.star} />
+              <Star className={s.star} />
+              <Star className={s.star} />
+              <Star className={s.star} />
+              <Star className={s.star} />
+            </TableCell>
+            <TableCell className={s.cell}>
+              <div className={s.iconBtns}>
+                <button className={`${s.button} ${s.primary} ${s.btn}`}>
+                  <svg>EditIcon</svg>
+                </button>
+                <button className={`${s.button} ${s.primary} ${s.btn}`}>
+                  <svg>TrashIcon</svg>
+                </button>
+              </div>
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+      <table className={`${s.table} ${s.tableRoot}`}>
+        <thead className={s.thead}>
+          <tr className={s.row}>
+            <th className={`${s.headCell} ${s.tableHeadCellCards}`}>
+              <div className={s.answer}>
+                <button className={`${s.subtitle2} ${s.nameSortBtn}`}>
+                  Вопрос
+                  <ArrowIosUp />
+                </button>
+              </div>
+            </th>
+            <th className={`${s.headCell} ${s.tableHeadCellCards}`}>
+              <div className={s.answer}>
+                <button className={`${s.subtitle2} ${s.nameSortBtn}`}>Ответ</button>
+                <div className={s.boxEye}></div>
               </div>
             </th>
             <th className={`${s.headCell} ${s.tableHeadCellCards}`}>
@@ -109,7 +190,7 @@ export const MyDeck = () => {
           </tr>
         </tbody>
       </table>
-      <div className={s.footer}>
+      {/* <div className={s.footer}>
         <div className={s.box}>
           <div aria-label={'Pagination'} className={s.pagination}>
             <div className={s.pageLinkWrapper}>
@@ -152,7 +233,7 @@ export const MyDeck = () => {
             <p className={`${s.body1} ${s.lastText}`}>на странице</p>
           </div>
         </div>
-      </div>
+      </div>*/}
     </div>
   )
 }
