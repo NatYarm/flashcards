@@ -78,7 +78,7 @@
   }
 }
 
-.showPassword {
+.showpassword {
   cursor: pointer;
 
   position: absolute;
@@ -100,4 +100,11 @@
   &:focus-visible {
     outline: var(--outline-focus);
   }
+}
+
+.clearInput {
+  composes: showpassword;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
