@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 
-import { ArrowBackOutline, ArrowIosUp, Search, Star } from '@/assets/icons/components'
+import { ArrowBackOutline, Edit2Outline, Eye, Star, TrashOutline } from '@/assets/icons/components'
+import KeyboardArrowUp from '@/assets/icons/components/KeyboardArrowUp'
 import { Button } from '@/components/ui/button'
 import {
   Table,
@@ -23,7 +24,7 @@ export const MyDeck = () => {
       <div className={s.heading}>
         <Link className={`${s.button} ${s.primary} ${s.backBtn}`} to={'/'}>
           <ArrowBackOutline />
-          Вернуться на страницу с колодами
+          Back to Decks List
         </Link>
         <div className={s.headingSecondRow}>
           <div>
@@ -37,12 +38,11 @@ export const MyDeck = () => {
             </div>
           </div>
           <div className={s.switchButton}>
-            <Button>Добавить карту</Button>
+            <Button>Learn to Pack</Button>
           </div>
         </div>
         <div className={s.fieldWrapper}>
-          <Search className={s.searchIcon} />
-          <TextField className={s.field} placeholder={'input search'} />
+          <TextField placeholder={'input search'} type={'search'} />
         </div>
       </div>
       <Table className={`${s.table} ${s.tableRoot}`}>
@@ -50,20 +50,27 @@ export const MyDeck = () => {
           <TableRow className={s.row}>
             <TableHeadCell className={`${s.headCell} ${s.tableHeadCellCards}`}>
               <div className={s.answer}>
-                <button className={`${s.subtitle2} ${s.nameSortBtn}`}>Вопрос</button>
+                <button className={`${s.subtitle2} ${s.nameSortBtn}`}>Question</button>
               </div>
             </TableHeadCell>
             <TableHeadCell className={`${s.headCell} ${s.tableHeadCellCards}`}>
               <div className={s.answer}>
-                <button className={`${s.subtitle2} ${s.nameSortBtn}`}>Ответ</button>
-                <div className={s.boxEye}>
-                  <svg>EyeOffIcon</svg>
-                </div>
+                <button className={`${s.subtitle2} ${s.nameSortBtn}`}>Answer</button>
+                <Eye />
+                {/*<div className={s.boxEye}>
+                  <Eye />
+                </div>*/}
               </div>
             </TableHeadCell>
             <TableHeadCell className={`${s.headCell} ${s.tableHeadCellCards}`}>
               <div className={s.answer}>
-                <button className={`${s.subtitle2} ${s.nameSortBtn}`}>Оценка</button>
+                <button className={`${s.subtitle2} ${s.nameSortBtn}`}>Last Updated</button>
+                <KeyboardArrowUp />
+              </div>
+            </TableHeadCell>
+            <TableHeadCell className={`${s.headCell} ${s.tableHeadCellCards}`}>
+              <div className={s.answer}>
+                <button className={`${s.subtitle2} ${s.nameSortBtn}`}>Grade</button>
               </div>
             </TableHeadCell>
             <TableHeadCell className={`${s.headCell} ${s.lastTableHeadCell}`}></TableHeadCell>
@@ -77,7 +84,7 @@ export const MyDeck = () => {
                   <img
                     alt={'default card img'}
                     className={`${s.coverImg} ${s.wrapperCoverImg} ${s.withImg}`}
-                    src={'/assets/defaultCard-4aAwMWTJ.jpg'}
+                    src={defaultCard}
                   />
                 </div>
                 <p className={s.body1}>ddd</p>
@@ -90,12 +97,15 @@ export const MyDeck = () => {
                     <img
                       alt={'default card img'}
                       className={`${s.coverImg} ${s.wrapperCoverImg} ${s.withImg}`}
-                      src={'/assets/defaultCard-4aAwMWTJ.jpg'}
+                      src={defaultCard}
                     />
                   </div>
                   <p className={s.body1}>ddd</p>
                 </div>
               </div>
+            </TableCell>
+            <TableCell className={s.cell}>
+              <p className={s.body1}>16.06.24</p>
             </TableCell>
             <TableCell className={`${s.cell} ${s.grade}`}>
               <Star className={s.star} />
@@ -107,133 +117,16 @@ export const MyDeck = () => {
             <TableCell className={s.cell}>
               <div className={s.iconBtns}>
                 <button className={`${s.button} ${s.primary} ${s.btn}`}>
-                  <svg>EditIcon</svg>
+                  <Edit2Outline />
                 </button>
                 <button className={`${s.button} ${s.primary} ${s.btn}`}>
-                  <svg>TrashIcon</svg>
+                  <TrashOutline />
                 </button>
               </div>
             </TableCell>
           </TableRow>
         </TableBody>
       </Table>
-      <table className={`${s.table} ${s.tableRoot}`}>
-        <thead className={s.thead}>
-          <tr className={s.row}>
-            <th className={`${s.headCell} ${s.tableHeadCellCards}`}>
-              <div className={s.answer}>
-                <button className={`${s.subtitle2} ${s.nameSortBtn}`}>
-                  Вопрос
-                  <ArrowIosUp />
-                </button>
-              </div>
-            </th>
-            <th className={`${s.headCell} ${s.tableHeadCellCards}`}>
-              <div className={s.answer}>
-                <button className={`${s.subtitle2} ${s.nameSortBtn}`}>Ответ</button>
-                <div className={s.boxEye}></div>
-              </div>
-            </th>
-            <th className={`${s.headCell} ${s.tableHeadCellCards}`}>
-              <div className={s.answer}>
-                <button className={`${s.subtitle2} ${s.nameSortBtn}`}>Оценка</button>
-              </div>
-            </th>
-            <th className={`${s.headCell} ${s.lastTableHeadCell}`}></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr className={s.row}>
-            <td className={s.cell}>
-              <div className={s.imgWrapper}>
-                <div className={s.wrapperCoverImg}>
-                  <img
-                    alt={'default card img'}
-                    className={`${s.coverImg} ${s.wrapperCoverImg} ${s.withImg}`}
-                    src={'/assets/defaultCard-4aAwMWTJ.jpg'}
-                  />
-                </div>
-                <p className={s.body1}>ddd</p>
-              </div>
-            </td>
-            <td className={`${s.cell} ${s.sell}`}>
-              <div className={s.blur}>
-                <div className={s.imgWrapper}>
-                  <div className={s.wrapperCoverImg}>
-                    <img
-                      alt={'default card img'}
-                      className={`${s.coverImg} ${s.wrapperCoverImg} ${s.withImg}`}
-                      src={'/assets/defaultCard-4aAwMWTJ.jpg'}
-                    />
-                  </div>
-                  <p className={s.body1}>ddd</p>
-                </div>
-              </div>
-            </td>
-            <td className={`${s.cell} ${s.grade}`}>
-              <svg className={s.star}>StarIcon</svg>
-              <svg className={s.star}>StarIcon</svg>
-              <svg className={s.star}>StarIcon</svg>
-              <svg className={s.star}>StarIcon</svg>
-              <svg className={s.star}>StarIcon</svg>
-            </td>
-            <td className={s.cell}>
-              <div className={s.iconBtns}>
-                <button className={`${s.button} ${s.primary} ${s.btn}`}>
-                  <svg>EditIcon</svg>
-                </button>
-                <button className={`${s.button} ${s.primary} ${s.btn}`}>
-                  <svg>TrashIcon</svg>
-                </button>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      {/* <div className={s.footer}>
-        <div className={s.box}>
-          <div aria-label={'Pagination'} className={s.pagination}>
-            <div className={s.pageLinkWrapper}>
-              <button className={`${s.button} ${s.primary} ${s.pageLink} ${s.icon} ${s.disabled}`}>
-                <svg>ArrowIosBackIcon</svg>
-              </button>
-            </div>
-            <div className={s.pageLinkWrapper}>
-              <button
-                aria-current={'page'}
-                className={`${s.button} ${s.primary} ${s.pageLink} ${s.active}`}
-              >
-                1
-              </button>
-            </div>
-            <div className={s.pageLinkWrapper}>
-              <button className={`${s.button} ${s.primary} ${s.pageLink} ${s.icon} ${s.disabled}`}>
-                <svg>ArrowIosForwardIcon</svg>
-              </button>
-            </div>
-          </div>
-          <div className={s.boxItem}>
-            <p className={`${s.body1} ${s.firstText}`}>Отображать </p>
-            <div className={s.selectRoot}>
-              <button
-                aria-autocomplete={'none'}
-                aria-controls={'radix-:r93:'}
-                aria-expanded={'false'}
-                className={`${s.selectTrigger} ${s.selectTriggerDisabled}`}
-                data-state={'closed'}
-                dir={'ltr'}
-                disabled
-                role={'combobox'}
-                type={'button'}
-              >
-                <p className={s.body2}>5</p>
-                <svg className={s.selectIcon}>ArrowIosDownIcon</svg>
-              </button>
-            </div>
-            <p className={`${s.body1} ${s.lastText}`}>на странице</p>
-          </div>
-        </div>
-      </div>*/}
     </div>
   )
 }
