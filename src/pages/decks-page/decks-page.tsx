@@ -14,6 +14,7 @@ import { TextField } from '../../components/ui/text-field'
 import { Typography } from '../../components/ui/typography'
 import { DecksTable } from './decks-table/decks-table'
 import { useState } from 'react'
+import { Modal } from '../../components/ui/modal'
 
 export const DecksPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
@@ -21,6 +22,7 @@ export const DecksPage = () => {
   const [itemsPerPage, setItemsPerPage] = useState(10)
   const [currentTab, setCurrentTab] = useState('all')
   const [cardsRange, setCardsRange] = useState([0, 35])
+  const [createNewDeck, setCreateNewDeck] = useState(false)
 
   const {
     data: decks,
@@ -58,6 +60,10 @@ export const DecksPage = () => {
     setCardsRange(value)
   }
 
+  const addDeck = () => {
+    setCreateNewDeck(true)
+  }
+
   if (isLoading) {
     return <Loader />
   }
@@ -72,7 +78,10 @@ export const DecksPage = () => {
         <Typography as={'h1'} variant={'h1'}>
           Decks List
         </Typography>
-        <Button>Add New Deck</Button>
+        <Modal open={createNewDeck} title="create new deck" onOpenChange={setCreateNewDeck}>
+          modal
+        </Modal>
+        <Button onClick={addDeck}>Add New Deck</Button>
       </div>
       <div className={s.filters}>
         <div className={s.searchField}>
