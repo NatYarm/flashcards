@@ -17,31 +17,42 @@ import { useState } from 'react'
 
 
 
+
 export const DecksPage = () => {
+
   const [currentPage, setCurrentPage] = useState(1)
   const [search, setSearch] = useState('')
   const [itemsPerPage, setItemsPerPage] = useState(10)
-  const [currentTab, setCurrentTab]= useState('all')
-  const {data: decks, error, isLoading } = useGetDecksQuery({name: search,  currentPage, itemsPerPage})
+  const [currentTab, setCurrentTab] = useState('all')
+  const [minCardsCount, setMinCardsCount]=useState(0)
+  const [maxCardsCount, setMaxCardsCount]=useState(35)
+  const [cardsRange, setCardsRange] = useState([minCardsCount, maxCardsCount])
+  
+  const {data: decks, error, isLoading } = useGetDecksQuery({name: search,  currentPage, itemsPerPage, minCardsCount, maxCardsCount})
 
   const tabs = [
     { title: 'My decks', value: 'my' },
     { title: 'All decks', value: 'all' },
     { title: 'Favorites', value: 'favorites' },
   ]
-
+  
   const handlePageChange = (page: number)=> {
     setCurrentPage(page)
-  }
-
-  const handleItemsPerPageChange = (items: number) => {
-    setItemsPerPage(items)
-  }
-
-  const handleCurrentTabChange = (tab: string)=> {
-    setCurrentTab(tab)
-  }
- 
+    }
+    
+    const handleItemsPerPageChange = (items: number) => {
+      setItemsPerPage(items)
+      }
+      
+      const handleTabChange = (tab: string)=> {
+        setCurrentTab(tab)
+        }
+        
+        
+      const handleSliderCommitted = (value: number[]) => {   
+        setMinCardsCount(value[0])
+        setMaxCardsCount(value[1])        
+        }
 
   if (isLoading) {
     return <Loader/>
@@ -65,12 +76,17 @@ export const DecksPage = () => {
           <TextField placeholder={'Search'} type={'search'} value={search} onChange={e=>setSearch(e.currentTarget.value)}/>
         </div>
 
-        <Tabs label={'Show decks cards'} tabs={tabs} value={currentTab ?? undefined} onValueChange={handleCurrentTabChange}/>
+        <Tabs label={'Show decks cards'} tabs={tabs} value={currentTab ?? undefined} onValueChange={handleTabChange} />
 
-        <Slider label={'Number of cards'} value={[2, 10]} />
+        <Slider label={'Number of cards'} 
+        value={cardsRange}   max={35}
+        onValueChange={setCardsRange}
+        onValueCommit={handleSliderCommitted}   
+          />
+
         <Button variant={'secondary'}>
           <TrashOutline />
-          Clear Filter
+          Clear Filters
         </Button>
       </div>
       <DecksTable decks={decks?.items}/>

@@ -6,18 +6,14 @@ import { clsx } from 'clsx'
 import s from './slider.module.scss'
 
 import { Label } from '../label/label'
-const Slider = forwardRef<
-  ElementRef<typeof SliderPrimitive.Root>,
-  {
-    label?: string
-    value: (null | number)[]
-  } & Omit<ComponentPropsWithoutRef<typeof SliderPrimitive.Root>, 'value'>
->(({ className, label, max, onValueChange, value, ...props }, ref) => {
-  useEffect(() => {
-    if (value?.[1] === undefined || value?.[1] === null) {
-      onValueChange?.([value?.[0] ?? 0, max ?? 0])
-    }
-  }, [max, value, onValueChange])
+
+type SliderProps = {
+  value?: null | number[]
+  label?: string
+} & ComponentPropsWithoutRef<typeof SliderPrimitive.Root>
+const Slider = 
+
+(({className, label, max, onValueChange, value, ...props }: SliderProps) => {
 
   return (
     <div>
@@ -27,10 +23,10 @@ const Slider = forwardRef<
         <SliderPrimitive.Root
           className={clsx(s.root, className)}
           max={max}
+          value={value}
           onValueChange={onValueChange}
-          ref={ref}
           {...props}
-          value={[value?.[0] ?? 0, value?.[1] ?? max ?? 0]}
+        
         >
           <SliderPrimitive.Track className={s.track}>
             <SliderPrimitive.Range className={s.range} />
@@ -44,6 +40,6 @@ const Slider = forwardRef<
   )
 })
 
-Slider.displayName = SliderPrimitive.Root.displayName
+
 
 export { Slider }
