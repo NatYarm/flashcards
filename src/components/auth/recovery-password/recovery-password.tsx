@@ -11,7 +11,7 @@ import { z } from 'zod'
 
 import s from './recovery-password.module.scss'
 
-type FormType = z.infer<typeof loginSchema>
+type FormType = z.infer<typeof loginScheme>
 
 type Props = {
   onSubmit: (data: FormType) => void
@@ -23,9 +23,6 @@ export const RecoveryPassword = ({ onSubmit }: Props) => {
   })
 
   const formSubmitHandler = handleSubmit(onSubmit)
-  /*const onSubmit = handleSubmit(data => {
-    console.log(data)
-  })*/
 
   return (
     <Card className={s.card}>
