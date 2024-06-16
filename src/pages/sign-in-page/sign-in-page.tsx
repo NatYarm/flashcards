@@ -1,5 +1,5 @@
-import { SignIn } from '../../auth/sign-in'
-import { Page } from '../../ui/page/page'
+import { SignIn } from '../../components/auth/sign-in'
+import { Page } from '../../components/ui/page/page'
 
 export const SignInPage = () => {
   const handleSignIn = () => {}
