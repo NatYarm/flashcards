@@ -11,7 +11,7 @@ import { z } from 'zod'
 
 import s from './sign-up.module.scss'
 
-type FormType = z.infer<typeof loginSchema>
+type FormType = z.infer<typeof loginScheme>
 
 type Props = {
   onSubmit: (data: FormType) => void

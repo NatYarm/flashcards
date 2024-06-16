@@ -3,15 +3,15 @@ import { useGetDecksQuery } from '@/services/flashcards-api'
 
 import s from './decks-page.module.scss'
 
-import { Button } from '../../ui/button'
-import { Page } from '../../ui/page/page'
-import { Pagination } from '../../ui/pagination'
-import { Slider } from '../../ui/slider'
+import { Button } from '../../components/ui/button'
+import { Page } from '../../components/ui/page/page'
+import { Pagination } from '../../components/ui/pagination'
+import { Slider } from '../../components/ui/slider'
 
-import { Loader } from '../../loader/loader'
-import { Tabs } from '../../ui/tabs/tabs'
-import { TextField } from '../../ui/text-field'
-import { Typography } from '../../ui/typography'
+import { Loader } from '../../components/ui/loader/loader'
+import { Tabs } from '../../components/ui/tabs/tabs'
+import { TextField } from '../../components/ui/text-field'
+import { Typography } from '../../components/ui/typography'
 import { DecksTable } from './decks-table/decks-table'
 import { useState } from 'react'
 

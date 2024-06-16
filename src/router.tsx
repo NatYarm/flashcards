@@ -6,12 +6,12 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
-import { RecoveryPasswordPage } from '@/components/pages/recovery-password-page/recovery-password-page'
-import { SignUpPage } from '@/components/pages/sign-up-page/sign-up-page'
+import { RecoveryPasswordPage } from '@/pages/recovery-password-page/recovery-password-page'
+import { SignUpPage } from '@/pages/sign-up-page/sign-up-page'
 
 import { Layout } from './components/layout/layout'
-import { DecksPage } from './components/pages/decks-page/decks-page'
-import { SignInPage } from './components/pages/sign-in-page/sign-in-page'
+import { DecksPage } from './pages/decks-page/decks-page'
+import { SignInPage } from './pages/sign-in-page/sign-in-page'
 
 const publicRoutes: RouteObject[] = [
   {
