@@ -15,55 +15,58 @@ import { Typography } from '../../ui/typography'
 import { DecksTable } from './decks-table/decks-table'
 import { useState } from 'react'
 
-
-
-
 export const DecksPage = () => {
-
   const [currentPage, setCurrentPage] = useState(1)
   const [search, setSearch] = useState('')
   const [itemsPerPage, setItemsPerPage] = useState(10)
   const [currentTab, setCurrentTab] = useState('all')
-  const [minCardsCount, setMinCardsCount]=useState(0)
-  const [maxCardsCount, setMaxCardsCount]=useState(35)
-  const [cardsRange, setCardsRange] = useState([minCardsCount, maxCardsCount])
-  
-  const {data: decks, error, isLoading } = useGetDecksQuery({name: search,  currentPage, itemsPerPage, minCardsCount, maxCardsCount})
+  const [cardsRange, setCardsRange] = useState([0, 35])
+
+  const {
+    data: decks,
+    error,
+    isLoading,
+  } = useGetDecksQuery({
+    name: search,
+    currentPage,
+    itemsPerPage,
+    minCardsCount: cardsRange[0],
+    maxCardsCount: cardsRange[1],
+  })
 
   const tabs = [
     { title: 'My decks', value: 'my' },
     { title: 'All decks', value: 'all' },
     { title: 'Favorites', value: 'favorites' },
   ]
-  
-  const handlePageChange = (page: number)=> {
-    setCurrentPage(page)
-    }
-    
-    const handleItemsPerPageChange = (items: number) => {
-      setItemsPerPage(items)
-      }
-      
-      const handleTabChange = (tab: string)=> {
-        setCurrentTab(tab)
-        }
-        
-        
-      const handleSliderCommitted = (value: number[]) => {   
-        setMinCardsCount(value[0])
-        setMaxCardsCount(value[1])        
-        }
 
-  if (isLoading) {
-    return <Loader/>
+  const maxCardsRange = 35
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page)
   }
 
-  if(error) {
+  const handleItemsPerPageChange = (items: number) => {
+    setItemsPerPage(items)
+  }
+
+  const handleTabChange = (tab: string) => {
+    setCurrentTab(tab)
+  }
+
+  const handleSliderCommitted = (value: number[]) => {
+    setCardsRange(value)
+  }
+
+  if (isLoading) {
+    return <Loader />
+  }
+
+  if (error) {
     return <h1>{JSON.stringify(error)}</h1>
   }
 
   return (
-
     <Page>
       <div className={s.pageHeader}>
         <Typography as={'h1'} variant={'h1'}>
@@ -73,25 +76,45 @@ export const DecksPage = () => {
       </div>
       <div className={s.filters}>
         <div className={s.searchField}>
-          <TextField placeholder={'Search'} type={'search'} value={search} onChange={e=>setSearch(e.currentTarget.value)}/>
+          <TextField
+            placeholder={'Search'}
+            type={'search'}
+            value={search}
+            onChange={e => setSearch(e.currentTarget.value)}
+          />
         </div>
 
-        <Tabs label={'Show decks cards'} tabs={tabs} value={currentTab ?? undefined} onValueChange={handleTabChange} />
+        <Tabs
+          label={'Show decks cards'}
+          tabs={tabs}
+          value={currentTab ?? undefined}
+          onValueChange={handleTabChange}
+        />
 
-        <Slider label={'Number of cards'} 
-        value={cardsRange}   max={35}
-        onValueChange={setCardsRange}
-        onValueCommit={handleSliderCommitted}   
-          />
+        <Slider
+          label={'Number of cards'}
+          value={cardsRange}
+          max={maxCardsRange}
+          onValueChange={setCardsRange}
+          onValueCommit={handleSliderCommitted}
+        />
 
         <Button variant={'secondary'}>
           <TrashOutline />
           Clear Filters
         </Button>
       </div>
-      <DecksTable decks={decks?.items}/>
-      
-      <Pagination currentPage={currentPage || 1} totalPageCount={decks?.pagination.totalPages || 1} onPageChange={handlePageChange} className={s.pagination} itemsPerPage={itemsPerPage} onPerPageChange={handleItemsPerPageChange} perPageOptions={[5, 10, 20, 30]}/>
+      <DecksTable decks={decks?.items} />
+
+      <Pagination
+        currentPage={currentPage || 1}
+        totalPageCount={decks?.pagination.totalPages || 1}
+        onPageChange={handlePageChange}
+        className={s.pagination}
+        itemsPerPage={itemsPerPage}
+        onPerPageChange={handleItemsPerPageChange}
+        perPageOptions={[5, 10, 20, 30]}
+      />
     </Page>
   )
 }

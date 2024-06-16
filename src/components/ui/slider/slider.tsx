@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ElementRef, forwardRef, useEffect } from 'react'
+import { ComponentPropsWithoutRef } from 'react'
 
 import * as SliderPrimitive from '@radix-ui/react-slider'
 import { clsx } from 'clsx'
