@@ -3,14 +3,14 @@ import { useForm } from 'react-hook-form'
 import { Button } from '@/components/ui/button'
 import { ControlledCheckbox } from '@/components/ui/controlled'
 import { ControlledInput } from '@/components/ui/controlled/controlled-input'
-import { LoginFormProps, loginSchema } from '@/utils'
+import { LoginFormProps, loginScheme } from '@/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import s from './login-form.module.scss'
 
 export const LoginForm = () => {
   const { control, handleSubmit } = useForm<LoginFormProps>({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(loginScheme),
   })
 
   const onSubmit = handleSubmit(data => {

@@ -1,1 +1,1 @@
-export * from './validationSchema'
+export * from './validationScheme'
