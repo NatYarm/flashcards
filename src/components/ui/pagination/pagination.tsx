@@ -163,7 +163,7 @@ export const ItemsPerPageSelect = ({
       ></Select>
 
       <Typography as={'label'} variant={'body2'}>
-        items per page
+        items on page
       </Typography>
     </div>
   )

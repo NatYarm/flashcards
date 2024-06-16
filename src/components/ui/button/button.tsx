@@ -10,7 +10,7 @@ export type ButtonProps<T extends ElementType = 'button'> = {
   as?: T
   className?: string
   fullWidth?: boolean
-  variant?: 'primary' | 'secondary'
+  variant?: 'primary' | 'secondary' | 'icon'
 } & ComponentPropsWithoutRef<T>
 
 const ButtonInner = <T extends ElementType = 'button'>(
