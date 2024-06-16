@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { ControlledTextField } from '@/components/ui/controlled'
 import { Typography } from '@/components/ui/typography'
-import { LoginFormProps, loginSchema } from '@/utils'
+import { LoginFormProps, loginScheme } from '@/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
@@ -19,7 +19,7 @@ type Props = {
 
 export const RecoveryPassword = ({ onSubmit }: Props) => {
   const { control, handleSubmit } = useForm<LoginFormProps>({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(loginScheme),
   })
 
   const formSubmitHandler = handleSubmit(onSubmit)
