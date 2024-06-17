@@ -1,4 +1,4 @@
-import { Column } from '@/components/ui/table/TableHeader'
+import { Column } from '@/common/components/table'
 
 export const decksColumns: Column[] = [
   {

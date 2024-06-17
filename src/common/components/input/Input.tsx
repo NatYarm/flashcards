@@ -10,7 +10,7 @@ import {
 } from 'react'
 
 import { EyeOffOutline, EyeOutline } from '@/assets/icons/components'
-import { Typography } from '@/components/ui/typography'
+import { Typography } from '@/common/components/typography'
 import { clsx } from 'clsx'
 
 import s from './input.module.scss'

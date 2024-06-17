@@ -1,4 +1,4 @@
-import { TableHeader, Sort, Table, TableBody, TableCell, TableRow } from '@/common/components/table'
+import { TableHeader, Table, TableBody, TableCell, TableRow } from '@/common/components/table'
 import { formateDate } from '@/utils/formateDate'
 import s from './decks-table.module.scss'
 

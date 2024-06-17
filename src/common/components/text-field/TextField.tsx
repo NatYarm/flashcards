@@ -9,7 +9,7 @@ import {
 } from 'react'
 
 import { Close, Eye, EyeOffOutline, Search } from '@/assets/icons/components'
-import { Typography } from '@/components/ui/typography'
+import { Typography } from '@/common/components/typography'
 import { mergeRefs } from '@/utils'
 import { clsx } from 'clsx'
 
