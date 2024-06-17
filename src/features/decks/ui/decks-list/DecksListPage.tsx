@@ -1,18 +1,20 @@
 import { useState } from 'react'
-import { TrashOutline } from '@/assets/icons/components'
-import { useGetDecksQuery } from '@/services/flashcards-api'
 
-import s from './decks-page.module.scss'
-import { Loader } from '@/common/components/loader'
-import { Page } from '@/common/components/page'
-import { Typography } from '@/common/components/typography'
-import { Modal } from '@/common/components/modal'
-import { Tabs } from '@/common/components/tabs'
+import { TrashOutline } from '@/assets/icons/components'
 import { Button } from '@/common/components/button'
-import { DecksTable } from './decks-table/DecksTable'
+import { Loader } from '@/common/components/loader'
+import { Modal } from '@/common/components/modal'
+import { Page } from '@/common/components/page'
 import { Pagination } from '@/common/components/pagination'
 import { Slider } from '@/common/components/slider'
+import { Tabs } from '@/common/components/tabs'
 import { TextField } from '@/common/components/text-field'
+import { Typography } from '@/common/components/typography'
+import { useGetDecksQuery } from '@/services/flashcardsApi'
+
+import s from './decks-page.module.scss'
+
+import { DecksTable } from './decks-table/DecksTable'
 
 export const DecksListPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
@@ -27,11 +29,11 @@ export const DecksListPage = () => {
     error,
     isLoading,
   } = useGetDecksQuery({
-    name: search,
     currentPage,
     itemsPerPage,
-    minCardsCount: cardsRange[0],
     maxCardsCount: cardsRange[1],
+    minCardsCount: cardsRange[0],
+    name: search,
   })
 
   const tabs = [
@@ -76,7 +78,7 @@ export const DecksListPage = () => {
         <Typography as={'h1'} variant={'h1'}>
           Decks List
         </Typography>
-        <Modal open={createNewDeck} title="create new deck" onOpenChange={setCreateNewDeck}>
+        <Modal onOpenChange={setCreateNewDeck} open={createNewDeck} title={'create new deck'}>
           modal
         </Modal>
         <Button onClick={addDeck}>Add New Deck</Button>
@@ -84,26 +86,26 @@ export const DecksListPage = () => {
       <div className={s.filters}>
         <div className={s.searchField}>
           <TextField
+            onChange={e => setSearch(e.currentTarget.value)}
             placeholder={'Search'}
             type={'search'}
             value={search}
-            onChange={e => setSearch(e.currentTarget.value)}
           />
         </div>
 
         <Tabs
           label={'Show decks cards'}
+          onValueChange={handleTabChange}
           tabs={tabs}
           value={currentTab ?? undefined}
-          onValueChange={handleTabChange}
         />
 
         <Slider
           label={'Number of cards'}
-          value={cardsRange}
           max={maxCardsRange}
           onValueChange={setCardsRange}
           onValueCommit={handleSliderCommitted}
+          value={cardsRange}
         />
 
         <Button variant={'secondary'}>
@@ -114,13 +116,13 @@ export const DecksListPage = () => {
       <DecksTable decks={decks?.items} />
 
       <Pagination
-        currentPage={currentPage || 1}
-        totalPageCount={decks?.pagination.totalPages || 1}
-        onPageChange={handlePageChange}
         className={s.pagination}
+        currentPage={currentPage || 1}
         itemsPerPage={itemsPerPage}
+        onPageChange={handlePageChange}
         onPerPageChange={handleItemsPerPageChange}
         perPageOptions={[5, 10, 20, 30]}
+        totalPageCount={decks?.pagination.totalPages || 1}
       />
     </Page>
   )

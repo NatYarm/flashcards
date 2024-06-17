@@ -1,6 +1,5 @@
+import { DecksListResponse, GetDecksArgs } from '@/features/decks/services/decks.types'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-
-import { DecksListResponse, GetDecksArgs } from '../features/decks/services/decks.types'
 
 export const flashcardsApi = createApi({
   baseQuery: fetchBaseQuery({
@@ -14,13 +13,8 @@ export const flashcardsApi = createApi({
     return {
       getDecks: builder.query<DecksListResponse, GetDecksArgs | void>({
         query: args => ({
-<<<<<<< HEAD
           params: args ?? undefined,
           url: `v2/decks`,
-=======
-          url: `v2/decks`,
-          params: args ?? undefined,
->>>>>>> cf651addbcebbe2c1c79869b5831b0fccc8ba67d
         }),
       }),
     }

@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-import { flashcardsApi } from './flashcards-api'
+import { flashcardsApi } from './flashcardsApi'
 
 export const store = configureStore({
   middleware: getDefaultMiddleware => getDefaultMiddleware().concat(flashcardsApi.middleware),
