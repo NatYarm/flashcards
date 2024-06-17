@@ -4,7 +4,7 @@ import { LogOut, MoreVerticalOutline, PersonOutline } from '@/assets/icons/compo
 
 import { Avatar } from '../avatar/Avatar'
 import { DropdownMenu, DropdownMenuLabel, DropdownSeparator } from './DropdownMenu'
-import { DropdownMenuItem } from './dropdownMenuItem'
+import { DropdownMenuItem } from './DropdownMenuItem'
 
 const meta = {
   component: DropdownMenu,
