@@ -14,7 +14,7 @@ import {
 import { TextField } from '@/common/components/text-field'
 import { Typography } from '@/common/components/typography'
 
-import s from './my-deck.module.scss'
+import s from './deck.module.scss'
 
 import defaultCard from './../../assets/img/defaultCard.jpg'
 
