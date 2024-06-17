@@ -8,13 +8,10 @@ import s from './slider.module.scss'
 import { Label } from '../label/label'
 
 type SliderProps = {
-  value?: null | number[]
   label?: string
+  value?: null | number[]
 } & ComponentPropsWithoutRef<typeof SliderPrimitive.Root>
-const Slider = 
-
-(({className, label, max, onValueChange, value, ...props }: SliderProps) => {
-
+const Slider = ({ className, label, max, onValueChange, value, ...props }: SliderProps) => {
   return (
     <div>
       {label && <Label>{label}</Label>}
@@ -23,10 +20,9 @@ const Slider =
         <SliderPrimitive.Root
           className={clsx(s.root, className)}
           max={max}
-          value={value}
           onValueChange={onValueChange}
+          value={value}
           {...props}
-        
         >
           <SliderPrimitive.Track className={s.track}>
             <SliderPrimitive.Range className={s.range} />
@@ -38,8 +34,6 @@ const Slider =
       </div>
     </div>
   )
-})
-
-
+}
 
 export { Slider }

@@ -13,10 +13,10 @@ export const flashcardsApi = createApi({
   endpoints: builder => {
     return {
       getDecks: builder.query<DecksListResponse, GetDecksArgs | void>({
-        query: (args) => ({	
-				url:`v2/decks`,
-				params: args ?? undefined
-				}),
+        query: args => ({
+          params: args ?? undefined,
+          url: `v2/decks`,
+        }),
       }),
     }
   },
