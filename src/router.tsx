@@ -6,11 +6,9 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
-
 import { MyDeck } from '@/components/decks/my-deck'
-import { RecoveryPasswordPage } from '@/components/pages/recovery-password-page/recovery-password-page'
-import { SignUpPage } from '@/components/pages/sign-up-page/sign-up-page'
-
+import { RecoveryPasswordPage } from '@/pages/recovery-password-page/recovery-password-page'
+import { SignUpPage } from '@/pages/sign-up-page/sign-up-page'
 
 import { Layout } from './components/layout/layout'
 import { DecksPage } from './pages/decks-page/decks-page'
