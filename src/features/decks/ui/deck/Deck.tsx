@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 import { ArrowBackOutline, Edit2Outline, Eye, Star, TrashOutline } from '@/assets/icons/components'
 import KeyboardArrowUp from '@/assets/icons/components/KeyboardArrowUp'
@@ -19,6 +19,7 @@ import s from './deck.module.scss'
 import defaultCard from '@/assets/img/defaultCard.jpg'
 
 export const Deck = () => {
+  const { deckId } = useParams()
   return (
     <div className={s.container} style={{ marginTop: '24px' }}>
       <div className={s.heading}>
@@ -33,12 +34,14 @@ export const Deck = () => {
                 Number2
               </Typography>
             </div>
-            <div className={s.wrapperCoverImg}>
-              <img alt={'img'} className={s.coverImg} src={defaultCard} />
+            <div className={s.imageContainer}>
+              <img alt={'img'} src={defaultCard} />
             </div>
           </div>
           <div className={s.switchButton}>
-            <Button>Learn to Pack</Button>
+            <Button as={Link} to={`/decks/${deckId}/learn`}>
+              Learn Cards
+            </Button>
           </div>
         </div>
         <div className={s.fieldWrapper}>

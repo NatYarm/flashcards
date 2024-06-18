@@ -4,12 +4,10 @@ import s from './layout.module.scss'
 
 import { Header, HeaderProps } from './header/Header'
 
-//type LayoutProps = { children: ReactNode } & HeaderProps
-
-export const Layout = ({ ...headerPros }: HeaderProps) => {
+export const Layout = ({ ...headerProps }: HeaderProps) => {
   return (
     <div className={s.layout}>
-      <Header {...headerPros} />
+      <Header {...headerProps} />
       <main className={s.mainContent}>{<Outlet />}</main>
     </div>
   )

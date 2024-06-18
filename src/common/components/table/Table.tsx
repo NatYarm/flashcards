@@ -97,18 +97,18 @@ export const TableHeader = ({ columns, onSort, sort, ...restProps }: TableHeader
   }
 
   return (
-    <thead {...restProps}>
-      <tr>
+    <TableHead {...restProps}>
+      <TableRow>
         {columns.map(({ key, sortable = true, title }) => (
-          <th key={key} onClick={handleSort(key, sortable)}>
+          <TableHeadCell key={key} onClick={handleSort(key, sortable)}>
             {title}
             {sort && sort.key === key && (
               <span>{sort.direction === 'asc' ? <ArrowUp /> : <ArrowDown />}</span>
             )}
-          </th>
+          </TableHeadCell>
         ))}
-      </tr>
-    </thead>
+      </TableRow>
+    </TableHead>
   )
 }
 

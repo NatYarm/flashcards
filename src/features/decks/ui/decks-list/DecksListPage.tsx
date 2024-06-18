@@ -1,62 +1,45 @@
 import { useState } from 'react'
 import { TrashOutline } from '@/assets/icons/components'
-import { useGetDecksQuery } from '@/services/flashcards-api'
 
-import s from './decks-page.module.scss'
-import { Loader } from '@/common/components/loader'
-import { Page } from '@/common/components/page'
-import { Typography } from '@/common/components/typography'
-import { Modal } from '@/common/components/modal'
-import { Tabs } from '@/common/components/tabs'
-import { Button } from '@/common/components/button'
 import { DecksTable } from './decks-table/DecksTable'
-import { Pagination } from '@/common/components/pagination'
-import { Slider } from '@/common/components/slider'
-import { TextField } from '@/common/components/text-field'
+import {
+  Button,
+  Loader,
+  Modal,
+  Page,
+  Pagination,
+  Slider,
+  Tabs,
+  TextField,
+  Typography,
+} from '@/common/components'
+import { useDecksSearchParams } from '@/features/decks/services/useDecksSearchParams'
+import s from './decks-page.module.scss'
 
 export const DecksListPage = () => {
-  const [currentPage, setCurrentPage] = useState(1)
-  const [search, setSearch] = useState('')
-  const [itemsPerPage, setItemsPerPage] = useState(10)
-  const [currentTab, setCurrentTab] = useState('all')
-  const [cardsRange, setCardsRange] = useState([0, 35])
   const [createNewDeck, setCreateNewDeck] = useState(false)
 
   const {
-    data: decks,
-    error,
-    isLoading,
-  } = useGetDecksQuery({
-    name: search,
+    clearFilters,
     currentPage,
+    currentTab,
+    decks,
+    handlePageChange,
+    handleSearchChange,
+    handleClearInput,
     itemsPerPage,
-    minCardsCount: cardsRange[0],
-    maxCardsCount: cardsRange[1],
-  })
-
-  const tabs = [
-    { title: 'My decks', value: 'my' },
-    { title: 'All decks', value: 'all' },
-    { title: 'Favorites', value: 'favorites' },
-  ]
-
-  const maxCardsRange = 35
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page)
-  }
-
-  const handleItemsPerPageChange = (items: number) => {
-    setItemsPerPage(items)
-  }
-
-  const handleTabChange = (tab: string) => {
-    setCurrentTab(tab)
-  }
-
-  const handleSliderCommitted = (value: number[]) => {
-    setCardsRange(value)
-  }
+    searchParams,
+    isLoading,
+    maxCardsCount,
+    minCardsCount,
+    cardsRange,
+    handleSliderValueChange,
+    handleItemsPerPageChange,
+    handleTabChange,
+    setSort,
+    sort,
+    tabs,
+  } = useDecksSearchParams()
 
   const addDeck = () => {
     setCreateNewDeck(true)
@@ -64,10 +47,6 @@ export const DecksListPage = () => {
 
   if (isLoading) {
     return <Loader />
-  }
-
-  if (error) {
-    return <h1>{JSON.stringify(error)}</h1>
   }
 
   return (
@@ -86,36 +65,37 @@ export const DecksListPage = () => {
           <TextField
             placeholder={'Search'}
             type={'search'}
-            value={search}
-            onChange={e => setSearch(e.currentTarget.value)}
+            value={searchParams.get('name') || ''}
+            onChange={e => handleSearchChange(e.currentTarget.value)}
+            onClearInput={handleClearInput}
           />
         </div>
 
         <Tabs
           label={'Show decks cards'}
           tabs={tabs}
-          value={currentTab ?? undefined}
+          value={currentTab || 'all'}
           onValueChange={handleTabChange}
         />
 
         <Slider
           label={'Number of cards'}
           value={cardsRange}
-          max={maxCardsRange}
-          onValueChange={setCardsRange}
-          onValueCommit={handleSliderCommitted}
+          min={minCardsCount}
+          max={maxCardsCount}
+          onValueChange={handleSliderValueChange}
         />
 
-        <Button variant={'secondary'}>
+        <Button variant={'secondary'} onClick={clearFilters}>
           <TrashOutline />
           Clear Filters
         </Button>
       </div>
-      <DecksTable decks={decks?.items} />
+      <DecksTable decks={decks?.items} onSort={setSort} sort={sort} />
 
       <Pagination
         currentPage={currentPage || 1}
-        totalPageCount={decks?.pagination.totalPages || 1}
+        totalPageCount={decks?.pagination?.totalPages || 1}
         onPageChange={handlePageChange}
         className={s.pagination}
         itemsPerPage={itemsPerPage}

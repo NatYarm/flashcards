@@ -37,3 +37,8 @@ export type GetDecksArgs = {
   itemsPerPage?: number
   orderBy?: string
 }
+
+export type MinMaxCards = {
+  min: number
+  max: number
+}

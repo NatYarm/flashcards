@@ -13,6 +13,7 @@ import { SignUpPage } from './features/auth/sign-up/ui/SignUpPage'
 import { Layout } from './features/layout/Layout'
 import { Deck } from './features/decks/ui/deck/Deck'
 import { SignInPage } from './features/auth/sign-in/ui/SignInPage'
+import { LearnCardsPage } from './features/cards/LearnCardsPage'
 
 const publicRoutes: RouteObject[] = [
   {
@@ -31,7 +32,11 @@ const publicRoutes: RouteObject[] = [
       },
       {
         element: <Deck />,
-        path: '/my-deck',
+        path: '/decks/:id',
+      },
+      {
+        element: <LearnCardsPage />,
+        path: '/decks/:id/learn',
       },
     ],
     element: <Outlet />,
