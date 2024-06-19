@@ -7,7 +7,7 @@ import { ControlledInput } from '@/common/components/controlled/controlledInput'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import s from './login-form.module.scss'
+import s from './loginForm.module.scss'
 import { LoginFormProps, loginScheme } from '@/utils'
 
 export const LoginForm = () => {

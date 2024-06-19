@@ -1,12 +1,12 @@
 import { Page } from '@/common/components/page/Page'
-import { SignUp } from './SignUp'
+import { SignUpForm } from './SignUpForm'
 
 export const SignUpPage = () => {
   const handleSignUp = () => {}
 
   return (
     <Page>
-      <SignUp onSubmit={handleSignUp} />
+      <SignUpForm onSubmit={handleSignUp} />
     </Page>
   )
 }

@@ -1,5 +1,5 @@
 import { DecksListResponse, GetDecksArgs, MinMaxCards } from './decks.types'
-import { baseApi } from '../../../services/base-api'
+import { baseApi } from '../../../services/baseApi'
 
 export const decksApi = baseApi.injectEndpoints({
   endpoints: builder => {

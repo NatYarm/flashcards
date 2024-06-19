@@ -1,2 +1,2 @@
-export * from './ui/SignIn'
+export * from './SignIn'
 export * from './ui/SignInPage'

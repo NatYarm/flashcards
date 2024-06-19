@@ -1,5 +1,5 @@
 import { Page } from '@/common/components/page/Page'
-import { RecoveryPassword } from './RecoveryPassword'
+import { RecoveryPassword } from './RecoverPassword'
 
 export const RecoveryPasswordPage = () => {
   const handleRecoveryPassword = () => {}

@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { SignIn } from './SignIn'
+import { SignUpForm } from './SignUpForm'
 
 const meta = {
-  component: SignIn,
+  component: SignUpForm,
   tags: ['autodocs'],
-  title: 'Auth/SignIn',
-} satisfies Meta<typeof SignIn>
+  title: 'Auth/SignUpForm',
+} satisfies Meta<typeof SignUpForm>
 
 export default meta
 type Story = StoryObj<typeof meta>
