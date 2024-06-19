@@ -4,7 +4,7 @@
   border-radius: 2px;
   color: var(--color-light-100);
   display: flex;
-  width: 100%;
+
   justify-content: space-between;
   align-items: center;
 
@@ -26,6 +26,7 @@
 }
 
 .default {
+  width: 100%;
   padding: 10px;
   gap: 10px;
 }

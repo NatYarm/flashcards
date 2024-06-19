@@ -1,14 +1,19 @@
 import { useSearchParams } from 'react-router-dom'
-import { useGetDecksMinMaxCardsQuery, useGetDecksQuery } from './decks-api'
+import { useGetDecksMinMaxCardsQuery, useGetDecksQuery } from './decksApi'
 import { useState } from 'react'
 import { Sort, Tab } from '@/common/components'
+import { ErrorResponse } from './decks.types'
 
 export const useDecksSearchParams = () => {
   const [searchParams, setSearchParams] = useSearchParams()
   const [itemsPerPage, setItemsPerPage] = useState(5)
   const [sort, setSort] = useState<Sort>(null)
 
-  const { data: minMaxCardsCount } = useGetDecksMinMaxCardsQuery()
+  const {
+    data: minMaxCardsCount,
+    error: minMaxCardsCountError,
+    isLoading: minMaxCardsCountLoading,
+  } = useGetDecksMinMaxCardsQuery()
 
   const minCardsCount = minMaxCardsCount?.min || 0
   const maxCardsCount = minMaxCardsCount?.max || 35
@@ -67,8 +72,8 @@ export const useDecksSearchParams = () => {
 
   const {
     data: decks,
-    error,
-    isLoading,
+    error: getDecksError,
+    isLoading: getDecksLoading,
   } = useGetDecksQuery({
     name: searchParams.get('name') || undefined,
     currentPage,
@@ -78,19 +83,28 @@ export const useDecksSearchParams = () => {
     orderBy: sort ? `${sort.key}-${sort.direction}` : undefined,
   })
 
+  const decksLoading = minMaxCardsCountLoading || getDecksLoading
+
+  const error = [
+    ...((minMaxCardsCountError as ErrorResponse)?.data.errorMessages || []),
+    ...((getDecksError as ErrorResponse)?.data.errorMessages || []),
+  ]
+  const decksError = error.length ? error : null
+
   return {
     cardsRange,
     clearFilters,
     currentPage,
     currentTab,
     decks,
+    decksError,
     handleClearInput,
     handleItemsPerPageChange,
     handlePageChange,
     handleSearchChange,
     handleSliderValueChange,
     handleTabChange,
-    isLoading,
+    decksLoading,
     itemsPerPage,
     maxCardsCount,
     minCardsCount,

@@ -1,5 +1,3 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-
 import { DecksListResponse, GetDecksArgs, MinMaxCards } from './decks.types'
 import { baseApi } from '../../../services/base-api'
 

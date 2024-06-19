@@ -6,7 +6,7 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
-import { DecksListPage } from './features/decks/ui/decks-list/DecksListPage'
+import { DecksListPage } from './features/decks/ui/decksList/DecksListPage'
 
 import { RecoveryPasswordPage } from './features/auth/recovery-password/ui/RecoveryPasswordPage'
 import { SignUpPage } from './features/auth/sign-up/ui/SignUpPage'

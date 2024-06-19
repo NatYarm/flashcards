@@ -42,3 +42,16 @@ export type MinMaxCards = {
   min: number
   max: number
 }
+
+export type ErrorMessages = {
+  field: string
+  message: string
+}
+
+export type ErrorData = {
+  errorMessages: ErrorMessages[]
+}
+export type ErrorResponse = {
+  data: ErrorData
+  status: number
+}

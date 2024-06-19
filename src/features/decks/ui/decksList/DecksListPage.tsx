@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { TrashOutline } from '@/assets/icons/components'
 
-import { DecksTable } from './decks-table/DecksTable'
+import { DecksTable } from './decksTable/DecksTable'
 import {
   Button,
   Loader,
@@ -14,7 +14,7 @@ import {
   Typography,
 } from '@/common/components'
 import { useDecksSearchParams } from '@/features/decks/services/useDecksSearchParams'
-import s from './decks-page.module.scss'
+import s from './decksListPage.module.scss'
 
 export const DecksListPage = () => {
   const [createNewDeck, setCreateNewDeck] = useState(false)
@@ -24,12 +24,13 @@ export const DecksListPage = () => {
     currentPage,
     currentTab,
     decks,
+    decksError,
     handlePageChange,
     handleSearchChange,
     handleClearInput,
     itemsPerPage,
     searchParams,
-    isLoading,
+    decksLoading,
     maxCardsCount,
     minCardsCount,
     cardsRange,
@@ -45,8 +46,16 @@ export const DecksListPage = () => {
     setCreateNewDeck(true)
   }
 
-  if (isLoading) {
+  if (decksLoading) {
     return <Loader />
+  }
+
+  if (decksError) {
+    return (
+      <div className={s.error}>
+        {decksError?.map(e => <p key={e.field}>{`error: " ${e.message} "at" ${e.field} "`}</p>)}
+      </div>
+    )
   }
 
   return (

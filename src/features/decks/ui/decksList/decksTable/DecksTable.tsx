@@ -1,6 +1,6 @@
 import { TableHeader, Table, TableBody, TableCell, TableRow, Sort } from '@/common/components/table'
 import { formateDate } from '@/utils/formateDate'
-import s from './decks-table.module.scss'
+import s from './decksTable.module.scss'
 
 import { Edit2Outline, PlayCircleOutline, TrashOutline } from '@/assets/icons/components'
 import { Link } from 'react-router-dom'

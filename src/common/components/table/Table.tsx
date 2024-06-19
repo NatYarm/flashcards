@@ -101,9 +101,21 @@ export const TableHeader = ({ columns, onSort, sort, ...restProps }: TableHeader
       <TableRow>
         {columns.map(({ key, sortable = true, title }) => (
           <TableHeadCell key={key} onClick={handleSort(key, sortable)}>
-            {title}
-            {sort && sort.key === key && (
-              <span>{sort.direction === 'asc' ? <ArrowUp /> : <ArrowDown />}</span>
+            {sortable ? (
+              <div className={s.sortableHeadCell}>
+                {title}
+                {sort && sort.key === key && (
+                  <span>
+                    {sort.direction === 'asc' ? (
+                      <ArrowUp className={s.icon} />
+                    ) : (
+                      <ArrowDown className={s.icon} />
+                    )}
+                  </span>
+                )}
+              </div>
+            ) : (
+              title
             )}
           </TableHeadCell>
         ))}

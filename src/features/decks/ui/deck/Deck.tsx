@@ -11,7 +11,7 @@ import {
   TableHeadCell,
   TableRow,
 } from '@/common/components/table'
-import { TextField } from '@/common/components/text-field'
+import { TextField } from '@/common/components/textField'
 import { Typography } from '@/common/components/typography'
 
 import s from './deck.module.scss'

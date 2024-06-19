@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { Button } from '@/common/components/button'
 
 import { ControlledCheckbox } from '@/common/components/controlled'
-import { ControlledInput } from '@/common/components/controlled/controlled-input'
+import { ControlledInput } from '@/common/components/controlled/controlledInput'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 
