@@ -1,12 +1,12 @@
 import { Page } from '@/common/components/page/Page'
-import { RecoveryPassword } from './RecoverPassword'
+import { RecoverPassword } from './RecoverPassword'
 
 export const RecoveryPasswordPage = () => {
   const handleRecoveryPassword = () => {}
 
   return (
     <Page>
-      <RecoveryPassword onSubmit={handleRecoveryPassword} />
+      <RecoverPassword onSubmit={handleRecoveryPassword} />
     </Page>
   )
 }
