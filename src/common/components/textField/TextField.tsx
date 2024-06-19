@@ -13,7 +13,7 @@ import { Typography } from '@/common/components/typography'
 import { mergeRefs } from '@/utils'
 import { clsx } from 'clsx'
 
-import s from './text-field.module.scss'
+import s from './textField.module.scss'
 
 export type TextFieldProps = {
   containerProps?: ComponentProps<'div'>
@@ -51,33 +51,53 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     const internalRef = useRef<HTMLInputElement>(null)
     const finalRef = mergeRefs([forwardedRef, internalRef])
     const [revealPassword, setRevealPassword] = useState(false)
+    const [inputValue, setInputValue] = useState('')
 
     const isRevealPasswordButtonShown = type === 'password'
     const isSearchField = type === 'search'
-    const isClearInputButtonShown = isSearchField
+    const isClearInputButtonShown = isSearchField && inputValue !== ''
 
     const finalType = getFinalType(type, revealPassword)
 
     function handleChange(e: ChangeEvent<HTMLInputElement>) {
+      const value = e.target.value
+      console.log('Input Value:', value)
+      setInputValue(value)
       onChange?.(e)
-      onValueChange?.(e.target.value)
+      onValueChange?.(value)
     }
 
     function handleToggleShowPassword() {
       setRevealPassword((prevState: boolean) => !prevState)
     }
 
+    // function handleClearInput() {
+    //   console.log('Clearing input...') // Debug statement
+    //   if (onClearInput) {
+    //     return onClearInput()
+    //   } else {
+    //     if (internalRef.current) {
+    //       setInputValue('')
+    //       internalRef.current.value = ''
+    //       onValueChange?.('')
+    //     }
+    //   }
+    // }
+
     function handleClearInput() {
       if (onClearInput) {
-        return onClearInput()
+        onClearInput()
       }
 
       if (!internalRef.current) {
         return
       }
       internalRef.current.value = ''
+      setInputValue('')
       onValueChange?.('')
     }
+
+    console.log('Input Value:', inputValue) // Debug statement
 
     const classNames = {
       error: clsx(s.error),
@@ -115,6 +135,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
             placeholder={placeholder}
             ref={finalRef}
             type={finalType}
+            value={inputValue}
             {...restProps}
           />
           {isRevealPasswordButtonShown && (
