@@ -7,7 +7,7 @@ import { Typography } from '@/common/components/typography'
 import { LoginFormProps, loginScheme } from '@/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import s from './new-password.module.scss'
+import s from './newPassword.module.scss'
 
 export const NewPassword = () => {
   const { control, handleSubmit } = useForm<LoginFormProps>({
