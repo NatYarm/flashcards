@@ -1,17 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { RecoveryPassword } from './RecoverPassword'
+import { RecoverPassword } from './RecoverPassword'
 
 const meta = {
-  component: RecoveryPassword,
+  component: RecoverPassword,
   tags: ['autodocs'],
-  title: 'Auth/RecoveryPassword',
-} satisfies Meta<typeof RecoveryPassword>
+  title: 'Auth/RecoverPassword',
+} satisfies Meta<typeof RecoverPassword>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
   args: {
-    onSubmit: data => console.info(data),
+    onSubmit: (data: any) => console.info(data),
   },
 }
