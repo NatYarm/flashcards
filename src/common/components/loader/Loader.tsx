@@ -1,6 +1,10 @@
 import BeatLoader from 'react-spinners/BeatLoader'
-
+import { Page } from '../page'
 
 export const Loader = () => {
-	return <BeatLoader color="#8c61ff" />
+  return (
+    <Page mt={'100px'} style={{ textAlign: 'center' }}>
+      <BeatLoader color="#8c61ff" />
+    </Page>
+  )
 }

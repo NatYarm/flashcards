@@ -151,18 +151,17 @@ export const ItemsPerPageSelect = ({
 
   return (
     <div className={s.selectContainer}>
-      <Typography as={'label'} variant={'body2'}>
+      <Typography as={'span'} variant={'body2'}>
         Show
       </Typography>
       <Select
-        className={s.select}
         onValueChange={onPerPageChangeHandler}
         options={selectOptions}
         value={itemsPerPage.toString()}
         variant={'small'}
       ></Select>
 
-      <Typography as={'label'} variant={'body2'}>
+      <Typography as={'span'} variant={'body2'}>
         items on page
       </Typography>
     </div>
