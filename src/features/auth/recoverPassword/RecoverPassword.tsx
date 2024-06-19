@@ -17,7 +17,7 @@ type Props = {
   onSubmit: (data: FormType) => void
 }
 
-export const RecoveryPassword = ({ onSubmit }: Props) => {
+export const RecoverPassword = ({ onSubmit }: Props) => {
   const { control, handleSubmit } = useForm<LoginFormProps>({
     resolver: zodResolver(loginScheme),
   })
