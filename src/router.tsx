@@ -8,12 +8,13 @@ import {
 
 import { DecksListPage } from './features/decks/ui/decksList/DecksListPage'
 
-import { RecoveryPasswordPage } from './features/auth/recovery-password/ui/RecoveryPasswordPage'
-import { SignUpPage } from './features/auth/sign-up/ui/SignUpPage'
+import { RecoveryPasswordPage } from './features/auth/recoverPassword/RecoverPasswordPage'
+import { SignUpPage } from './features/auth/signUp/SignUpPage'
 import { Layout } from './features/layout/Layout'
 import { Deck } from './features/decks/ui/deck/Deck'
-import { SignInPage } from './features/auth/sign-in/ui/SignInPage'
+
 import { LearnCardsPage } from './features/cards/LearnCardsPage'
+import { SignInPage } from './features/auth/signIn/SignInPage'
 
 const publicRoutes: RouteObject[] = [
   {

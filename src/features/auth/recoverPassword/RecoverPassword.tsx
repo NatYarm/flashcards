@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom'
 
 import { Button } from '@/common/components/button'
 import { Card } from '@/common/components/card'
-import { ControlledCheckbox, ControlledTextField } from '@/common/components/controlled'
+import { ControlledTextField } from '@/common/components/controlled'
 import { Typography } from '@/common/components/typography'
 import { LoginFormProps, loginScheme } from '@/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
-import s from './sign-in.module.scss'
+import s from './recoverPassword.module.scss'
 
 type FormType = z.infer<typeof loginScheme>
 
@@ -17,7 +17,7 @@ type Props = {
   onSubmit: (data: FormType) => void
 }
 
-export const SignIn = ({ onSubmit }: Props) => {
+export const RecoveryPassword = ({ onSubmit }: Props) => {
   const { control, handleSubmit } = useForm<LoginFormProps>({
     resolver: zodResolver(loginScheme),
   })
@@ -27,35 +27,23 @@ export const SignIn = ({ onSubmit }: Props) => {
   return (
     <Card className={s.card}>
       <Typography className={s.title} variant={'h1'}>
-        Sign In
+        Forgot your password?
       </Typography>
       <form className={s.form} onSubmit={formSubmitHandler}>
         <div className={s.controlled}>
           <ControlledTextField control={control} label={'Email'} name={'email'} />
-          <ControlledTextField
-            control={control}
-            label={'Password'}
-            name={'password'}
-            type={'password'}
-          />
-          <ControlledCheckbox control={control} label={'Remember me'} name={'rememberMe'} />
-          <Typography
-            as={Link}
-            className={s.recoverPasswordLink}
-            to={'/recovery-password'}
-            variant={'body2'}
-          >
-            Forgot Password?
+          <Typography className={s.instructions} variant={'body2'}>
+            Enter your email address and we will send you further instructions
           </Typography>
         </div>
         <Button fullWidth type={'submit'}>
-          Sign In
+          Send Instructions
         </Button>
       </form>
       <div className={s.footer}>
-        <Typography variant={'body2'}>Don&apos;t have an account?</Typography>
-        <Typography as={Link} className={s.signUpLink} to={'/sign-up'} variant={'link1'}>
-          Sign Up
+        <Typography variant={'body2'}>Did you remember your password?</Typography>
+        <Typography as={Link} className={s.signUpLink} to={'/sign-in'} variant={'link1'}>
+          Try logging in
         </Typography>
       </div>
     </Card>

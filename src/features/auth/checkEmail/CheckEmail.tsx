@@ -5,7 +5,7 @@ import { Button } from '@/common/components/button'
 import { Card } from '@/common/components/card'
 import { Typography } from '@/common/components/typography'
 
-import s from './check-email.module.scss'
+import s from './checkEmail.module.scss'
 
 type Props = {
   email: string

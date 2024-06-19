@@ -9,7 +9,7 @@ import { LoginFormProps, loginScheme } from '@/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
-import s from './recovery-password.module.scss'
+import s from './signUpForm.module.scss'
 
 type FormType = z.infer<typeof loginScheme>
 
@@ -17,7 +17,7 @@ type Props = {
   onSubmit: (data: FormType) => void
 }
 
-export const RecoveryPassword = ({ onSubmit }: Props) => {
+export const SignUpForm = ({ onSubmit }: Props) => {
   const { control, handleSubmit } = useForm<LoginFormProps>({
     resolver: zodResolver(loginScheme),
   })
@@ -27,23 +27,32 @@ export const RecoveryPassword = ({ onSubmit }: Props) => {
   return (
     <Card className={s.card}>
       <Typography className={s.title} variant={'h1'}>
-        Forgot your password?
+        Sign Up
       </Typography>
       <form className={s.form} onSubmit={formSubmitHandler}>
         <div className={s.controlled}>
           <ControlledTextField control={control} label={'Email'} name={'email'} />
-          <Typography className={s.instructions} variant={'body2'}>
-            Enter your email address and we will send you further instructions
-          </Typography>
+          <ControlledTextField
+            control={control}
+            label={'Password'}
+            name={'password'}
+            type={'password'}
+          />
+          <ControlledTextField
+            control={control}
+            label={'Confirm Password'}
+            name={'confirmPassword'}
+            type={'password'}
+          />
         </div>
         <Button fullWidth type={'submit'}>
-          Send Instructions
+          Sign Up
         </Button>
       </form>
       <div className={s.footer}>
-        <Typography variant={'body2'}>Did you remember your password?</Typography>
-        <Typography as={Link} className={s.signUpLink} to={'/sign-in'} variant={'link1'}>
-          Try logging in
+        <Typography variant={'body2'}>Already have an account?</Typography>
+        <Typography as={Link} className={s.signInLink} to={'/sign-in'} variant={'link1'}>
+          Sign In
         </Typography>
       </div>
     </Card>
