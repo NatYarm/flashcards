@@ -10,7 +10,8 @@ import {
 
 import { Close, Eye, EyeOffOutline, Search } from '@/assets/icons/components'
 import { Typography } from '@/common/components/typography'
-import { mergeRefs } from '@/utils'
+import { mergeRefs } from '@/utils/merge-refs'
+// import { mergeRefs } from '@/utils'
 import { clsx } from 'clsx'
 
 import s from './textField.module.scss'
@@ -61,6 +62,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
 
     function handleChange(e: ChangeEvent<HTMLInputElement>) {
       const value = e.target.value
+
       console.log('Input Value:', value)
       setInputValue(value)
       onChange?.(e)

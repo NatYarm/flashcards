@@ -1,17 +1,15 @@
 import { toast } from 'react-toastify'
 
-import { baseApi } from '@/services/baseApi'
 import {
-  ForgotPasswordArgs,
   MeResponse,
+  RecoveryPasswordArgs,
   ResetPasswordArgs,
   SignInArgs,
   SignInResponse,
   SignUpArgs,
   SignUpResponse,
 } from '@/common/types'
-
-// import { ProfileFormData } from '@/features/auth/profile/ui/PersonalInformation'
+import { baseApi } from '@/services/baseApi'
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: builder => {
@@ -20,14 +18,6 @@ export const authApi = baseApi.injectEndpoints({
         query: () => ({
           method: 'POST',
           url: 'v2/auth/refresh-token',
-        }),
-      }),
-
-      forgotPassword: builder.mutation<undefined, ForgotPasswordArgs>({
-        query: body => ({
-          body,
-          method: 'POST',
-          url: 'v1/auth/recover-password',
         }),
       }),
 
@@ -46,6 +36,14 @@ export const authApi = baseApi.injectEndpoints({
         query: () => ({
           method: 'POST',
           url: 'v1/auth/logout',
+        }),
+      }),
+
+      recoveryPassword: builder.mutation<undefined, RecoveryPasswordArgs>({
+        query: body => ({
+          body,
+          method: 'POST',
+          url: 'v1/auth/recover-password',
         }),
       }),
 
@@ -85,8 +83,7 @@ export const authApi = baseApi.injectEndpoints({
         }),
       }),
 
-      // updateMe: builder.mutation<MeResponse, ProfileFormData>({
-			updateMe: builder.mutation<MeResponse, any>({
+      updateMe: builder.mutation<MeResponse, any>({
         invalidatesTags: ['Me'],
         query: ({ avatar, name }) => {
           const formData = new FormData()
@@ -113,9 +110,9 @@ export const authApi = baseApi.injectEndpoints({
 
 export const {
   useAuthTokenMutation,
-  useForgotPasswordMutation,
   useGetMeQuery,
   useLogOutMutation,
+  useRecoveryPasswordMutation,
   useResetPasswordMutation,
   useSignInMutation,
   useSignUpMutation,

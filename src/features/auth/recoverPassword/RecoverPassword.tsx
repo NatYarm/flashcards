@@ -5,11 +5,15 @@ import { Button } from '@/common/components/button'
 import { Card } from '@/common/components/card'
 import { ControlledTextField } from '@/common/components/controlled'
 import { Typography } from '@/common/components/typography'
-import { LoginFormProps, loginScheme } from '@/utils'
+import { emailScheme } from '@/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import s from './recoverPassword.module.scss'
+
+const loginScheme = z.object({
+  email: emailScheme,
+})
 
 type FormType = z.infer<typeof loginScheme>
 
@@ -18,7 +22,7 @@ type Props = {
 }
 
 export const RecoverPassword = ({ onSubmit }: Props) => {
-  const { control, handleSubmit } = useForm<LoginFormProps>({
+  const { control, handleSubmit } = useForm<FormType>({
     resolver: zodResolver(loginScheme),
   })
 
