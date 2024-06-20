@@ -43,6 +43,14 @@
   align-items: center;
 }
 
+.imageContainer {
+  img {
+    object-fit: cover;
+    height: 100px;
+    width: 170px;
+  }
+}
+
 .wrapperCoverImg {
   position: relative;
 

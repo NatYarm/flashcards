@@ -5,7 +5,7 @@ import clsx from 'clsx'
 import s from './page.module.scss'
 
 type Props = {
-  mt?: CSSProperties['marginTop']
+  mt?: CSSProperties['paddingTop']
 } & ComponentPropsWithoutRef<'div'>
 
 export const Page = ({ className, mt = '36px', style, ...rest }: Props) => {

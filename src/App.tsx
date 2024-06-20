@@ -6,7 +6,7 @@ import { store } from './services/store'
 export function App() {
   return (
     <Provider store={store}>
-      return <Router />
+      <Router />
     </Provider>
   )
 }

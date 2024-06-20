@@ -4,11 +4,9 @@
   border-radius: 2px;
   color: var(--color-light-100);
   display: flex;
-  width: 100%;
-  gap: 10px;
+
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
 
   &:focus {
     outline: 2px solid var(--color-info-700);
@@ -28,12 +26,13 @@
 }
 
 .default {
+  width: 100%;
   padding: 10px;
   gap: 10px;
 }
 
 .small {
-  padding: 5px;
+  padding: 2px 5px;
   gap: 5px;
   background-color: var(--color-dark-700);
 }
@@ -49,6 +48,7 @@
   background-color: var(--color-dark-900);
   border-radius: 0 0 2px 2px;
   border: 1px solid var(--color-dark-300);
+
   width: var(--radix-select-trigger-width);
   max-height: var(--radix-select-content-available-height);
 }
