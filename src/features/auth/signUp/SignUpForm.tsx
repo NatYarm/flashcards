@@ -5,7 +5,7 @@ import { Button } from '@/common/components/button'
 import { Card } from '@/common/components/card'
 import { ControlledTextField } from '@/common/components/controlled'
 import { Typography } from '@/common/components/typography'
-import { confirmPasswordScheme, emailScheme, passwordScheme, passwordsMatch } from '@/utils'
+import { confirmPasswordScheme, emailScheme, passwordScheme, passwordsMatch } from '@/common/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 

@@ -5,8 +5,8 @@ import placeholderImg from '@/assets/img/defaultCard.jpg'
 import { Button } from '@/common/components/button'
 import { Sort, Table, TableBody, TableCell, TableHeader, TableRow } from '@/common/components/table'
 import { Typography } from '@/common/components/typography'
+import { formateDate } from '@/common/utils/formateDate'
 import { Deck } from '@/features/decks/services/decks.types'
-import { formateDate } from '@/utils/formateDate'
 
 import s from './decksTable.module.scss'
 
@@ -17,8 +17,8 @@ type Props = {
   // onDeleteClick: (id: string) => void
   // onEditClick: (id: string) => void
   // onFavoriteToggle: (id: string, isFavorite: boolean) => void
-  onSort: (key: Sort) => void
-  sort: Sort
+  onSort?: (key: Sort) => void
+  sort?: Sort
 }
 
 export const DecksTable = ({ decks, onSort, sort }: Props) => {
