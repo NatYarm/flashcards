@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom'
 
 import { DecksListPage } from './features/decks/ui/decksList/DecksListPage'
-
+import {path} from '@/common/enams'
 import { RecoveryPasswordPage } from './features/auth/recoverPassword/RecoverPasswordPage'
 import { SignUpPage } from './features/auth/signUp/SignUpPage'
 import { Layout } from './features/layout/Layout'
@@ -21,24 +21,24 @@ const publicRoutes: RouteObject[] = [
     children: [
       {
         element: <SignInPage />,
-        path: '/sign-in',
+        path: path.signIn,
       },
       {
         element: <SignUpPage />,
-        path: '/sign-up',
+        path: path.signUp,
       },
       {
         element: <RecoveryPasswordPage />,
-        path: '/recovery-password',
+        path: path.recoveryPassword,
       },
       {
-        element: <Deck />,
-        path: '/decks/:id',
-      },
-      {
-        element: <LearnCardsPage />,
-        path: '/decks/:id/learn',
-      },
+			element: <Deck />,
+			path: `${path.decks}/:id`,
+		 },
+		 {
+			element: <LearnCardsPage />,
+			path: `${path.decks}/:id/learn`,
+		 },
     ],
     element: <Outlet />,
   },
@@ -47,9 +47,15 @@ const publicRoutes: RouteObject[] = [
 const privateRoutes: RouteObject[] = [
   {
     element: <DecksListPage />,
-    path: '/',
+    path: path.base,
   },
 ]
+
+/* const PrivateRoutes = () => {
+	const { isSuccess } = useGetMeQuery()
+ 
+	return isSuccess ? <Outlet /> : <Navigate to={path.signIn} />
+ } */
 
 const router = createBrowserRouter([
   {
@@ -69,8 +75,7 @@ export const Router = () => {
 }
 
 function PrivateRoutes() {
-  //const { isAuthenticated } = useAuthContext()
   const isAuthenticated = true
 
-  return isAuthenticated ? <Outlet /> : <Navigate to={'/sign-in'} />
+  return isAuthenticated ? <Outlet /> : <Navigate to={path.signIn} />
 }

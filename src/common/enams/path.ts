@@ -4,7 +4,7 @@ export enum path {
 	decks = '/decks',
 	deck = '/deck',
 	error = '/error',
-	forgotPassword = '/forgot-password',
+	recoveryPassword = '/recovery-password',
 	newPassword = '/new-password',
 	profile = '/profile',
 	signIn = '/signIn',
