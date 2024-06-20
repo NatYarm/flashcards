@@ -8,9 +8,10 @@ import s from './slider.module.scss'
 import { Label } from '../label/Label'
 
 type SliderProps = {
-  value?: null | number[]
   label?: string
+  value?: null | number[]
 } & ComponentPropsWithoutRef<typeof SliderPrimitive.Root>
+
 export const Slider = ({ className, label, max, onValueChange, value, ...props }: SliderProps) => {
   return (
     <div>
@@ -20,8 +21,8 @@ export const Slider = ({ className, label, max, onValueChange, value, ...props }
         <SliderPrimitive.Root
           className={clsx(s.root, className)}
           max={max}
-          value={value}
           onValueChange={onValueChange}
+          value={value}
           {...props}
         >
           <SliderPrimitive.Track className={s.track}>

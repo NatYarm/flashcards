@@ -6,38 +6,39 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
-import { DecksListPage } from './features/decks/ui/decksList/DecksListPage'
+import { path } from '@/common/enams'
+import { useGetMeQuery } from '@/features/auth/api/authApi'
 
 import { RecoveryPasswordPage } from './features/auth/recoverPassword/RecoverPasswordPage'
-import { SignUpPage } from './features/auth/signUp/SignUpPage'
-import { Layout } from './features/layout/Layout'
-import { Deck } from './features/decks/ui/deck/Deck'
-
-import { LearnCardsPage } from './features/cards/LearnCardsPage'
 import { SignInPage } from './features/auth/signIn/SignInPage'
+import { SignUpPage } from './features/auth/signUp/SignUpPage'
+import { LearnCardsPage } from './features/cards/LearnCardsPage'
+import { Deck } from './features/decks/ui/deck/Deck'
+import { DecksListPage } from './features/decks/ui/decksList/DecksListPage'
+import { Layout } from './features/layout/Layout'
 
 const publicRoutes: RouteObject[] = [
   {
     children: [
       {
         element: <SignInPage />,
-        path: '/sign-in',
+        path: path.signIn,
       },
       {
         element: <SignUpPage />,
-        path: '/sign-up',
+        path: path.signUp,
       },
       {
         element: <RecoveryPasswordPage />,
-        path: '/recovery-password',
+        path: path.recoveryPassword,
       },
       {
         element: <Deck />,
-        path: '/decks/:id',
+        path: `${path.decks}/:id`,
       },
       {
         element: <LearnCardsPage />,
-        path: '/decks/:id/learn',
+        path: `${path.decks}/:id/learn`,
       },
     ],
     element: <Outlet />,
@@ -47,9 +48,15 @@ const publicRoutes: RouteObject[] = [
 const privateRoutes: RouteObject[] = [
   {
     element: <DecksListPage />,
-    path: '/',
+    path: path.base,
   },
 ]
+
+const PrivateRoutes = () => {
+  const { isSuccess } = useGetMeQuery()
+
+  return isSuccess ? <Outlet /> : <Navigate to={path.signIn} />
+}
 
 const router = createBrowserRouter([
   {
@@ -68,9 +75,8 @@ export const Router = () => {
   return <RouterProvider router={router} />
 }
 
-function PrivateRoutes() {
-  //const { isAuthenticated } = useAuthContext()
+/* function PrivateRoutes() {
   const isAuthenticated = true
 
-  return isAuthenticated ? <Outlet /> : <Navigate to={'/sign-in'} />
-}
+  return isAuthenticated ? <Outlet /> : <Navigate to={path.signIn} />
+} */
