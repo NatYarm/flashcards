@@ -32,14 +32,6 @@ const publicRoutes: RouteObject[] = [
         element: <RecoveryPasswordPage />,
         path: path.recoveryPassword,
       },
-      {
-        element: <Deck />,
-        path: `${path.decks}/:id`,
-      },
-      {
-        element: <LearnCardsPage />,
-        path: `${path.decks}/:id/learn`,
-      },
     ],
     element: <Outlet />,
   },
@@ -49,6 +41,14 @@ const privateRoutes: RouteObject[] = [
   {
     element: <DecksListPage />,
     path: path.base,
+  },
+  {
+    element: <Deck />,
+    path: `${path.decks}/:id`,
+  },
+  {
+    element: <LearnCardsPage />,
+    path: `${path.decks}/:id/learn`,
   },
 ]
 
@@ -74,9 +74,3 @@ const router = createBrowserRouter([
 export const Router = () => {
   return <RouterProvider router={router} />
 }
-
-/* function PrivateRoutes() {
-  const isAuthenticated = true
-
-  return isAuthenticated ? <Outlet /> : <Navigate to={path.signIn} />
-} */
