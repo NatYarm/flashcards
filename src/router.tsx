@@ -15,6 +15,7 @@ import { Deck } from './features/decks/ui/deck/Deck'
 
 import { LearnCardsPage } from './features/cards/LearnCardsPage'
 import { SignInPage } from './features/auth/signIn/SignInPage'
+import { useGetMeQuery } from '@/features/auth/api/authApi'
 
 const publicRoutes: RouteObject[] = [
   {
@@ -51,11 +52,11 @@ const privateRoutes: RouteObject[] = [
   },
 ]
 
-/* const PrivateRoutes = () => {
+const PrivateRoutes = () => {
 	const { isSuccess } = useGetMeQuery()
  
 	return isSuccess ? <Outlet /> : <Navigate to={path.signIn} />
- } */
+ }
 
 const router = createBrowserRouter([
   {
@@ -74,8 +75,8 @@ export const Router = () => {
   return <RouterProvider router={router} />
 }
 
-function PrivateRoutes() {
+/* function PrivateRoutes() {
   const isAuthenticated = true
 
   return isAuthenticated ? <Outlet /> : <Navigate to={path.signIn} />
-}
+} */
