@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
 export const loginScheme = z
+
   .object({
     confirmPassword: z.string(),
     email: z.string().email({ message: 'Invalid email' }),
