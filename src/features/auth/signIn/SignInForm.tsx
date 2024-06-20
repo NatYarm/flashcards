@@ -1,21 +1,22 @@
 import { useForm } from 'react-hook-form'
+import {path} from '../../../common/enams'
 import { Link } from 'react-router-dom'
 import { Button, Card, Typography } from '@/common/components'
 import { ControlledCheckbox, ControlledTextField } from '@/common/components/controlled'
-import { LoginFormProps, loginScheme } from '@/utils'
+import { loginScheme } from '@/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import s from './signInForm.module.scss'
 
-type FormType = z.infer<typeof loginScheme>
+export type FormData = z.infer<typeof loginScheme>
 
 type Props = {
-  onSubmit: (data: FormType) => void
+  onSubmit: (data: FormData) => void
 }
 
 export const SignInForm = ({ onSubmit }: Props) => {
-  const { control, handleSubmit } = useForm<LoginFormProps>({
+  const { control, handleSubmit } = useForm<FormData>({
     resolver: zodResolver(loginScheme),
   })
 
@@ -39,7 +40,7 @@ export const SignInForm = ({ onSubmit }: Props) => {
           <Typography
             as={Link}
             className={s.recoverPasswordLink}
-            to={'/recovery-password'}
+            to={path.recoveryPassword}
             variant={'body2'}
           >
             Forgot Password?
@@ -51,7 +52,7 @@ export const SignInForm = ({ onSubmit }: Props) => {
       </form>
       <div className={s.footer}>
         <Typography variant={'body2'}>Don&apos;t have an account?</Typography>
-        <Typography as={Link} className={s.signUpLink} to={'/sign-up'} variant={'link1'}>
+        <Typography as={Link} className={s.signUpLink} to={path.signUp} variant={'link1'}>
           Sign Up
         </Typography>
       </div>
