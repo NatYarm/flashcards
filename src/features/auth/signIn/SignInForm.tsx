@@ -1,22 +1,29 @@
 import { useForm } from 'react-hook-form'
-import {path} from '../../../common/enams'
 import { Link } from 'react-router-dom'
+
 import { Button, Card, Typography } from '@/common/components'
 import { ControlledCheckbox, ControlledTextField } from '@/common/components/controlled'
-import { loginScheme } from '@/utils'
+import { path } from '@/common/enams'
+import { emailScheme, passwordScheme, rememberMeScheme } from '@/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import s from './signInForm.module.scss'
 
-export type FormData = z.infer<typeof loginScheme>
+const loginScheme = z.object({
+  email: emailScheme,
+  password: passwordScheme,
+  rememberMe: rememberMeScheme,
+})
+
+export type SignIn = z.infer<typeof loginScheme>
 
 type Props = {
-  onSubmit: (data: FormData) => void
+  onSubmit: (data: SignIn) => void
 }
 
 export const SignInForm = ({ onSubmit }: Props) => {
-  const { control, handleSubmit } = useForm<FormData>({
+  const { control, handleSubmit } = useForm<SignIn>({
     resolver: zodResolver(loginScheme),
   })
 

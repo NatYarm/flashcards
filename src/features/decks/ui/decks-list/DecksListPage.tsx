@@ -8,13 +8,12 @@ import { Page } from '@/common/components/page'
 import { Pagination } from '@/common/components/pagination'
 import { Slider } from '@/common/components/slider'
 import { Tabs } from '@/common/components/tabs'
-import { TextField } from '@/common/components/text-field'
+import { TextField } from '@/common/components/textField'
 import { Typography } from '@/common/components/typography'
+import { DecksTable } from '@/features/decks/ui/decksList/decksTable/DecksTable'
 import { useGetDecksQuery } from '@/services/flashcardsApi'
 
-import s from './decks-page.module.scss'
-
-import { DecksTable } from './decks-table/DecksTable'
+import s from '../decksList/decksListPage.module.scss'
 
 export const DecksListPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
@@ -113,6 +112,7 @@ export const DecksListPage = () => {
           Clear Filters
         </Button>
       </div>
+
       <DecksTable decks={decks?.items} />
 
       <Pagination
