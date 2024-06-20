@@ -7,13 +7,15 @@ import { Close } from '@/assets/icons/components'
 export type ModalProps = {
   children: ReactNode
   onOpenChange: (open: boolean) => void
-  open: boolean
+  open?: boolean
   title?: string
+  onCancel?: () => void
+  onConfirm?: () => void
 } & Omit<ComponentPropsWithoutRef<typeof RadixDialog.Dialog>, 'onOpenChange' | 'open'>
 
-export const Modal = ({ children, title, ...props }: ModalProps) => {
+export const Modal = ({ children, title, ...rest }: ModalProps) => {
   return (
-    <RadixDialog.Root {...props}>
+    <RadixDialog.Root {...rest}>
       <RadixDialog.Portal>
         <RadixDialog.Overlay className={s.overlay} />
         <RadixDialog.Content className={s.content}>

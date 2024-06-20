@@ -5,7 +5,6 @@ import { DecksTable } from './decksTable/DecksTable'
 import {
   Button,
   Loader,
-  Modal,
   Page,
   Pagination,
   Slider,
@@ -13,11 +12,15 @@ import {
   TextField,
   Typography,
 } from '@/common/components'
-import { useDecksSearchParams } from '@/features/decks/services/useDecksSearchParams'
+import { useCreateDeckMutation, useDecksSearchParams } from '@/features/decks/services'
+
 import s from './decksListPage.module.scss'
+import DeckDialog from '../../dialogs/deckDialog'
 
 export const DecksListPage = () => {
-  const [createNewDeck, setCreateNewDeck] = useState(false)
+  const [showCreateDeckModal, setShowCreateDeckModal] = useState(false)
+
+  const [createDeck] = useCreateDeckMutation()
 
   const {
     clearFilters,
@@ -42,8 +45,8 @@ export const DecksListPage = () => {
     tabs,
   } = useDecksSearchParams()
 
-  const addDeck = () => {
-    setCreateNewDeck(true)
+  const openCreateDeckModal = () => {
+    setShowCreateDeckModal(true)
   }
 
   if (decksLoading) {
@@ -64,10 +67,17 @@ export const DecksListPage = () => {
         <Typography as={'h1'} variant={'h1'}>
           Decks List
         </Typography>
-        <Modal open={createNewDeck} title="create new deck" onOpenChange={setCreateNewDeck}>
-          modal
-        </Modal>
-        <Button onClick={addDeck}>Add New Deck</Button>
+
+        <DeckDialog
+          open={showCreateDeckModal}
+          title="Add New Deck"
+          onOpenChange={setShowCreateDeckModal}
+          onCancel={() => setShowCreateDeckModal(false)}
+          onConfirm={data => {
+            createDeck(data)
+          }}
+        />
+        <Button onClick={openCreateDeckModal}>Add New Deck</Button>
       </div>
       <div className={s.filters}>
         <div className={s.searchField}>

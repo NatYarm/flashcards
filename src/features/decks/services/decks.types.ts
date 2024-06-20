@@ -43,6 +43,12 @@ export type MinMaxCards = {
   max: number
 }
 
+export type CreateDeckArgs = {
+  name: string
+  isPrivate?: boolean
+  cover?: File | null | string
+}
+
 export type ErrorMessages = {
   field: string
   message: string
