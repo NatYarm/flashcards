@@ -5,11 +5,23 @@ import { Button } from '@/common/components/button'
 import { Card } from '@/common/components/card'
 import { ControlledTextField } from '@/common/components/controlled'
 import { Typography } from '@/common/components/typography'
-import { LoginFormProps, loginScheme } from '@/utils'
+import { confirmPasswordScheme, emailScheme, passwordScheme, passwordsMatch } from '@/common/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import s from './signUpForm.module.scss'
+
+const loginScheme = z
+  .object({
+    confirmPassword: confirmPasswordScheme,
+    email: emailScheme,
+    password: passwordScheme,
+  })
+  .superRefine((data, ctx) => {
+    const issues = passwordsMatch(data)
+
+    issues.forEach(issue => ctx.addIssue(issue))
+  })
 
 type FormType = z.infer<typeof loginScheme>
 
@@ -18,7 +30,7 @@ type Props = {
 }
 
 export const SignUpForm = ({ onSubmit }: Props) => {
-  const { control, handleSubmit } = useForm<LoginFormProps>({
+  const { control, handleSubmit } = useForm<FormType>({
     resolver: zodResolver(loginScheme),
   })
 

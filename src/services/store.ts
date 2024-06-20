@@ -1,4 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
+import { setupListeners } from '@reduxjs/toolkit/query/react'
+
 import { baseApi } from './baseApi'
 
 export const store = configureStore({
@@ -8,3 +10,5 @@ export const store = configureStore({
 
 export type AppDispatch = typeof store.dispatch
 export type RootState = ReturnType<typeof store.getState>
+
+setupListeners(store.dispatch)
