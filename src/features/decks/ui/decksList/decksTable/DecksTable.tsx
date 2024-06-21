@@ -13,14 +13,20 @@ import placeholderImg from '@/assets/img/defaultCard.jpg'
 
 type Props = {
   decks: Deck[] | undefined
-  // onDeleteClick: (id: string) => void
-  // onEditClick: (id: string) => void
+  onDeleteClick: (id: string) => void
+  onEditClick: (id: string) => void
   // onFavoriteToggle: (id: string, isFavorite: boolean) => void
   onSort: (key: Sort) => void
   sort: Sort
 }
 
-export const DecksTable = ({ decks, sort, onSort }: Props) => {
+export const DecksTable = ({ decks, sort, onSort, onEditClick, onDeleteClick }: Props) => {
+  const handleEditClick = (id: string) => {
+    onEditClick(id)
+  }
+  const handleDeleteClick = (id: string) => {
+    onDeleteClick(id)
+  }
   return (
     <Table>
       <TableHeader columns={decksColumns} onSort={onSort} sort={sort} />
@@ -44,10 +50,10 @@ export const DecksTable = ({ decks, sort, onSort }: Props) => {
                 <Button as={Link} to={`/decks/${deck.id}/learn`} variant={'icon'}>
                   <PlayCircleOutline />
                 </Button>
-                <Button variant="icon">
+                <Button variant="icon" onClick={() => handleEditClick(deck.id)}>
                   <Edit2Outline />
                 </Button>
-                <Button variant="icon">
+                <Button variant="icon" onClick={() => handleDeleteClick(deck.id)}>
                   <TrashOutline />
                 </Button>
               </div>

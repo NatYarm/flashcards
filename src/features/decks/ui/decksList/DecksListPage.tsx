@@ -12,7 +12,12 @@ import {
   TextField,
   Typography,
 } from '@/common/components'
-import { useCreateDeckMutation, useDecksSearchParams } from '@/features/decks/services'
+import {
+  useCreateDeckMutation,
+  useDecksSearchParams,
+  useDeleteDeckMutation,
+  useUpdateDeckMutation,
+} from '@/features/decks/services'
 
 import s from './decksListPage.module.scss'
 import DeckDialog from '../../dialogs/deckDialog'
@@ -21,6 +26,8 @@ export const DecksListPage = () => {
   const [showCreateDeckModal, setShowCreateDeckModal] = useState(false)
 
   const [createDeck] = useCreateDeckMutation()
+  const [updateDeck] = useUpdateDeckMutation()
+  const [deleteDeck] = useDeleteDeckMutation()
 
   const {
     clearFilters,
@@ -74,6 +81,7 @@ export const DecksListPage = () => {
           onOpenChange={setShowCreateDeckModal}
           onCancel={() => setShowCreateDeckModal(false)}
           onConfirm={data => {
+            clearFilters()
             createDeck(data)
           }}
         />
@@ -110,7 +118,17 @@ export const DecksListPage = () => {
           Clear Filters
         </Button>
       </div>
-      <DecksTable decks={decks?.items} onSort={setSort} sort={sort} />
+      <DecksTable
+        decks={decks?.items}
+        onSort={setSort}
+        sort={sort}
+        onEditClick={id => {
+          updateDeck({ id })
+        }}
+        onDeleteClick={id => {
+          deleteDeck({ id })
+        }}
+      />
 
       <Pagination
         currentPage={currentPage || 1}

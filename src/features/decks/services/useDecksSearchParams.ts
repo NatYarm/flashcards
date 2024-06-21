@@ -46,7 +46,6 @@ export const useDecksSearchParams = () => {
   ]
 
   const currentTab = searchParams.get('currentTab' || 'all')
-
   const handleTabChange = (tab: string) => {
     searchParams.set('currentTab', tab)
     setSearchParams(searchParams)
@@ -54,7 +53,6 @@ export const useDecksSearchParams = () => {
 
   //current page query
   const currentPage = Number(searchParams.get('currentPage') || 1)
-
   const handlePageChange = (page: number) => {
     searchParams.set('currentPage', page.toString())
     setSearchParams(searchParams)

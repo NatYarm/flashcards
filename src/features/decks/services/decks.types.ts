@@ -49,6 +49,10 @@ export type CreateDeckArgs = {
   cover?: File | null | string
 }
 
+export type UpdateDeckArgs = Partial<CreateDeckArgs> & { id: string }
+
+export type DeleteDeckArgs = { id: string }
+
 export type ErrorMessages = {
   field: string
   message: string
