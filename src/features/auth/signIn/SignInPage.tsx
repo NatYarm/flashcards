@@ -12,8 +12,8 @@ export const SignInPage = () => {
   const [signIn, signInResult] = useSignInMutation()
   const { isLoading, isSuccess } = useGetMeQuery()
   const navigate = useNavigate()
-  const handleSignIn = (formData: SignIn) => {
-    signIn(formData).unwrap()
+  const handleSignIn = (data: SignIn) => {
+    signIn(data).unwrap()
   }
 
   if (signInResult.isLoading || isLoading) {

@@ -17,7 +17,7 @@ import { Deck } from './features/decks/ui/deck/Deck'
 import { DecksListPage } from './features/decks/ui/decksList/DecksListPage'
 import { Layout } from './features/layout/Layout'
 
-const publicRoutes: RouteObject[] = [
+export const publicRoutes: RouteObject[] = [
   {
     children: [
       {
@@ -58,7 +58,7 @@ const PrivateRoutes = () => {
   return isSuccess ? <Outlet /> : <Navigate to={path.signIn} />
 }
 
-const router = createBrowserRouter([
+export const router = createBrowserRouter([
   {
     children: [
       {
@@ -68,6 +68,7 @@ const router = createBrowserRouter([
       ...publicRoutes,
     ],
     element: <Layout />,
+    path: path.base,
   },
 ])
 

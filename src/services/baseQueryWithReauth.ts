@@ -1,3 +1,8 @@
+import { matchPath } from 'react-router-dom'
+
+import { path } from '@/common/enams'
+import { SignInResponse } from '@/common/types'
+import { publicRoutes, router } from '@/router'
 import {
   BaseQueryFn,
   FetchArgs,
@@ -8,7 +13,7 @@ import { Mutex } from 'async-mutex'
 
 const mutex = new Mutex()
 
-const baseQuery = fetchBaseQuery({
+export const baseQuery = fetchBaseQuery({
   baseUrl: 'https://api.flashcards.andrii.es',
   credentials: 'include',
   prepareHeaders: headers => {
@@ -35,8 +40,38 @@ export const baseQueryWithReauth: BaseQueryFn<
   if (result.error && result.error.status === 401) {
     if (!mutex.isLocked()) {
       const release = await mutex.acquire()
-      // try to get a new token
-      const refreshResult = await baseQuery(
+
+      try {
+        const refreshToken = localStorage.getItem('refreshToken')
+        const refreshResult = await baseQuery(
+          {
+            headers: {
+              Authorization: `Bearer ${refreshToken}`,
+            },
+            method: 'POST',
+            url: '/v2/auth/refresh-token',
+          },
+          api,
+          extraOptions
+        )
+
+        if (refreshResult.data) {
+          localStorage.setItem('accessToken', (refreshResult.data as SignInResponse).accessToken)
+          localStorage.setItem('refreshToken', (refreshResult.data as SignInResponse).refreshToken)
+          result = await baseQuery(args, api, extraOptions)
+        } else {
+          const isPublicRoutes = publicRoutes.find(route =>
+            matchPath(route.path ?? '', window.location.pathname)
+          )
+
+          if (!isPublicRoutes) {
+            void router.navigate(path.signIn)
+          }
+        }
+      } finally {
+        release()
+      }
+      /*const refreshResult = await baseQuery(
         { method: 'POST', url: '/v1/auth/refresh-token' },
         api,
         extraOptions
@@ -46,9 +81,8 @@ export const baseQueryWithReauth: BaseQueryFn<
         // retry the initial query
         result = await baseQuery(args, api, extraOptions)
       }
-      release()
+      release()*/
     } else {
-      // wait until the mutex is available without locking it
       await mutex.waitForUnlock()
       result = await baseQuery(args, api, extraOptions)
     }
