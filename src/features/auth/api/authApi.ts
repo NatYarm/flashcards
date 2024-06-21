@@ -58,15 +58,19 @@ export const authApi = baseApi.injectEndpoints({
       signIn: builder.mutation<SignInResponse, SignInArgs>({
         invalidatesTags: ['Me'],
         async onQueryStarted(_, { queryFulfilled }) {
-          const { data } = await queryFulfilled
+          try {
+            const { data } = await queryFulfilled
 
-          if (!data) {
-            return
+            if (!data) {
+              return
+            }
+
+            localStorage.setItem('accessToken', data.accessToken)
+            localStorage.setItem('refreshToken', data.refreshToken)
+            toast.success('You are logged in successfully.', { autoClose: 1000 })
+          } catch (error) {
+            toast.error('Login failed')
           }
-
-          localStorage.setItem('accessToken', data.accessToken)
-          localStorage.setItem('refreshToken', data.refreshToken)
-          toast.success('You are login successfully.', { autoClose: 1000 })
         },
         query: body => ({
           body: body,
@@ -83,7 +87,7 @@ export const authApi = baseApi.injectEndpoints({
         }),
       }),
 
-      updateMe: builder.mutation<MeResponse, any>({
+      updateMe: builder.mutation<MeResponse, { avatar?: File | null; name?: string }>({
         invalidatesTags: ['Me'],
         query: ({ avatar, name }) => {
           const formData = new FormData()

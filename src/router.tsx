@@ -17,7 +17,7 @@ import { Deck } from './features/decks/ui/deck/Deck'
 import { DecksListPage } from './features/decks/ui/decksList/DecksListPage'
 import { Layout } from './features/layout/Layout'
 
-const publicRoutes: RouteObject[] = [
+export const publicRoutes: RouteObject[] = [
   {
     children: [
       {
@@ -32,14 +32,6 @@ const publicRoutes: RouteObject[] = [
         element: <RecoveryPasswordPage />,
         path: path.recoveryPassword,
       },
-      {
-        element: <Deck />,
-        path: `${path.decks}/:id`,
-      },
-      {
-        element: <LearnCardsPage />,
-        path: `${path.decks}/:id/learn`,
-      },
     ],
     element: <Outlet />,
   },
@@ -50,6 +42,14 @@ const privateRoutes: RouteObject[] = [
     element: <DecksListPage />,
     path: path.base,
   },
+  {
+    element: <Deck />,
+    path: `${path.decks}/:id`,
+  },
+  {
+    element: <LearnCardsPage />,
+    path: `${path.decks}/:id/learn`,
+  },
 ]
 
 const PrivateRoutes = () => {
@@ -58,7 +58,7 @@ const PrivateRoutes = () => {
   return isSuccess ? <Outlet /> : <Navigate to={path.signIn} />
 }
 
-const router = createBrowserRouter([
+export const router = createBrowserRouter([
   {
     children: [
       {
@@ -68,15 +68,10 @@ const router = createBrowserRouter([
       ...publicRoutes,
     ],
     element: <Layout />,
+    path: path.base,
   },
 ])
 
 export const Router = () => {
   return <RouterProvider router={router} />
 }
-
-/* function PrivateRoutes() {
-  const isAuthenticated = true
-
-  return isAuthenticated ? <Outlet /> : <Navigate to={path.signIn} />
-} */

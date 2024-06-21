@@ -1,13 +1,14 @@
+import { baseApi } from '@/services/baseApi'
+
 import { DecksListResponse, GetDecksArgs, MinMaxCards } from './decks.types'
-import { baseApi } from '../../../services/baseApi'
 
 export const decksApi = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
       getDecks: builder.query<DecksListResponse, GetDecksArgs | void>({
         query: args => ({
-          url: `v2/decks`,
           params: args ?? undefined,
+          url: `v2/decks`,
         }),
       }),
 
@@ -21,4 +22,4 @@ export const decksApi = baseApi.injectEndpoints({
   },
 })
 
-export const { useGetDecksQuery, useGetDecksMinMaxCardsQuery } = decksApi
+export const { useGetDecksMinMaxCardsQuery, useGetDecksQuery } = decksApi
