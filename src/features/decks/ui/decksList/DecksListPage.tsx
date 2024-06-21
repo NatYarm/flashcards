@@ -1,7 +1,6 @@
 import { useState } from 'react'
-import { TrashOutline } from '@/assets/icons/components'
 
-import { DecksTable } from './decksTable/DecksTable'
+import { TrashOutline } from '@/assets/icons/components'
 import {
   Button,
   Loader,
@@ -14,29 +13,32 @@ import {
   Typography,
 } from '@/common/components'
 import { useDecksSearchParams } from '@/features/decks/services/useDecksSearchParams'
+
 import s from './decksListPage.module.scss'
+
+import { DecksTable } from './decksTable/DecksTable'
 
 export const DecksListPage = () => {
   const [createNewDeck, setCreateNewDeck] = useState(false)
 
   const {
+    cardsRange,
     clearFilters,
     currentPage,
     currentTab,
     decks,
     decksError,
+    decksLoading,
+    handleClearInput,
+    handleItemsPerPageChange,
     handlePageChange,
     handleSearchChange,
-    handleClearInput,
+    handleSliderValueChange,
+    handleTabChange,
     itemsPerPage,
-    searchParams,
-    decksLoading,
     maxCardsCount,
     minCardsCount,
-    cardsRange,
-    handleSliderValueChange,
-    handleItemsPerPageChange,
-    handleTabChange,
+    searchParams,
     setSort,
     sort,
     tabs,
@@ -64,7 +66,7 @@ export const DecksListPage = () => {
         <Typography as={'h1'} variant={'h1'}>
           Decks List
         </Typography>
-        <Modal open={createNewDeck} title="create new deck" onOpenChange={setCreateNewDeck}>
+        <Modal onOpenChange={setCreateNewDeck} open={createNewDeck} title={'create new deck'}>
           modal
         </Modal>
         <Button onClick={addDeck}>Add New Deck</Button>
@@ -72,30 +74,30 @@ export const DecksListPage = () => {
       <div className={s.filters}>
         <div className={s.searchField}>
           <TextField
+            onChange={e => handleSearchChange(e.currentTarget.value)}
+            onClearInput={handleClearInput}
             placeholder={'Search'}
             type={'search'}
             value={searchParams.get('name') || ''}
-            onChange={e => handleSearchChange(e.currentTarget.value)}
-            onClearInput={handleClearInput}
           />
         </div>
 
         <Tabs
           label={'Show decks cards'}
+          onValueChange={handleTabChange}
           tabs={tabs}
           value={currentTab || 'all'}
-          onValueChange={handleTabChange}
         />
 
         <Slider
           label={'Number of cards'}
-          value={cardsRange}
-          min={minCardsCount}
           max={maxCardsCount}
+          min={minCardsCount}
           onValueChange={handleSliderValueChange}
+          value={cardsRange}
         />
 
-        <Button variant={'secondary'} onClick={clearFilters}>
+        <Button onClick={clearFilters} variant={'secondary'}>
           <TrashOutline />
           Clear Filters
         </Button>
@@ -103,13 +105,13 @@ export const DecksListPage = () => {
       <DecksTable decks={decks?.items} onSort={setSort} sort={sort} />
 
       <Pagination
-        currentPage={currentPage || 1}
-        totalPageCount={decks?.pagination?.totalPages || 1}
-        onPageChange={handlePageChange}
         className={s.pagination}
+        currentPage={currentPage || 1}
         itemsPerPage={itemsPerPage}
+        onPageChange={handlePageChange}
         onPerPageChange={handleItemsPerPageChange}
         perPageOptions={[5, 10, 20, 30]}
+        totalPageCount={decks?.pagination?.totalPages || 1}
       />
     </Page>
   )

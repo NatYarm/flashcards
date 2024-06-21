@@ -63,7 +63,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     function handleChange(e: ChangeEvent<HTMLInputElement>) {
       const value = e.target.value
 
-      console.log('Input Value:', value)
+      //console.log('Input Value:', value)
       setInputValue(value)
       onChange?.(e)
       onValueChange?.(value)
@@ -99,7 +99,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       onValueChange?.('')
     }
 
-    console.log('Input Value:', inputValue) // Debug statement
+    // console.log('Input Value:', inputValue) // Debug statement
 
     const classNames = {
       error: clsx(s.error),
