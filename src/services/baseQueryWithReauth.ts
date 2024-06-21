@@ -40,9 +40,9 @@ export const baseQueryWithReauth: BaseQueryFn<
   if (result.error && result.error.status === 401) {
     if (!mutex.isLocked()) {
       const release = await mutex.acquire()
+      const refreshToken = localStorage.getItem('refreshToken')
 
       try {
-        const refreshToken = localStorage.getItem('refreshToken')
         const refreshResult = await baseQuery(
           {
             headers: {

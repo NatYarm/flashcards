@@ -6,13 +6,7 @@ import { Card } from '@/common/components/card'
 import { ControlledTextField } from '@/common/components/controlled'
 import { Typography } from '@/common/components/typography'
 import { path } from '@/common/enams'
-import {
-  confirmPasswordScheme,
-  emailScheme,
-  passwordScheme,
-  passwordsMatch,
-  text,
-} from '@/common/utils'
+import { confirmPasswordScheme, emailScheme, passwordScheme, passwordsMatch } from '@/common/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
@@ -22,7 +16,6 @@ const loginScheme = z
   .object({
     confirmPassword: confirmPasswordScheme,
     email: emailScheme,
-    name: text,
     password: passwordScheme,
   })
   .superRefine((data, ctx) => {

@@ -18,7 +18,6 @@ export const SignUpPage = () => {
     const registrationData: SignUpArgs = {
       email: data.email,
       html: emailTemplateConfirmEmail,
-      name: data.name,
       password: data.password,
       sendConfirmationEmail: true,
     }
