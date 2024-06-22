@@ -8,14 +8,17 @@ export const ProfilePage = () => {
   const [updateProfilePage] = useUpdateMeMutation()
 
   const onSubmitProfile = (formData: ProfileFormData) => {
-    updateProfilePage(formData)
+    /*updateProfilePage(formData)*/
+    const avatar = typeof formData.avatar === 'string' ? null : formData.avatar
+
+    updateProfilePage({ ...formData, avatar })
   }
 
   return (
     <Page>
       <PersonalInformation
         email={meData?.email || ''}
-        img={meData?.avatar}
+        img={meData?.avatar || ''}
         name={meData?.name || ''}
         onSubmit={onSubmitProfile}
       />
