@@ -48,7 +48,7 @@ export const PersonalInformation = ({ email, img, name, onSubmit }: Props) => {
 
   return (
     <Card className={s.card}>
-      <Typography as={'h1'} className={s.classTitle} variant={'h1'}>
+      <Typography as={'h1'} className={s.title} variant={'h1'}>
         Personal Information
       </Typography>
       <form id={formId} onSubmit={handleSubmit(nickNameHandler)}>
@@ -58,12 +58,12 @@ export const PersonalInformation = ({ email, img, name, onSubmit }: Props) => {
               <Avatar name={name} src={img} />
             </div>
             <div className={s.nameBlock}>
-              <Typography as={'h2'} variant={'h1'}>
+              <Typography as={'h2'} variant={'h2'}>
                 {name}
               </Typography>
               <Typography
                 as={'button'}
-                className={s.edit}
+                className={s.editAvatarButton}
                 onClick={() => setIsEditingName(!isEditingName)}
                 variant={'h4'}
               >
