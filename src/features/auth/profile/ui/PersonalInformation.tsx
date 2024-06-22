@@ -4,9 +4,10 @@ import { useNavigate } from 'react-router-dom'
 
 import Edit from '@/assets/icons/components/Edit'
 import LogOut from '@/assets/icons/components/LogOut'
-import { ControlledTextField } from '@/common/components'
+import { Avatar, ControlledTextField } from '@/common/components'
 import { Button } from '@/common/components/button'
 import { Card } from '@/common/components/card'
+import { ControlledInputFile } from '@/common/components/controlled/controlledInputFile/controlledInputFile'
 import { Typography } from '@/common/components/typography'
 import { schemaFile, text } from '@/common/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -54,7 +55,7 @@ export const PersonalInformation = ({ email, img, name, onSubmit }: Props) => {
         {!isEditingName ? (
           <div className={s.infoBlock}>
             <div className={s.userAvatar}>
-              <UserAvatar name={name} src={img} />
+              <Avatar name={name} src={img} />
             </div>
             <div className={s.nameBlock}>
               <Typography as={'h2'} variant={'h1'}>

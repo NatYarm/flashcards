@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 import logo from '@/assets/icons/logos/logo.png'
 import { Button, Typography } from '@/common/components'
 import { path } from '@/common/enams'
@@ -22,28 +24,30 @@ export const Header = (props: HeaderProps) => {
   }
 
   return (
-    <header className={classNames(s.container)} {...rest}>
-      <Typography as={'a'} className={s.link} href={path.base}>
-        <img alt={'logo'} className={s.img} src={logo} />
-      </Typography>
+    <header className={s.header} {...rest}>
+      <div className={s.container}>
+        <Typography as={Link} to={path.base}>
+          <img alt={'logo'} className={s.logo} src={logo} />
+        </Typography>
 
-      <Typography as={'b'} className={s.title}>
-        <i>Educational Project</i>
-      </Typography>
+        {/* <Typography as={'b'} className={s.title}>
+          <i>Educational Project</i>
+        </Typography>*/}
 
-      {isAuth ? (
-        <UserDropdown
-          email={email}
-          img={avatar}
-          name={name}
-          onSelectLogOut={logOut}
-          onSelectProfile={selectProfile}
-        />
-      ) : (
-        <Button as={'a'} href={path.signIn} variant={'secondary'}>
-          Sign In
-        </Button>
-      )}
+        {isAuth ? (
+          <UserDropdown
+            avatar={avatar}
+            email={email}
+            name={name}
+            onSelectLogOut={logOut}
+            onSelectProfile={selectProfile}
+          />
+        ) : (
+          <Button as={Link} to={path.signIn} variant={'secondary'}>
+            Sign In
+          </Button>
+        )}
+      </div>
     </header>
 
     /*<header className={s.header}>

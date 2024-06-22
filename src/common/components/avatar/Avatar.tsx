@@ -5,6 +5,7 @@ import clsx from 'clsx'
 import s from './avatar.module.scss'
 
 export type AvatarProps = {
+  name?: string
   size?: CSSProperties['width']
 } & ComponentPropsWithoutRef<'img'>
 

@@ -1,7 +1,6 @@
 .layout {
   width: 100%;
   padding-top: 60px;
-  padding-inline: var(--horizontal-padding);
 }
 
 .mainContent {
@@ -13,4 +12,5 @@
   max-width: var(--max-width);
   margin: 0 auto;
   padding-bottom: 30px;
+  padding-inline: var(--horizontal-padding);
 }

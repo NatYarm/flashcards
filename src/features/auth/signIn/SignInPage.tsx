@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
-import { Loader } from '@/common/components'
+import { Loader, Page } from '@/common/components'
 import { path } from '@/common/enams'
 import { LoginError } from '@/common/types'
 import { useGetMeQuery, useSignInMutation } from '@/features/auth/api/authApi'
@@ -30,5 +30,9 @@ export const SignInPage = () => {
     navigate(path.base)
   }
 
-  return <SignInForm onSubmit={handleSignIn} />
+  return (
+    <Page>
+      <SignInForm onSubmit={handleSignIn} />
+    </Page>
+  )
 }

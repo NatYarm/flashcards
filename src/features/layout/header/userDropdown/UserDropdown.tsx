@@ -1,15 +1,16 @@
 import { Avatar } from '@/common/components/avatar'
-
-import { Typography } from '@/common/components/typography'
 import { DropdownMenu, DropdownMenuLabel } from '@/common/components/dropdown'
+import { Typography } from '@/common/components/typography'
 
 export type UserDropdownProps = {
-  avatar: null | string
-  email: string
-  userName: string
+  avatar?: null | string
+  email?: string | undefined
+  name?: string
+  onSelectLogOut?: () => void
+  onSelectProfile?: () => void
 }
 
-export const UserDropdown = ({ avatar, email, userName }: UserDropdownProps) => {
+export const UserDropdown = ({ avatar, email, name }: UserDropdownProps) => {
   if (!avatar) {
     avatar = 'https://avatars.githubusercontent.com/u/1196875?v=4'
   }
@@ -19,7 +20,7 @@ export const UserDropdown = ({ avatar, email, userName }: UserDropdownProps) => 
       <DropdownMenuLabel>
         <Avatar src={avatar} />
         <div>
-          <Typography variant={'subtitle2'}>{userName}</Typography>
+          <Typography variant={'subtitle2'}>{name}</Typography>
           <Typography>{email}</Typography>
         </div>
       </DropdownMenuLabel>
