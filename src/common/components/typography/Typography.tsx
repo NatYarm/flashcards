@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ElementType } from 'react'
+import { ComponentPropsWithoutRef, ElementRef, ElementType, forwardRef } from 'react'
 
 import { clsx } from 'clsx'
 
@@ -29,15 +29,17 @@ type BaseTypographyProps<T extends ElementType> = {
 type TypographyProps<T extends ElementType = 'p'> = BaseTypographyProps<T> &
   Omit<ComponentPropsWithoutRef<T>, keyof BaseTypographyProps<T>>
 
-export const Typography = <T extends ElementType = 'p'>({
-  as,
-  className,
-  variant = 'body1',
-  ...rest
-}: TypographyProps<T>) => {
-  const Component = as || 'p'
+export const Typography = forwardRef(
+  <T extends ElementType = 'p'>(
+    { as, className, variant = 'body1', ...rest }: TypographyProps<T>,
+    ref: React.Ref<ElementRef<T>>
+  ) => {
+    const Component = as || 'p'
 
-  const classNames = clsx(s.typography, s[variant], className)
+    const classNames = clsx(s.typography, s[variant], className)
 
-  return <Component className={classNames} {...rest} />
-}
+    return <Component className={classNames} ref={ref} {...rest} />
+  }
+)
+
+Typography.displayName = 'Typography'

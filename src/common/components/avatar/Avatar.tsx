@@ -1,17 +1,17 @@
 import { forwardRef } from 'react'
 
-import s from './userAvatar.module.scss'
+import s from './avatar.module.scss'
 
 type Props = {
   name?: string
   src?: string
 }
 export const Avatar = forwardRef<HTMLDivElement, Props>(({ name = '', src }, ref) => {
-  const imgSrc = src ? src : `https://ui-avatars.com/api/?name=${name}`
+  const img = src ? src : `https://ui-avatars.com/api/?name=${name}`
 
   return (
     <div className={s.container} ref={ref}>
-      <img alt={'User photo'} className={s.img} src={imgSrc} />
+      <img alt={'User photo'} className={s.img} src={img} />
     </div>
   )
 })
