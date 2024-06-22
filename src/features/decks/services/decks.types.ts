@@ -18,7 +18,7 @@ export type Author = {
 export type Deck = {
   author: Author
   cardsCount: number
-  cover?: any
+  cover?: null | string
   created: string
   id: string
   isFavorite: boolean
@@ -29,18 +29,40 @@ export type Deck = {
 }
 
 export type GetDecksArgs = {
-  minCardsCount?: number
-  maxCardsCount?: number
-  name?: string
   authorId?: string
   currentPage?: number
   itemsPerPage?: number
-  orderBy?: string
+  maxCardsCount?: number
+  minCardsCount?: number
+  name?: string
+  orderBy?: null | string
 }
 
+export type GetDeckCards = {
+  answer?: string
+  currentPage?: number
+  id: string
+  itemsPerPage?: number
+  orderBy?: string
+  question?: string
+}
+
+export type GetDeckById = {
+  id: string
+}
+
+export type CreateDecksArgs = {
+  cover?: File | null | string
+  isPrivate?: boolean
+  name: string
+}
+export type UpdateDecksArgs = { id: string } & Partial<CreateDecksArgs>
+
+export type DeleteDecksArgs = { id: string }
+
 export type MinMaxCards = {
-  min: number
   max: number
+  min: number
 }
 
 export type CreateDeckArgs = {

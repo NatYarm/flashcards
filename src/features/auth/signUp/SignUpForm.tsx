@@ -5,20 +5,33 @@ import { Button } from '@/common/components/button'
 import { Card } from '@/common/components/card'
 import { ControlledTextField } from '@/common/components/controlled'
 import { Typography } from '@/common/components/typography'
-import { LoginFormProps, loginScheme } from '@/utils'
+import { path } from '@/common/enams'
+import { confirmPasswordScheme, emailScheme, passwordScheme, passwordsMatch } from '@/common/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import s from './signUpForm.module.scss'
 
-type FormType = z.infer<typeof loginScheme>
+const loginScheme = z
+  .object({
+    confirmPassword: confirmPasswordScheme,
+    email: emailScheme,
+    password: passwordScheme,
+  })
+  .superRefine((data, ctx) => {
+    const issues = passwordsMatch(data)
+
+    issues.forEach(issue => ctx.addIssue(issue))
+  })
+
+export type SignUp = z.infer<typeof loginScheme>
 
 type Props = {
-  onSubmit: (data: FormType) => void
+  onSubmit: (data: SignUp) => void
 }
 
 export const SignUpForm = ({ onSubmit }: Props) => {
-  const { control, handleSubmit } = useForm<LoginFormProps>({
+  const { control, handleSubmit } = useForm<SignUp>({
     resolver: zodResolver(loginScheme),
   })
 
@@ -51,7 +64,7 @@ export const SignUpForm = ({ onSubmit }: Props) => {
       </form>
       <div className={s.footer}>
         <Typography variant={'body2'}>Already have an account?</Typography>
-        <Typography as={Link} className={s.signInLink} to={'/sign-in'} variant={'link1'}>
+        <Typography as={Link} className={s.signInLink} to={path.signIn} variant={'link1'}>
           Sign In
         </Typography>
       </div>

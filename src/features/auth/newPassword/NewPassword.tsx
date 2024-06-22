@@ -4,7 +4,7 @@ import { Button } from '@/common/components/button'
 import { Card } from '@/common/components/card'
 import { ControlledInput } from '@/common/components/controlled/controlledInput'
 import { Typography } from '@/common/components/typography'
-import { LoginFormProps, loginScheme } from '@/utils'
+import { LoginFormProps, loginScheme } from '@/common/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import s from './newPassword.module.scss'

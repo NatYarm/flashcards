@@ -10,7 +10,8 @@ import {
 
 import { Close, Eye, EyeOffOutline, Search } from '@/assets/icons/components'
 import { Typography } from '@/common/components/typography'
-import { mergeRefs } from '@/utils'
+import { mergeRefs } from '@/common/utils/mergeRefs'
+// import { mergeRefs } from '@/utils'
 import { clsx } from 'clsx'
 
 import s from './textField.module.scss'
