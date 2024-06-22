@@ -13,7 +13,7 @@ export const ToastNotification = () => {
       newestOnTop={false}
       pauseOnFocusLoss
       pauseOnHover
-      position={'top-left'}
+      position={'bottom-left'}
       rtl={false}
       stacked
       style={{ marginTop: '55px' }}

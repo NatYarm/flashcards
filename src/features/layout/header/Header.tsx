@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom'
 
 import logo from '@/assets/icons/logos/logo.png'
 import { Button, Typography } from '@/common/components'
+import { UserDropdown } from '@/common/components/dropdown/userDropdown'
 import { path } from '@/common/enams'
-import { UserDropdown } from '@/features/layout/header/userDropdown'
 import { router } from '@/router'
 
 import s from './header.module.scss'
@@ -49,15 +49,5 @@ export const Header = (props: HeaderProps) => {
         )}
       </div>
     </header>
-
-    /*<header className={s.header}>
-      <div className={s.content}>
-        {/!* <Link to={'/'}> *!/}
-
-        <img className={s.logo} src={logo} />
-
-        {/!* </Link> *!/}
-      </div>
-    </header>*/
   )
 }

@@ -10,7 +10,13 @@ export type UserDropdownProps = {
   onSelectProfile?: () => void
 }
 
-export const UserDropdown = ({ avatar, email, name }: UserDropdownProps) => {
+export const UserDropdown = ({
+  avatar,
+  email,
+  name,
+  onSelectLogOut,
+  onSelectProfile,
+}: UserDropdownProps) => {
   if (!avatar) {
     avatar = 'https://avatars.githubusercontent.com/u/1196875?v=4'
   }

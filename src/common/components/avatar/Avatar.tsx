@@ -1,4 +1,24 @@
-import { CSSProperties, ComponentPropsWithoutRef } from 'react'
+import { forwardRef } from 'react'
+
+import s from './userAvatar.module.scss'
+
+type Props = {
+  name?: string
+  src?: string
+}
+export const Avatar = forwardRef<HTMLDivElement, Props>(({ name = '', src }, ref) => {
+  const imgSrc = src ? src : `https://ui-avatars.com/api/?name=${name}`
+
+  return (
+    <div className={s.container} ref={ref}>
+      <img alt={'User photo'} className={s.img} src={imgSrc} />
+    </div>
+  )
+})
+
+Avatar.displayName = 'Avatar'
+
+/*import { CSSProperties, ComponentPropsWithoutRef } from 'react'
 
 import clsx from 'clsx'
 
@@ -21,4 +41,4 @@ export const Avatar = ({ className, size = '36px', style, ...rest }: AvatarProps
       {...rest}
     />
   )
-}
+}*/
