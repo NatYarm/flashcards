@@ -3,7 +3,7 @@ import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 import * as RadixDropdownMenu from '@radix-ui/react-dropdown-menu'
 import clsx from 'clsx'
 
-import s from './dropdown.module.scss'
+import s from '../dropdown.module.scss'
 
 export const DropdownMenuItem = forwardRef<
   ElementRef<typeof RadixDropdownMenu.Item>,

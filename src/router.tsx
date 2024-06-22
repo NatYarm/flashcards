@@ -8,9 +8,10 @@ import {
 
 import { path } from '@/common/enams'
 import { useGetMeQuery } from '@/features/auth/api/authApi'
+import { ProfilePage } from '@/features/auth/profile/ProfilePage'
+import { SignInPage } from '@/features/auth/signIn'
 
 import { RecoveryPasswordPage } from './features/auth/recoverPassword/RecoverPasswordPage'
-import { SignInPage } from './features/auth/signIn/SignInPage'
 import { SignUpPage } from './features/auth/signUp/SignUpPage'
 import { LearnCardsPage } from './features/cards/LearnCardsPage'
 import { Deck } from './features/decks/ui/deck/Deck'
@@ -49,6 +50,10 @@ const privateRoutes: RouteObject[] = [
   {
     element: <LearnCardsPage />,
     path: `${path.decks}/:id/learn`,
+  },
+  {
+    element: <ProfilePage />,
+    path: path.profile,
   },
 ]
 

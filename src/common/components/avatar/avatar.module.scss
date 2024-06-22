@@ -1,4 +1,24 @@
-.avatar {
+.container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.img {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.name {
+  margin: 0;
+  text-decoration: dashed;
+  text-decoration-line: underline;
+  text-underline-position: under;
+}
+
+/* .avatar {
   object-fit: cover;
   border-radius: 9999px;
-}
+} */
