@@ -1,12 +1,13 @@
 .header {
   position: fixed;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   z-index: 100;
   top: 0;
   right: 0;
   left: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
   width: 100%;
   height: var(--header-height);
@@ -14,19 +15,20 @@
 
   background: var(--color-dark-700);
 }
-.content {
+
+.container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-inline: var(--horizontal-padding);
 
-  max-width: var(--max-width);
   width: 100%;
+  max-width: var(--max-width);
   margin: 0 auto;
+  padding-inline: var(--horizontal-padding);
 }
 
 .logo {
   cursor: pointer;
-  height: 50px;
   width: 50px;
+  height: 50px;
 }
