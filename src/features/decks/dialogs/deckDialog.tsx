@@ -1,3 +1,6 @@
+import { useForm } from 'react-hook-form'
+
+import { Image } from '@/assets/icons/components'
 import {
   Button,
   ControlledCheckbox,
@@ -6,9 +9,8 @@ import {
   ModalProps,
 } from '@/common/components'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { Image } from '@/assets/icons/components'
+
 import s from './deckDialog.module.scss'
 
 const newDeckSchema = z.object({
@@ -18,15 +20,15 @@ const newDeckSchema = z.object({
 
 type FormValues = z.infer<typeof newDeckSchema>
 
-type Props = { onConfirm: (data: FormValues) => void; defaultValues?: FormValues } & Pick<
+type Props = { defaultValues?: FormValues; onConfirm: (data: FormValues) => void } & Pick<
   ModalProps,
-  'open' | 'onOpenChange' | 'onCancel' | 'title'
+  'onCancel' | 'onOpenChange' | 'open' | 'title'
 >
 
-export const deckDialog = ({
+export const DeckDialog = ({
   defaultValues = { isPrivate: false, name: '' },
-  onConfirm,
   onCancel,
+  onConfirm,
   ...modalProps
 }: Props) => {
   const { control, handleSubmit, reset } = useForm<FormValues>({
@@ -42,22 +44,21 @@ export const deckDialog = ({
     modalProps.onOpenChange?.(false)
     reset()
   })
+
   return (
-    <Modal onCancel={handleCancel} onConfirm={onSubmit} title="Create new deck" {...modalProps}>
+    <Modal onCancel={handleCancel} onConfirm={onSubmit} title={'Create new deck'} {...modalProps}>
       <form className={s.modalContent} onSubmit={onSubmit}>
-        <ControlledTextField control={control} label="Deck Name" name="name" />
-        <Button fullWidth variant="secondary">
+        <ControlledTextField control={control} label={'Deck Name'} name={'name'} />
+        <Button fullWidth variant={'secondary'}>
           <Image />
           Upload Image
         </Button>
-        <ControlledCheckbox control={control} label="Private" name="isPrivate" />
+        <ControlledCheckbox control={control} label={'Private'} name={'isPrivate'} />
         <div className={s.buttonsContainer}>
-          <Button variant="secondary">Cancel</Button>
+          <Button variant={'secondary'}>Cancel</Button>
           <Button>Create Deck</Button>
         </div>
       </form>
     </Modal>
   )
 }
-
-export default deckDialog

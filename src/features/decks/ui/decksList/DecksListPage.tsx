@@ -19,6 +19,7 @@ import {
 } from '@/features/decks/services'
 
 import s from './decksListPage.module.scss'
+
 import DeckDialog from '../../dialogs/deckDialog'
 
 export const DecksListPage = () => {
@@ -75,14 +76,14 @@ export const DecksListPage = () => {
         </Typography>
 
         <DeckDialog
-          open={showCreateDeckModal}
-          title="Add New Deck"
-          onOpenChange={setShowCreateDeckModal}
           onCancel={() => setShowCreateDeckModal(false)}
           onConfirm={data => {
             clearFilters()
             createDeck(data)
           }}
+          onOpenChange={setShowCreateDeckModal}
+          open={showCreateDeckModal}
+          title={'Add New Deck'}
         />
         <Button onClick={openCreateDeckModal}>Add New Deck</Button>
       </div>
@@ -119,14 +120,14 @@ export const DecksListPage = () => {
       </div>
       <DecksTable
         decks={decks?.items}
-        onSort={setSort}
-        sort={sort}
-        onEditClick={id => {
-          updateDeck({ id })
-        }}
         onDeleteClick={id => {
           deleteDeck({ id })
         }}
+        onEditClick={id => {
+          updateDeck({ id })
+        }}
+        onSort={setSort}
+        sort={sort}
       />
 
       <Pagination

@@ -1,3 +1,5 @@
+import { baseApi } from '@/services/baseApi'
+
 import {
   CreateDeckArgs,
   Deck,
@@ -7,59 +9,58 @@ import {
   MinMaxCards,
   UpdateDeckArgs,
 } from './decks.types'
-import { baseApi } from '@/services/baseApi'
 
 export const decksApi = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
+      createDeck: builder.mutation<Deck, CreateDeckArgs>({
+        invalidatesTags: ['Decks', 'MinMaxCards'],
+        query: args => ({
+          body: args,
+          method: 'POST',
+          url: 'v1/decks',
+        }),
+      }),
+
+      deleteDeck: builder.mutation<void, DeleteDeckArgs>({
+        invalidatesTags: ['Decks', 'MinMaxCards'],
+        query: ({ id }) => ({
+          method: 'DELETE',
+          url: `v1/decks/${id}`,
+        }),
+      }),
+
       getDecks: builder.query<DecksListResponse, GetDecksArgs | void>({
+        providesTags: ['Decks'],
         query: args => ({
           params: args ?? undefined,
           url: `v2/decks`,
         }),
-        providesTags: ['Decks'],
       }),
 
       getDecksMinMaxCards: builder.query<MinMaxCards, void>({
+        providesTags: ['MinMaxCards'],
         query: () => ({
           url: `v2/decks/min-max-cards`,
         }),
-        providesTags: ['MinMaxCards'],
-      }),
-
-      createDeck: builder.mutation<Deck, CreateDeckArgs>({
-        query: args => ({
-          url: 'v1/decks',
-          method: 'POST',
-          body: args,
-        }),
-        invalidatesTags: ['Decks', 'MinMaxCards'],
       }),
 
       updateDeck: builder.mutation<Deck, UpdateDeckArgs>({
-        query: ({ id, ...body }) => ({
-          url: `v1/decks/${id}`,
-          method: 'PATCH',
-          body,
-        }),
         invalidatesTags: ['Decks'],
-      }),
-
-      deleteDeck: builder.mutation<void, DeleteDeckArgs>({
-        query: ({ id }) => ({
+        query: ({ id, ...body }) => ({
+          body,
+          method: 'PATCH',
           url: `v1/decks/${id}`,
-          method: 'DELETE',
         }),
-        invalidatesTags: ['Decks', 'MinMaxCards'],
       }),
     }
   },
 })
 
 export const {
-  useGetDecksQuery,
-  useGetDecksMinMaxCardsQuery,
   useCreateDeckMutation,
-  useUpdateDeckMutation,
   useDeleteDeckMutation,
+  useGetDecksMinMaxCardsQuery,
+  useGetDecksQuery,
+  useUpdateDeckMutation,
 } = decksApi

@@ -1,0 +1,72 @@
+.selectTrigger {
+  background-color: inherit;
+  border: 1px solid var(--color-dark-300);
+  border-radius: 2px;
+  color: var(--color-light-100);
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+
+  &:focus {
+    outline: 2px solid var(--color-info-700);
+    border-color: transparent;
+  }
+
+  &:hover {
+    background-color: var(--color-dark-500);
+    opacity: 0.8;
+  }
+
+  &[data-disabled] {
+    pointer-events: none;
+    color: var(--color-dark-300);
+    border-color: var(--color-dark-300);
+  }
+}
+
+.default {
+  width: 100%;
+  padding: 10px;
+  gap: 10px;
+}
+
+.small {
+  padding: 2px 5px;
+  gap: 5px;
+  background-color: var(--color-dark-700);
+}
+
+.selectIcon {
+  transition: 0.3s;
+  [data-state='open'] & {
+    transform: rotate(180deg);
+  }
+}
+
+.selectContent {
+  background-color: var(--color-dark-900);
+  border-radius: 0 0 2px 2px;
+  border: 1px solid var(--color-dark-300);
+
+  width: var(--radix-select-trigger-width);
+  max-height: var(--radix-select-content-available-height);
+}
+
+.selectItem {
+  color: var(--color-light-100);
+  padding: 5px;
+  outline: transparent;
+  &:hover {
+    background-color: var(--color-accent-900);
+    color: var(--color-accent-300);
+    opacity: 0.9;
+  }
+}
+
+.selectLabel {
+  color: var(--color-dark-100);
+}
+.disabledSelectLabel {
+  color: var(--color-dark-300);
+}

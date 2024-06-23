@@ -1,8 +1,10 @@
-import { useSearchParams } from 'react-router-dom'
-import { useGetDecksMinMaxCardsQuery, useGetDecksQuery } from './decksApi'
 import { useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
+
 import { Sort, Tab } from '@/common/components'
+
 import { ErrorResponse } from './decks.types'
+import { useGetDecksMinMaxCardsQuery, useGetDecksQuery } from './decksApi'
 
 export const useDecksSearchParams = () => {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -40,9 +42,9 @@ export const useDecksSearchParams = () => {
 
   // tabs query
   const tabs: Tab[] = [
-    { title: 'My decks', value: 'my', disabled: false },
-    { title: 'All decks', value: 'all', disabled: false },
-    { title: 'Favorites', value: 'favorites', disabled: false },
+    { disabled: false, title: 'My decks', value: 'my' },
+    { disabled: false, title: 'All decks', value: 'all' },
+    { disabled: false, title: 'Favorites', value: 'favorites' },
   ]
 
   const currentTab = searchParams.get('currentTab' || 'all')
@@ -73,11 +75,11 @@ export const useDecksSearchParams = () => {
     error: getDecksError,
     isLoading: getDecksLoading,
   } = useGetDecksQuery({
-    name: searchParams.get('name') || undefined,
     currentPage,
     itemsPerPage,
-    minCardsCount: cardsRange[0],
     maxCardsCount: cardsRange[1],
+    minCardsCount: cardsRange[0],
+    name: searchParams.get('name') || undefined,
     orderBy: sort ? `${sort.key}-${sort.direction}` : undefined,
   })
 
@@ -96,13 +98,13 @@ export const useDecksSearchParams = () => {
     currentTab,
     decks,
     decksError,
+    decksLoading,
     handleClearInput,
     handleItemsPerPageChange,
     handlePageChange,
     handleSearchChange,
     handleSliderValueChange,
     handleTabChange,
-    decksLoading,
     itemsPerPage,
     maxCardsCount,
     minCardsCount,
