@@ -12,6 +12,7 @@ import {
   TextField,
   Typography,
 } from '@/common/components'
+import { DeckDialog } from '@/features/decks/dialogs/DeckDialog'
 import {
   CreateDeckArgs,
   useCreateDeckMutation,
@@ -22,7 +23,6 @@ import {
 
 import s from './decksListPage.module.scss'
 
-import { DeckDialog } from '../../dialogs/DeckDialog'
 import { DecksTable } from './decksTable/DecksTable'
 
 export const DecksListPage = () => {
