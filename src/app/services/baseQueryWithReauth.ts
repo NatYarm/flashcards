@@ -1,8 +1,7 @@
 import { matchPath } from 'react-router-dom'
 
-import { path } from '@/common/enams'
+import { path } from '@/common/enums'
 import { SignInResponse } from '@/common/types'
-import { publicRoutes, router } from '@/router'
 import {
   BaseQueryFn,
   FetchArgs,
@@ -10,6 +9,8 @@ import {
   fetchBaseQuery,
 } from '@reduxjs/toolkit/query/react'
 import { Mutex } from 'async-mutex'
+
+import { publicRoutes, router } from '../router'
 
 const mutex = new Mutex()
 

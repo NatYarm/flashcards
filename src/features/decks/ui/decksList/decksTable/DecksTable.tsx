@@ -14,14 +14,21 @@ import { decksColumns } from './decksColumns'
 
 type Props = {
   decks: Deck[] | undefined
-  // onDeleteClick: (id: string) => void
-  // onEditClick: (id: string) => void
+  onDeleteClick: (id: string) => void
+  onEditClick: (id: string) => void
   // onFavoriteToggle: (id: string, isFavorite: boolean) => void
   onSort?: (key: Sort) => void
   sort?: Sort
 }
 
-export const DecksTable = ({ decks, onSort, sort }: Props) => {
+export const DecksTable = ({ decks, onDeleteClick, onEditClick, onSort, sort }: Props) => {
+  const handleEditClick = (id: string) => {
+    onEditClick(id)
+  }
+  const handleDeleteClick = (id: string) => {
+    onDeleteClick(id)
+  }
+
   return (
     <Table>
       <TableHeader columns={decksColumns} onSort={onSort} sort={sort} />
@@ -45,11 +52,10 @@ export const DecksTable = ({ decks, onSort, sort }: Props) => {
                 <Button as={Link} to={`/decks/${deck.id}/learn`} variant={'icon'}>
                   <PlayCircleOutline />
                 </Button>
-
-                <Button variant={'icon'}>
+                <Button onClick={() => handleEditClick(deck.id)} variant={'icon'}>
                   <Edit2Outline />
                 </Button>
-                <Button variant={'icon'}>
+                <Button onClick={() => handleDeleteClick(deck.id)} variant={'icon'}>
                   <TrashOutline />
                 </Button>
               </div>

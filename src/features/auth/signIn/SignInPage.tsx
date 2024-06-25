@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import { Loader, Page } from '@/common/components'
-import { path } from '@/common/enams'
+import { path } from '@/common/enums'
 import { LoginError } from '@/common/types'
 import { useGetMeQuery, useSignInMutation } from '@/features/auth/api/authApi'
 
@@ -21,7 +21,7 @@ export const SignInPage = () => {
   }
 
   if (signInResult.error) {
-    toast.error((signInResult.error as LoginError).data.message ?? 'You are not login')
+    toast.error((signInResult.error as LoginError).data.message ?? 'You are not logged in')
   }
   if (signInResult.isSuccess) {
     navigate(path.base)

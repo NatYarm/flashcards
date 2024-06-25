@@ -1,8 +1,10 @@
+import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { useGetDecksMinMaxCardsQuery, useGetDecksQuery } from './decksApi'
-import { useState } from 'react'
+
 import { Sort, Tab } from '@/common/components'
+
 import { ErrorResponse } from './decks.types'
+import { useGetDecksMinMaxCardsQuery, useGetDecksQuery } from './decksApi'
 
 export const useDecksSearchParams = () => {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -10,14 +12,18 @@ export const useDecksSearchParams = () => {
   const [sort, setSort] = useState<Sort>(null)
 
   const {
-    data: minMaxCardsCount,
-    error: minMaxCardsCountError,
-    isLoading: minMaxCardsCountLoading,
+    data: cardsInDeck,
+    error: cardsInDeckError,
+    isLoading: cardsInDeckLoading,
   } = useGetDecksMinMaxCardsQuery()
 
-  const minCardsCount = minMaxCardsCount?.min || 0
-  const maxCardsCount = minMaxCardsCount?.max || 35
-  const [cardsRange, setCardsRange] = useState([minCardsCount, maxCardsCount])
+  const minCardsInDeck = cardsInDeck?.min || 0
+  const maxCardsInDeck = cardsInDeck?.max || 50
+  const [cardsRange, setCardsRange] = useState([minCardsInDeck, maxCardsInDeck])
+
+  useEffect(() => {
+    cardsInDeck && setCardsRange([cardsInDeck.min, cardsInDeck.max])
+  }, [cardsInDeck])
 
   const handleSliderValueChange = (value: number[]) => {
     setCardsRange(value)
@@ -40,13 +46,12 @@ export const useDecksSearchParams = () => {
 
   // tabs query
   const tabs: Tab[] = [
-    { title: 'My decks', value: 'my', disabled: false },
-    { title: 'All decks', value: 'all', disabled: false },
-    { title: 'Favorites', value: 'favorites', disabled: false },
+    { disabled: false, title: 'My decks', value: 'my' },
+    { disabled: false, title: 'All decks', value: 'all' },
+    { disabled: false, title: 'Favorites', value: 'favorites' },
   ]
 
   const currentTab = searchParams.get('currentTab' || 'all')
-
   const handleTabChange = (tab: string) => {
     searchParams.set('currentTab', tab)
     setSearchParams(searchParams)
@@ -54,7 +59,6 @@ export const useDecksSearchParams = () => {
 
   //current page query
   const currentPage = Number(searchParams.get('currentPage') || 1)
-
   const handlePageChange = (page: number) => {
     searchParams.set('currentPage', page.toString())
     setSearchParams(searchParams)
@@ -66,7 +70,7 @@ export const useDecksSearchParams = () => {
 
   const clearFilters = () => {
     setSort(null)
-    setCardsRange([0, maxCardsCount ?? null])
+    setCardsRange([0, maxCardsInDeck ?? null])
     setSearchParams({})
   }
 
@@ -75,18 +79,18 @@ export const useDecksSearchParams = () => {
     error: getDecksError,
     isLoading: getDecksLoading,
   } = useGetDecksQuery({
-    name: searchParams.get('name') || undefined,
     currentPage,
     itemsPerPage,
-    minCardsCount: cardsRange[0],
     maxCardsCount: cardsRange[1],
+    minCardsCount: cardsRange[0],
+    name: searchParams.get('name') || undefined,
     orderBy: sort ? `${sort.key}-${sort.direction}` : undefined,
   })
 
-  const decksLoading = minMaxCardsCountLoading || getDecksLoading
+  const decksLoading = getDecksLoading || cardsInDeckLoading
 
   const error = [
-    ...((minMaxCardsCountError as ErrorResponse)?.data.errorMessages || []),
+    ...((cardsInDeckError as ErrorResponse)?.data.errorMessages || []),
     ...((getDecksError as ErrorResponse)?.data.errorMessages || []),
   ]
   const decksError = error.length ? error : null
@@ -98,16 +102,16 @@ export const useDecksSearchParams = () => {
     currentTab,
     decks,
     decksError,
+    decksLoading,
     handleClearInput,
     handleItemsPerPageChange,
     handlePageChange,
     handleSearchChange,
     handleSliderValueChange,
     handleTabChange,
-    decksLoading,
     itemsPerPage,
-    maxCardsCount,
-    minCardsCount,
+    maxCardsInDeck,
+    minCardsInDeck,
     searchParams,
     setSort,
     sort,

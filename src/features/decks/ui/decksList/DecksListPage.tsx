@@ -4,7 +4,6 @@ import { TrashOutline } from '@/assets/icons/components'
 import {
   Button,
   Loader,
-  Modal,
   Page,
   Pagination,
   Slider,
@@ -12,14 +11,23 @@ import {
   TextField,
   Typography,
 } from '@/common/components'
-import { useDecksSearchParams } from '@/features/decks/services/useDecksSearchParams'
+import {
+  useCreateDeckMutation,
+  useDecksSearchParams,
+  useDeleteDeckMutation,
+  useUpdateDeckMutation,
+} from '@/features/decks/services'
 
 import s from './decksListPage.module.scss'
 
 import { DecksTable } from './decksTable/DecksTable'
 
 export const DecksListPage = () => {
-  const [createNewDeck, setCreateNewDeck] = useState(false)
+  const [, setShowCreateDeckModal] = useState(false)
+
+  const [, { isLoading: creatingDeck }] = useCreateDeckMutation()
+  const [updateDeck] = useUpdateDeckMutation()
+  const [deleteDeck] = useDeleteDeckMutation()
 
   const {
     cardsRange,
@@ -36,16 +44,16 @@ export const DecksListPage = () => {
     handleSliderValueChange,
     handleTabChange,
     itemsPerPage,
-    maxCardsCount,
-    minCardsCount,
+    maxCardsInDeck,
+    minCardsInDeck,
     searchParams,
     setSort,
     sort,
     tabs,
   } = useDecksSearchParams()
 
-  const addDeck = () => {
-    setCreateNewDeck(true)
+  const openCreateDeckModal = () => {
+    setShowCreateDeckModal(true)
   }
 
   if (decksLoading) {
@@ -60,16 +68,22 @@ export const DecksListPage = () => {
     )
   }
 
+  // const handleCreateDeck = (data: CreateDeckArgs) => {
+  //   clearFilters()
+  //   createDeck(data)
+  //   toast.success('Deck created')
+  // }
+
   return (
     <Page>
       <div className={s.pageHeader}>
         <Typography as={'h1'} variant={'h1'}>
           Decks List
         </Typography>
-        <Modal onOpenChange={setCreateNewDeck} open={createNewDeck} title={'create new deck'}>
-          modal
-        </Modal>
-        <Button onClick={addDeck}>Add New Deck</Button>
+
+        <Button disabled={creatingDeck} onClick={openCreateDeckModal}>
+          Add New Deck
+        </Button>
       </div>
       <div className={s.filters}>
         <div className={s.searchField}>
@@ -91,8 +105,8 @@ export const DecksListPage = () => {
 
         <Slider
           label={'Number of cards'}
-          max={maxCardsCount}
-          min={minCardsCount}
+          max={maxCardsInDeck}
+          min={minCardsInDeck}
           onValueChange={handleSliderValueChange}
           value={cardsRange}
         />
@@ -102,7 +116,17 @@ export const DecksListPage = () => {
           Clear Filters
         </Button>
       </div>
-      <DecksTable decks={decks?.items} onSort={setSort} sort={sort} />
+      <DecksTable
+        decks={decks?.items}
+        onDeleteClick={id => {
+          deleteDeck({ id })
+        }}
+        onEditClick={id => {
+          updateDeck({ id })
+        }}
+        onSort={setSort}
+        sort={sort}
+      />
 
       <Pagination
         className={s.pagination}

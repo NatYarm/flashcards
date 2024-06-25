@@ -3,27 +3,27 @@ import { useForm } from 'react-hook-form'
 import { Button } from '@/common/components/button'
 import { ControlledCheckbox } from '@/common/components/controlled'
 import { ControlledInput } from '@/common/components/controlled/controlledInput'
-import { emailScheme, passwordScheme, rememberMeScheme } from '@/common/utils'
+import { emailSchema, passwordSchema, rememberMeSchema } from '@/common/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import s from './loginForm.module.scss'
 
-const loginScheme = z.object({
-  email: emailScheme,
-  password: passwordScheme,
-  rememberMe: rememberMeScheme,
+const loginSchema = z.object({
+  email: emailSchema,
+  password: passwordSchema,
+  rememberMe: rememberMeSchema,
 })
 
 type Props = {
   onSubmit: (data: FormData) => void
 }
 
-export type FormData = z.infer<typeof loginScheme>
+export type FormData = z.infer<typeof loginSchema>
 
 export const LoginForm = ({ onSubmit }: Props) => {
   const { control, handleSubmit } = useForm<FormData>({
-    resolver: zodResolver(loginScheme),
+    resolver: zodResolver(loginSchema),
   })
 
   const handleFormSubmit = handleSubmit(onSubmit)

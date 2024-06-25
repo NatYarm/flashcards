@@ -51,19 +51,19 @@ export type GetDeckById = {
   id: string
 }
 
-export type CreateDecksArgs = {
-  cover?: File | null | string
-  isPrivate?: boolean
-  name: string
-}
-export type UpdateDecksArgs = { id: string } & Partial<CreateDecksArgs>
-
-export type DeleteDecksArgs = { id: string }
-
 export type MinMaxCards = {
   max: number
   min: number
 }
+
+export type CreateDeckArgs = {
+  cover?: File | null | string
+  isPrivate?: boolean
+  name: string
+}
+export type DeleteDeckArgs = { id: string }
+
+export type UpdateDeckArgs = { id: string } & Partial<CreateDeckArgs>
 
 export type ErrorMessages = {
   field: string

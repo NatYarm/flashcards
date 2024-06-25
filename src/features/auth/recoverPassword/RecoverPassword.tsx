@@ -5,14 +5,14 @@ import { Button } from '@/common/components/button'
 import { Card } from '@/common/components/card'
 import { ControlledTextField } from '@/common/components/controlled'
 import { Typography } from '@/common/components/typography'
-import { emailScheme } from '@/common/utils'
+import { emailSchema } from '@/common/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import s from './recoverPassword.module.scss'
 
 const loginScheme = z.object({
-  email: emailScheme,
+  email: emailSchema,
 })
 
 type FormType = z.infer<typeof loginScheme>

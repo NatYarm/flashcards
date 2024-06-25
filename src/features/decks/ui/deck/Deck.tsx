@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router-dom'
 
 import { ArrowBackOutline, Edit2Outline, Eye, Star, TrashOutline } from '@/assets/icons/components'
 import KeyboardArrowUp from '@/assets/icons/components/KeyboardArrowUp'
+import defaultCard from '@/assets/img/defaultCard.jpg'
 import { Button } from '@/common/components/button'
 import {
   Table,
@@ -16,10 +17,9 @@ import { Typography } from '@/common/components/typography'
 
 import s from './deck.module.scss'
 
-import defaultCard from '@/assets/img/defaultCard.jpg'
-
 export const Deck = () => {
   const { deckId } = useParams()
+
   return (
     <div className={s.container} style={{ marginTop: '24px' }}>
       <div className={s.heading}>

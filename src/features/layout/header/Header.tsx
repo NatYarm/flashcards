@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
 
+import { router } from '@/app/router'
 import logo from '@/assets/icons/logos/logo.png'
 import { Button, Typography } from '@/common/components'
 import { UserDropdown } from '@/common/components/dropdown/userDropdown'
-import { path } from '@/common/enams'
-import { router } from '@/router'
+import { path } from '@/common/enums'
 
 import s from './header.module.scss'
 

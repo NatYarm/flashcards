@@ -1,22 +1,22 @@
 import { z } from 'zod'
 
-export const emailScheme = z
+export const emailSchema = z
   .string()
   .min(1, { message: 'This field has to be filled.' })
   .email('This is not a valid email.')
 
-export const passwordScheme = z
+export const passwordSchema = z
   .string()
   .min(4, { message: 'Password must be at least 4 characters' })
   .max(30, { message: 'The field must not contain more than 30 characters' })
 
-export const confirmPasswordScheme = z.string()
+export const confirmPasswordSchema = z.string()
 
-export const rememberMeScheme = z.boolean().optional().default(false)
+export const rememberMeSchema = z.boolean().optional().default(false)
 
-export const radioGroupScheme = z.boolean().optional().default(false)
+export const radioGroupSchema = z.boolean().optional().default(false)
 
-export const schemaFile = z.instanceof(File).refine(file => file.size < 1000000, {
+export const fileSchema = z.instanceof(File).refine(file => file.size < 1000000, {
   message: 'Your image must be less than 1 MB.',
 })
 
@@ -42,9 +42,9 @@ export const passwordsMatch = (data: { confirmPassword: string; password: string
 // как использовать
 /*const loginScheme = z
   .object({
-    email: emailScheme,
-    password: passwordScheme,
-    confirmPassword: confirmPasswordScheme,
+    email: emailSchema,
+    password: passwordSchema,
+    confirmPassword: confirmpasswordSchema,
     rememberMe: rememberMeScheme,
     radioGroup: radioGroupScheme,
   })

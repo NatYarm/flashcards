@@ -63,7 +63,6 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     function handleChange(e: ChangeEvent<HTMLInputElement>) {
       const value = e.target.value
 
-      //console.log('Input Value:', value)
       setInputValue(value)
       onChange?.(e)
       onValueChange?.(value)
@@ -72,19 +71,6 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     function handleToggleShowPassword() {
       setRevealPassword((prevState: boolean) => !prevState)
     }
-
-    // function handleClearInput() {
-    //   console.log('Clearing input...') // Debug statement
-    //   if (onClearInput) {
-    //     return onClearInput()
-    //   } else {
-    //     if (internalRef.current) {
-    //       setInputValue('')
-    //       internalRef.current.value = ''
-    //       onValueChange?.('')
-    //     }
-    //   }
-    // }
 
     function handleClearInput() {
       if (onClearInput) {
@@ -98,8 +84,6 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       setInputValue('')
       onValueChange?.('')
     }
-
-    // console.log('Input Value:', inputValue) // Debug statement
 
     const classNames = {
       error: clsx(s.error),
