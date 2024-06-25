@@ -1,0 +1,12 @@
+.dataContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  color: var(--color-light-100);
+}
+
+.email {
+  color: var(--color-dark-100);
+}

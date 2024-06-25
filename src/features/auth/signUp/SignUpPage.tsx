@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
-import { Loader } from '@/common/components'
+import { Loader, Page } from '@/common/components'
 import { path } from '@/common/enums'
 import { SignErrorResponse, SignUpArgs } from '@/common/types'
 import { useSignUpMutation } from '@/features/auth/api/authApi'
@@ -47,5 +47,9 @@ export const SignUpPage = () => {
     return <Loader />
   }
 
-  return <SignUpForm onSubmit={handleSignUp} />
+  return (
+    <Page>
+      <SignUpForm onSubmit={handleSignUp} />
+    </Page>
+  )
 }

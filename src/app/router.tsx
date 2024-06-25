@@ -8,6 +8,7 @@ import {
 
 import { path } from '@/common/enums'
 import { useGetMeQuery } from '@/features/auth/api/authApi'
+import { ProfilePage } from '@/features/auth/profile/ProfilePage'
 import { RecoveryPasswordPage } from '@/features/auth/recoverPassword'
 import { SignInPage } from '@/features/auth/signIn/SignInPage'
 import { SignUpPage } from '@/features/auth/signUp/SignUpPage'
@@ -48,6 +49,10 @@ const privateRoutes: RouteObject[] = [
   {
     element: <LearnCardsPage />,
     path: `${path.decks}/:id/learn`,
+  },
+  {
+    element: <ProfilePage />,
+    path: path.profile,
   },
 ]
 
