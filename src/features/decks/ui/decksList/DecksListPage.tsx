@@ -20,12 +20,13 @@ import {
 
 import s from './decksListPage.module.scss'
 
-import DeckDialog from '../../dialogs/deckDialog'
+import { DeckDialog } from '../../dialogs'
+import { DecksTable } from './decksTable/DecksTable'
 
 export const DecksListPage = () => {
   const [showCreateDeckModal, setShowCreateDeckModal] = useState(false)
 
-  const [createDeck] = useCreateDeckMutation()
+  const [createDeck, { isLoading: creatingDeck }] = useCreateDeckMutation()
   const [updateDeck] = useUpdateDeckMutation()
   const [deleteDeck] = useDeleteDeckMutation()
 
@@ -44,8 +45,8 @@ export const DecksListPage = () => {
     handleSliderValueChange,
     handleTabChange,
     itemsPerPage,
-    maxCardsCount,
-    minCardsCount,
+    maxCardsInDeck,
+    minCardsInDeck,
     searchParams,
     setSort,
     sort,
@@ -85,7 +86,9 @@ export const DecksListPage = () => {
           open={showCreateDeckModal}
           title={'Add New Deck'}
         />
-        <Button onClick={openCreateDeckModal}>Add New Deck</Button>
+        <Button disabled={creatingDeck} onClick={openCreateDeckModal}>
+          Add New Deck
+        </Button>
       </div>
       <div className={s.filters}>
         <div className={s.searchField}>
@@ -107,8 +110,8 @@ export const DecksListPage = () => {
 
         <Slider
           label={'Number of cards'}
-          max={maxCardsCount}
-          min={minCardsCount}
+          max={maxCardsInDeck}
+          min={minCardsInDeck}
           onValueChange={handleSliderValueChange}
           value={cardsRange}
         />

@@ -7,7 +7,7 @@ import { Card } from '@/common/components/card'
 import { Input } from '@/common/components/input'
 import { Typography } from '@/common/components/typography'
 
-import s from './personal-information.module.scss'
+import s from './personalInformation.module.scss'
 
 type Props = {
   avatar: string

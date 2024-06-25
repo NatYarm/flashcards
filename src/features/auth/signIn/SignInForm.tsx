@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import { Button, Card, Typography } from '@/common/components'
 import { ControlledCheckbox, ControlledTextField } from '@/common/components/controlled'
-import { path } from '@/common/enams'
+import { path } from '@/common/enums'
 import { emailScheme, passwordScheme, rememberMeScheme } from '@/common/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'

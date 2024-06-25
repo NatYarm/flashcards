@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 import { Sort, Tab } from '@/common/components'
@@ -12,14 +12,18 @@ export const useDecksSearchParams = () => {
   const [sort, setSort] = useState<Sort>(null)
 
   const {
-    data: minMaxCardsCount,
-    error: minMaxCardsCountError,
-    isLoading: minMaxCardsCountLoading,
+    data: cardsInDeck,
+    error: cardsInDeckError,
+    isLoading: cardsInDeckLoading,
   } = useGetDecksMinMaxCardsQuery()
 
-  const minCardsCount = minMaxCardsCount?.min || 0
-  const maxCardsCount = minMaxCardsCount?.max || 35
-  const [cardsRange, setCardsRange] = useState([minCardsCount, maxCardsCount])
+  const minCardsInDeck = cardsInDeck?.min || 0
+  const maxCardsInDeck = cardsInDeck?.max || 50
+  const [cardsRange, setCardsRange] = useState([minCardsInDeck, maxCardsInDeck])
+
+  useEffect(() => {
+    cardsInDeck && setCardsRange([cardsInDeck.min, cardsInDeck.max])
+  }, [cardsInDeck])
 
   const handleSliderValueChange = (value: number[]) => {
     setCardsRange(value)
@@ -66,7 +70,7 @@ export const useDecksSearchParams = () => {
 
   const clearFilters = () => {
     setSort(null)
-    setCardsRange([0, maxCardsCount ?? null])
+    setCardsRange([0, maxCardsInDeck ?? null])
     setSearchParams({})
   }
 
@@ -83,10 +87,10 @@ export const useDecksSearchParams = () => {
     orderBy: sort ? `${sort.key}-${sort.direction}` : undefined,
   })
 
-  const decksLoading = minMaxCardsCountLoading || getDecksLoading
+  const decksLoading = getDecksLoading || cardsInDeckLoading
 
   const error = [
-    ...((minMaxCardsCountError as ErrorResponse)?.data.errorMessages || []),
+    ...((cardsInDeckError as ErrorResponse)?.data.errorMessages || []),
     ...((getDecksError as ErrorResponse)?.data.errorMessages || []),
   ]
   const decksError = error.length ? error : null
@@ -106,8 +110,8 @@ export const useDecksSearchParams = () => {
     handleSliderValueChange,
     handleTabChange,
     itemsPerPage,
-    maxCardsCount,
-    minCardsCount,
+    maxCardsInDeck,
+    minCardsInDeck,
     searchParams,
     setSort,
     sort,

@@ -1,5 +1,6 @@
 import { toast } from 'react-toastify'
 
+import { baseApi } from '@/app/services/baseApi'
 import {
   MeResponse,
   RecoveryPasswordArgs,
@@ -9,7 +10,6 @@ import {
   SignUpArgs,
   SignUpResponse,
 } from '@/common/types'
-import { baseApi } from '@/services/baseApi'
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: builder => {

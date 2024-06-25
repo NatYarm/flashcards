@@ -6,16 +6,15 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
-import { path } from '@/common/enams'
+import { path } from '@/common/enums'
 import { useGetMeQuery } from '@/features/auth/api/authApi'
-
-import { RecoveryPasswordPage } from './features/auth/recoverPassword/RecoverPasswordPage'
-import { SignInPage } from './features/auth/signIn/SignInPage'
-import { SignUpPage } from './features/auth/signUp/SignUpPage'
-import { LearnCardsPage } from './features/cards/LearnCardsPage'
-import { Deck } from './features/decks/ui/deck/Deck'
-import { DecksListPage } from './features/decks/ui/decksList/DecksListPage'
-import { Layout } from './features/layout/Layout'
+import { RecoveryPasswordPage } from '@/features/auth/recoverPassword'
+import { SignInPage } from '@/features/auth/signIn/SignInPage'
+import { SignUpPage } from '@/features/auth/signUp/SignUpPage'
+import { LearnCardsPage } from '@/features/cards/LearnCardsPage'
+import { Deck } from '@/features/decks/ui/deck/Deck'
+import { DecksListPage } from '@/features/decks/ui/decksList/DecksListPage'
+import { Layout } from '@/features/layout/Layout'
 
 export const publicRoutes: RouteObject[] = [
   {

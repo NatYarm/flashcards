@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import { Loader } from '@/common/components'
-import { path } from '@/common/enams'
+import { path } from '@/common/enums'
 import { SignErrorResponse, SignUpArgs } from '@/common/types'
 import { useSignUpMutation } from '@/features/auth/api/authApi'
 import { emailTemplateConfirmEmail } from '@/features/auth/signUp/emailTemplateConfirmEmail'
