@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { toast } from 'react-toastify'
 
 import { TrashOutline } from '@/assets/icons/components'
 import {
@@ -12,6 +13,7 @@ import {
   Typography,
 } from '@/common/components'
 import {
+  CreateDeckArgs,
   useCreateDeckMutation,
   useDecksSearchParams,
   useDeleteDeckMutation,
@@ -20,7 +22,7 @@ import {
 
 import s from './decksListPage.module.scss'
 
-import { DeckDialog } from '../../dialogs/DeckDialog'
+import { DeckDialog } from '../../dialogs'
 import { DecksTable } from './decksTable/DecksTable'
 
 export const DecksListPage = () => {
@@ -69,6 +71,12 @@ export const DecksListPage = () => {
     )
   }
 
+  const handleCreateDeck = (data: CreateDeckArgs) => {
+    clearFilters()
+    createDeck(data)
+    toast.success('Deck created')
+  }
+
   return (
     <Page>
       <div className={s.pageHeader}>
@@ -78,10 +86,7 @@ export const DecksListPage = () => {
 
         <DeckDialog
           onCancel={() => setShowCreateDeckModal(false)}
-          onConfirm={data => {
-            clearFilters()
-            createDeck(data)
-          }}
+          onConfirm={handleCreateDeck}
           onOpenChange={setShowCreateDeckModal}
           open={showCreateDeckModal}
           title={'Add New Deck'}
