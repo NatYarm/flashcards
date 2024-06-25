@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { toast } from 'react-toastify'
 
 import { TrashOutline } from '@/assets/icons/components'
 import {
@@ -12,9 +11,7 @@ import {
   TextField,
   Typography,
 } from '@/common/components'
-import { DeckDialog } from '@/features/decks/dialogs/DeckDialog'
 import {
-  CreateDeckArgs,
   useCreateDeckMutation,
   useDecksSearchParams,
   useDeleteDeckMutation,
@@ -26,9 +23,9 @@ import s from './decksListPage.module.scss'
 import { DecksTable } from './decksTable/DecksTable'
 
 export const DecksListPage = () => {
-  const [showCreateDeckModal, setShowCreateDeckModal] = useState(false)
+  const [, setShowCreateDeckModal] = useState(false)
 
-  const [createDeck, { isLoading: creatingDeck }] = useCreateDeckMutation()
+  const [, { isLoading: creatingDeck }] = useCreateDeckMutation()
   const [updateDeck] = useUpdateDeckMutation()
   const [deleteDeck] = useDeleteDeckMutation()
 
@@ -71,11 +68,11 @@ export const DecksListPage = () => {
     )
   }
 
-  const handleCreateDeck = (data: CreateDeckArgs) => {
-    clearFilters()
-    createDeck(data)
-    toast.success('Deck created')
-  }
+  // const handleCreateDeck = (data: CreateDeckArgs) => {
+  //   clearFilters()
+  //   createDeck(data)
+  //   toast.success('Deck created')
+  // }
 
   return (
     <Page>
@@ -84,13 +81,6 @@ export const DecksListPage = () => {
           Decks List
         </Typography>
 
-        <DeckDialog
-          onCancel={() => setShowCreateDeckModal(false)}
-          onConfirm={handleCreateDeck}
-          onOpenChange={setShowCreateDeckModal}
-          open={showCreateDeckModal}
-          title={'Add New Deck'}
-        />
         <Button disabled={creatingDeck} onClick={openCreateDeckModal}>
           Add New Deck
         </Button>
