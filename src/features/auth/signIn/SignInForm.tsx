@@ -4,19 +4,19 @@ import { Link } from 'react-router-dom'
 import { Button, Card, Page, Typography } from '@/common/components'
 import { ControlledCheckbox, ControlledTextField } from '@/common/components/controlled'
 import { path } from '@/common/enums'
-import { emailScheme, passwordScheme, rememberMeScheme } from '@/common/utils'
+import { emailSchema, passwordSchema, rememberMeSchema } from '@/common/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import s from './signInForm.module.scss'
 
-const loginScheme = z.object({
-  email: emailScheme,
-  password: passwordScheme,
-  rememberMe: rememberMeScheme,
+const loginSchema = z.object({
+  email: emailSchema,
+  password: passwordSchema,
+  rememberMe: rememberMeSchema,
 })
 
-export type SignIn = z.infer<typeof loginScheme>
+export type SignIn = z.infer<typeof loginSchema>
 
 type Props = {
   onSubmit: (data: SignIn) => void
@@ -24,7 +24,7 @@ type Props = {
 
 export const SignInForm = ({ onSubmit }: Props) => {
   const { control, handleSubmit } = useForm<SignIn>({
-    resolver: zodResolver(loginScheme),
+    resolver: zodResolver(loginSchema),
   })
 
   const formSubmitHandler = handleSubmit(onSubmit)

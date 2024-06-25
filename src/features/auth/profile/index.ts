@@ -1,1 +1,1 @@
-export * from './ui/PersonalInformation'
+export * from './PersonalInformation'
