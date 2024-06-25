@@ -20,7 +20,7 @@ import {
 
 import s from './decksListPage.module.scss'
 
-import { DeckDialog } from '../../dialogs'
+import { DeckDialog } from '../../dialogs/DeckDialog'
 import { DecksTable } from './decksTable/DecksTable'
 
 export const DecksListPage = () => {
