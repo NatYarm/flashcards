@@ -10,7 +10,6 @@ import {
   Typography,
 } from '@/common/components'
 import {
-  UpdateDeckArgs,
   useDecksSearchParams,
   useDeleteDeckMutation,
   useUpdateDeckMutation,
@@ -19,7 +18,7 @@ import {
 import s from './decksListPage.module.scss'
 
 import { useGetMeQuery } from '../../../auth/api/authApi'
-import { DeckDialog } from '../../dialogs/deckDialog'
+import { DeckDialog } from '../../dialogs/DeckDialog'
 import { useCreateNewDeck } from '../../dialogs/hooks/useCreateNewDeck'
 import { DecksTable } from './decksTable/DecksTable'
 
@@ -57,10 +56,6 @@ export const DecksListPage = () => {
 
   const openCreateDeckModal = () => {
     setShowCreateModal(true)
-  }
-
-  const handleDeckUpdate = (args: UpdateDeckArgs) => {
-    updateDeck({ ...args })
   }
 
   if (decksLoading) {
