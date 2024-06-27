@@ -8,12 +8,14 @@ import {
   Modal,
   ModalProps,
 } from '@/common/components'
+import { fileSchema } from '@/common/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import s from './deckDialog.module.scss'
 
 const newDeckSchema = z.object({
+  cover: z.union([fileSchema, z.string(), z.null()]).optional(),
   isPrivate: z.boolean(),
   name: z.string().min(3).max(30),
 })
