@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import { TrashOutline } from '@/assets/icons/components'
 import {
   Button,
@@ -12,7 +10,7 @@ import {
   Typography,
 } from '@/common/components'
 import {
-  useCreateDeckMutation,
+  UpdateDeckArgs,
   useDecksSearchParams,
   useDeleteDeckMutation,
   useUpdateDeckMutation,
@@ -20,12 +18,17 @@ import {
 
 import s from './decksListPage.module.scss'
 
+import { useGetMeQuery } from '../../../auth/api/authApi'
+import { DeckDialog } from '../../dialogs/deckDialog'
+import { useCreateNewDeck } from '../../dialogs/hooks/useCreateNewDeck'
 import { DecksTable } from './decksTable/DecksTable'
 
 export const DecksListPage = () => {
-  const [, setShowCreateDeckModal] = useState(false)
+  const { data: me } = useGetMeQuery()
+  const currentUserId = me?.id
 
-  const [, { isLoading: creatingDeck }] = useCreateDeckMutation()
+  const { creatingDeck, handleCreateDeck, setShowCreateModal, showCreateModal } = useCreateNewDeck()
+
   const [updateDeck] = useUpdateDeckMutation()
   const [deleteDeck] = useDeleteDeckMutation()
 
@@ -53,7 +56,11 @@ export const DecksListPage = () => {
   } = useDecksSearchParams()
 
   const openCreateDeckModal = () => {
-    setShowCreateDeckModal(true)
+    setShowCreateModal(true)
+  }
+
+  const handleDeckUpdate = (args: UpdateDeckArgs) => {
+    updateDeck({ ...args })
   }
 
   if (decksLoading) {
@@ -68,22 +75,21 @@ export const DecksListPage = () => {
     )
   }
 
-  // const handleCreateDeck = (data: CreateDeckArgs) => {
-  //   clearFilters()
-  //   createDeck(data)
-  //   toast.success('Deck created')
-  // }
-
   return (
     <Page>
       <div className={s.pageHeader}>
         <Typography as={'h1'} variant={'h1'}>
           Decks List
         </Typography>
-
         <Button disabled={creatingDeck} onClick={openCreateDeckModal}>
           Add New Deck
         </Button>
+        <DeckDialog
+          onCancel={() => setShowCreateModal(false)}
+          onConfirm={handleCreateDeck}
+          onOpenChange={setShowCreateModal}
+          open={showCreateModal}
+        />
       </div>
       <div className={s.filters}>
         <div className={s.searchField}>
@@ -117,6 +123,7 @@ export const DecksListPage = () => {
         </Button>
       </div>
       <DecksTable
+        currentUserId={currentUserId ?? ''}
         decks={decks?.items}
         onDeleteClick={id => {
           deleteDeck({ id })
