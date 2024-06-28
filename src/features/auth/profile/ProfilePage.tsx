@@ -17,8 +17,8 @@ export const ProfilePage = () => {
   return (
     <Page>
       <PersonalInformation
-        avatar={meData?.avatar || ''}
         email={meData?.email || ''}
+        img={meData?.avatar || ''}
         name={meData?.name || ''}
         onSubmit={onSubmitProfile}
       />

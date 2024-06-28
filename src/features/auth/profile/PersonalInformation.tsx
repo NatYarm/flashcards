@@ -16,8 +16,8 @@ import { z } from 'zod'
 import s from './personalInformation.module.scss'
 
 export type Props = {
-  avatar: string
   email: string
+  img: string
   name: string
   onSubmit: (data: ProfileFormData) => void
 }
@@ -29,11 +29,11 @@ const loginSchema = z.object({
 
 export type ProfileFormData = z.infer<typeof loginSchema>
 
-export const PersonalInformation = ({ avatar, email, name, onSubmit }: Props) => {
+export const PersonalInformation = ({ email, img, name, onSubmit }: Props) => {
   const [isEditingName, setIsEditingName] = useState(false)
   const { control, handleSubmit } = useForm<ProfileFormData>({
     defaultValues: {
-      avatar: avatar || `https://ui-avatars.com/api/?name=${name}`,
+      avatar: img || `https://ui-avatars.com/api/?name=${name}`,
       name: name,
     },
     resolver: zodResolver(loginSchema),
@@ -55,7 +55,7 @@ export const PersonalInformation = ({ avatar, email, name, onSubmit }: Props) =>
         {!isEditingName ? (
           <div className={s.infoBlock}>
             <div className={s.userAvatar}>
-              <Avatar name={name} src={avatar} />
+              <Avatar name={name} src={img} />
             </div>
             <div className={s.nameBlock}>
               <Typography as={'h2'} variant={'h2'}>
