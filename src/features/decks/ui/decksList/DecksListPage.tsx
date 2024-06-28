@@ -9,6 +9,7 @@ import {
   TextField,
   Typography,
 } from '@/common/components'
+import { DeckDialog } from '@/features/decks/dialogs/deckDialog'
 import {
   useDecksSearchParams,
   useDeleteDeckMutation,
@@ -18,7 +19,6 @@ import {
 import s from './decksListPage.module.scss'
 
 import { useGetMeQuery } from '../../../auth/api/authApi'
-import { DeckDialog } from '../../dialogs/DeckDialog'
 import { useCreateNewDeck } from '../../dialogs/hooks/useCreateNewDeck'
 import { DecksTable } from './decksTable/DecksTable'
 

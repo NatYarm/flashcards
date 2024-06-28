@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
@@ -9,25 +10,31 @@ import { useGetMeQuery, useSignInMutation } from '@/features/auth/api/authApi'
 import { SignIn, SignInForm } from './SignInForm'
 
 export const SignInPage = () => {
-  const [signIn, signInResult] = useSignInMutation()
-  const { isLoading, isSuccess } = useGetMeQuery()
+  const [signIn, { error: signInError, isLoading: signInLoading, isSuccess: signInSuccess }] =
+    useSignInMutation()
+  const { isLoading: meLoading, isSuccess: meSuccess } = useGetMeQuery()
   const navigate = useNavigate()
+
   const handleSignIn = (data: SignIn) => {
     signIn(data).unwrap()
   }
 
-  if (signInResult.isLoading || isLoading) {
-    return <Loader />
-  }
+  useEffect(() => {
+    if (signInLoading || meLoading) {
+      return
+    }
 
-  if (signInResult.error) {
-    toast.error((signInResult.error as LoginError).data.message ?? 'You are not logged in')
-  }
-  if (signInResult.isSuccess) {
-    navigate(path.base)
-  }
-  if (isSuccess) {
-    navigate(path.base)
+    if (signInError) {
+      toast.error((signInError as LoginError).data.message ?? 'You are not logged in')
+    }
+
+    if (signInSuccess || meSuccess) {
+      navigate(path.base)
+    }
+  }, [signInLoading, meLoading, signInSuccess, meSuccess, signInError, navigate])
+
+  if (signInLoading || meLoading) {
+    return <Loader />
   }
 
   return (
