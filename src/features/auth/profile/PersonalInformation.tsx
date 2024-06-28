@@ -86,9 +86,9 @@ export const PersonalInformation = ({ email, img, name, onSubmit }: Props) => {
           </div>
         ) : (
           <div className={s.settingBlock}>
-            <Typography as={'span'} className={s.email} variant={'body1'}>
+            {/*<Typography as={'span'} className={s.email} variant={'body1'}>
               avatar
-            </Typography>
+            </Typography>*/}
             <div className={s.changeAvatar}>
               <ControlledInputFile control={control} name={'avatar'} />
             </div>

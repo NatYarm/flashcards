@@ -25,7 +25,7 @@ export const SignInPage = () => {
     if (signInResult.isSuccess || isSuccess) {
       navigate(path.base)
     }
-  }, [signInResult, isSuccess, navigate])
+  }, [signInResult.error, signInResult.isSuccess, isSuccess, navigate])
 
   if (signInResult.isLoading || isLoading) {
     return <Loader />
