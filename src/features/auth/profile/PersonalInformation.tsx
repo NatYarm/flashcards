@@ -1,3 +1,71 @@
+import { Edit2Outline, LogOut } from '@/assets/icons/components'
+import { Button, Card, Typography } from '@/common/components'
+import { CameraIcon } from '@radix-ui/react-icons'
+
+import s from './personalInformation.module.scss'
+
+type Props = {
+  avatar: string
+  email: string
+  name: string
+  onAvatarChange: (newAvatar: string) => void
+  onLogout: () => void
+  onNameChange: (newName: string) => void
+}
+export const PersonalInformation = ({
+  avatar,
+  email,
+  name,
+  onAvatarChange,
+  onLogout,
+  onNameChange,
+}: Props) => {
+  const handleAvatarChanged = () => {
+    onAvatarChange('new Avatar')
+  }
+  const handleNameChanged = () => {
+    onNameChange('New name')
+  }
+  const handleLogout = () => {
+    onLogout()
+  }
+
+  return (
+    <Card className={s.card}>
+      <Typography as={'h1'} className={s.title} variant={'h1'}>
+        Personal Information
+      </Typography>
+      <div className={s.photoContainer}>
+        <div>
+          <img alt={'avatar'} src={avatar} />
+          <button className={s.editAvatarButton} onClick={handleAvatarChanged}>
+            <CameraIcon />
+          </button>
+        </div>
+      </div>
+      <div className={s.nameWithEditButton}>
+        <Typography as={'h2'} className={s.name} variant={'h2'}>
+          {name}
+        </Typography>
+        <button className={s.editNameButton} onClick={handleNameChanged}>
+          <Edit2Outline />
+        </button>
+      </div>
+      <Typography className={s.email} variant={'body2'}>
+        {/* eslint-disable-next-line react/no-unescaped-entities */}
+        {email}
+      </Typography>
+      <div className={s.buttonContainer}>
+        <Button onClick={handleLogout} variant={'secondary'}>
+          <LogOut />
+          Sign Out
+        </Button>
+      </div>
+    </Card>
+  )
+}
+
+/*
 import { useId, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
@@ -86,9 +154,9 @@ export const PersonalInformation = ({ email, img, name, onSubmit }: Props) => {
           </div>
         ) : (
           <div className={s.settingBlock}>
-            {/*<Typography as={'span'} className={s.email} variant={'body1'}>
+            {/!*<Typography as={'span'} className={s.email} variant={'body1'}>
               avatar
-            </Typography>*/}
+            </Typography>*!/}
             <div className={s.changeAvatar}>
               <ControlledInputFile control={control} name={'avatar'} />
             </div>
@@ -111,3 +179,4 @@ export const PersonalInformation = ({ email, img, name, onSubmit }: Props) => {
     </Card>
   )
 }
+*/
