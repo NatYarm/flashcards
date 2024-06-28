@@ -9,17 +9,14 @@ import {
   TextField,
   Typography,
 } from '@/common/components'
-import {
-  useDecksSearchParams,
-  useDeleteDeckMutation,
-  useUpdateDeckMutation,
-} from '@/features/decks/services'
+import { useDecksSearchParams, useDeleteDeckMutation } from '@/features/decks/services'
 
 import s from './decksListPage.module.scss'
 
 import { useGetMeQuery } from '../../../auth/api/authApi'
-import { DeckDialog } from '../../dialogs/DeckDialog'
-import { useCreateNewDeck } from '../../dialogs/hooks/useCreateNewDeck'
+import { DeckModal } from '../../modals/DeckModal'
+import { useCreateNewDeck } from '../../modals/hooks/useCreateNewDeck'
+import { useUpdateDeck } from '../../modals/hooks/useUpdateDeck'
 import { DecksTable } from './decksTable/DecksTable'
 
 export const DecksListPage = () => {
@@ -27,8 +24,9 @@ export const DecksListPage = () => {
   const currentUserId = me?.id
 
   const { creatingDeck, handleCreateDeck, setShowCreateModal, showCreateModal } = useCreateNewDeck()
+  const { deckToEdit, handleDeckUpdate, handleEditClick, isEditModalOpen, setIsEditModalOpen } =
+    useUpdateDeck()
 
-  const [updateDeck] = useUpdateDeckMutation()
   const [deleteDeck] = useDeleteDeckMutation()
 
   const {
@@ -72,6 +70,20 @@ export const DecksListPage = () => {
 
   return (
     <Page>
+      {deckToEdit && (
+        <DeckModal
+          defaultValues={{
+            cover: deckToEdit.cover,
+            isPrivate: deckToEdit.isPrivate,
+            name: deckToEdit.name,
+          }}
+          onCancel={() => setIsEditModalOpen(false)}
+          onConfirm={handleDeckUpdate}
+          onOpenChange={setIsEditModalOpen}
+          open={isEditModalOpen}
+          title={'Update Deck'}
+        />
+      )}
       <div className={s.pageHeader}>
         <Typography as={'h1'} variant={'h1'}>
           Decks List
@@ -79,7 +91,7 @@ export const DecksListPage = () => {
         <Button disabled={creatingDeck} onClick={openCreateDeckModal}>
           Add New Deck
         </Button>
-        <DeckDialog
+        <DeckModal
           onCancel={() => setShowCreateModal(false)}
           onConfirm={handleCreateDeck}
           onOpenChange={setShowCreateModal}
@@ -123,9 +135,7 @@ export const DecksListPage = () => {
         onDeleteClick={id => {
           deleteDeck({ id })
         }}
-        onEditClick={id => {
-          updateDeck({ id })
-        }}
+        onEditClick={handleEditClick}
         onSort={setSort}
         sort={sort}
       />

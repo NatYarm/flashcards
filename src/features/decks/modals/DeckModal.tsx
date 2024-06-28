@@ -12,30 +12,30 @@ import { fileSchema } from '@/common/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
-import s from './deckDialog.module.scss'
+import s from './deckModal.module.scss'
 
-const newDeckSchema = z.object({
+const deckSchema = z.object({
   cover: z.union([fileSchema, z.string(), z.null()]).optional(),
   isPrivate: z.boolean(),
   name: z.string().min(3).max(30),
 })
 
-type FormValues = z.infer<typeof newDeckSchema>
+export type DeckModalFormValues = z.infer<typeof deckSchema>
 
-type Props = { defaultValues?: FormValues; onConfirm: (data: FormValues) => void } & Pick<
-  ModalProps,
-  'onCancel' | 'onOpenChange' | 'open' | 'title'
->
+type Props = {
+  defaultValues?: DeckModalFormValues
+  onConfirm: (data: DeckModalFormValues) => void
+} & Pick<ModalProps, 'onCancel' | 'onOpenChange' | 'open' | 'title'>
 
-export const DeckDialog = ({
+export const DeckModal = ({
   defaultValues = { isPrivate: false, name: '' },
   onCancel,
   onConfirm,
   ...modalProps
 }: Props) => {
-  const { control, handleSubmit, reset } = useForm<FormValues>({
+  const { control, handleSubmit, reset } = useForm<DeckModalFormValues>({
     defaultValues,
-    resolver: zodResolver(newDeckSchema),
+    resolver: zodResolver(deckSchema),
   })
 
   const handleCancel = () => {
@@ -58,7 +58,7 @@ export const DeckDialog = ({
         <ControlledCheckbox control={control} label={'Private'} name={'isPrivate'} />
         <div className={s.buttonsContainer}>
           <Button variant={'secondary'}>Cancel</Button>
-          <Button>Create Deck</Button>
+          <Button>Save Deck</Button>
         </div>
       </form>
     </Modal>
