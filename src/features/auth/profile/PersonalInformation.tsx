@@ -97,7 +97,7 @@ export const PersonalInformation = ({ email, img, name, onSubmit }: Props) => {
               autoFocus
               className={s.input}
               control={control}
-              defaultValue={name}
+              //defaultValue={name}
               label={'NickName'}
               name={'name'}
               type={'text'}
