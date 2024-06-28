@@ -17,7 +17,7 @@ import s from './personalInformation.module.scss'
 
 export type Props = {
   email: string
-  img: string
+  img?: string
   name: string
   onSubmit: (data: ProfileFormData) => void
 }
