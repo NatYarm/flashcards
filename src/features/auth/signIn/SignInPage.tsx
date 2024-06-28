@@ -10,9 +10,8 @@ import { useGetMeQuery, useSignInMutation } from '@/features/auth/api/authApi'
 import { SignIn, SignInForm } from './SignInForm'
 
 export const SignInPage = () => {
-  const [signIn, { error: signInError, isLoading: signInLoading, isSuccess: signInSuccess }] =
-    useSignInMutation()
-  const { isLoading: meLoading, isSuccess: meSuccess } = useGetMeQuery()
+  const [signIn, signInResult] = useSignInMutation()
+  const { isLoading, isSuccess } = useGetMeQuery()
   const navigate = useNavigate()
 
   const handleSignIn = (data: SignIn) => {
@@ -20,20 +19,15 @@ export const SignInPage = () => {
   }
 
   useEffect(() => {
-    if (signInLoading || meLoading) {
-      return
+    if (signInResult.error) {
+      toast.error((signInResult.error as LoginError).data.message ?? 'You are not logged in')
     }
-
-    if (signInError) {
-      toast.error((signInError as LoginError).data.message ?? 'You are not logged in')
-    }
-
-    if (signInSuccess || meSuccess) {
+    if (signInResult.isSuccess || isSuccess) {
       navigate(path.base)
     }
-  }, [signInLoading, meLoading, signInSuccess, meSuccess, signInError, navigate])
+  }, [signInResult, isSuccess, navigate])
 
-  if (signInLoading || meLoading) {
+  if (signInResult.isLoading || isLoading) {
     return <Loader />
   }
 
