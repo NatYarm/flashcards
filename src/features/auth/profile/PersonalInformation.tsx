@@ -1,8 +1,8 @@
-import { useId, useState } from 'react'
+import { ChangeEvent, useId, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
-import { Edit2Outline, LogOut } from '@/assets/icons/components'
+import { Edit2Outline, ImageOutline, LogOut } from '@/assets/icons/components'
 import { Button, Card, ControlledTextField, Typography } from '@/common/components'
 import { fileSchema, text } from '@/common/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -15,10 +15,9 @@ type Props = {
   email: string
   img?: string
   name: string
-  onAvatarChange: (newAvatar: string) => void
-  //onLogout: () => void
-  //onNameChange: (newName: string) => void
+  onImageUpload: (url: string) => void
   onSubmit: (data: ProfileFormData) => void
+  uploadImage: (file: File) => Promise<string>
 }
 
 const loginSchema = z.object({
@@ -28,7 +27,14 @@ const loginSchema = z.object({
 
 export type ProfileFormData = z.infer<typeof loginSchema>
 
-export const PersonalInformation = ({ email, img, name, onAvatarChange, onSubmit }: Props) => {
+export const PersonalInformation = ({
+  email,
+  img,
+  name,
+  onImageUpload,
+  onSubmit,
+  uploadImage,
+}: Props) => {
   const [isEditingName, setIsEditingName] = useState(false)
   const { control, handleSubmit } = useForm<ProfileFormData>({
     defaultValues: {
@@ -40,16 +46,23 @@ export const PersonalInformation = ({ email, img, name, onAvatarChange, onSubmit
   const formId = useId()
   const navigate = useNavigate()
 
+  const [preview, setPreview] = useState<null | string>(null)
+  const fileInputRef = useRef<HTMLInputElement | null>(null)
+
+  const handleChangeFile = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0]
+      // Загрузка файла на сервер и получение URL
+      const uploadedImageUrl = await uploadImage(file)
+
+      setPreview(uploadedImageUrl)
+      onImageUpload(uploadedImageUrl)
+    }
+  }
+
   const handleNameChanged = (data: ProfileFormData) => {
     onSubmit(data)
     setIsEditingName(!isEditingName)
-  }
-  /*const handleLogout = () => {
-    onLogout()
-  }*/
-
-  const handleAvatarChanged = () => {
-    onAvatarChange('new Avatar')
   }
 
   return (
@@ -63,9 +76,20 @@ export const PersonalInformation = ({ email, img, name, onAvatarChange, onSubmit
             <div className={s.photoContainer}>
               <div>
                 <img alt={'avatar'} src={img} />
-                <button className={s.editAvatarButton}>
+                <button
+                  className={s.editAvatarButton}
+                  onClick={() => fileInputRef.current && fileInputRef.current.click()}
+                >
                   <CameraIcon />
                 </button>
+                <input
+                  accept={'image/*'}
+                  className={s.file}
+                  onChange={handleChangeFile}
+                  ref={fileInputRef}
+                  style={{ display: 'none' }}
+                  type={'file'}
+                />
               </div>
             </div>
             <div className={s.nameWithEditButton}>
@@ -96,7 +120,10 @@ export const PersonalInformation = ({ email, img, name, onAvatarChange, onSubmit
             <div className={s.photoContainer}>
               <div>
                 <img alt={'avatar'} src={img} />
-                <button className={s.editAvatarButton} onClick={handleAvatarChanged}>
+                <button
+                  className={s.editAvatarButton}
+                  onClick={() => fileInputRef.current && fileInputRef.current.click()}
+                >
                   <CameraIcon />
                 </button>
               </div>
@@ -106,7 +133,6 @@ export const PersonalInformation = ({ email, img, name, onAvatarChange, onSubmit
               autoFocus
               className={s.inputName}
               control={control}
-              //value={name}
               label={'NickName'}
               name={'name'}
               type={'text'}

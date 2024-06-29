@@ -1,61 +1,3 @@
-import { ChangeEvent, useRef, useState } from 'react'
-
-import { ImageOutline } from '@/assets/icons/components'
-import { Button } from '@/common/components/button/Button'
-
-import s from './controlledTextFieldFile.module.scss'
-
-// Типы для пропсов компонента
-export type ImageUploaderProps = {
-  onImageUpload: (url: string) => void // Callback для обработки загруженного изображения
-  uploadImage: (file: File) => Promise<string> // Функция для загрузки изображения, возвращающая URL
-}
-
-export const ImageUploader = ({ onImageUpload, uploadImage }: ImageUploaderProps) => {
-  const [preview, setPreview] = useState<null | string>(null)
-  const fileInputRef = useRef<HTMLInputElement | null>(null)
-
-  const handleChangeFile = async (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0]
-      // Загрузка файла на сервер и получение URL
-      const uploadedImageUrl = await uploadImage(file)
-
-      setPreview(uploadedImageUrl)
-      onImageUpload(uploadedImageUrl)
-    }
-  }
-
-  return (
-    <div className={s.container}>
-      <div className={s.photoContainer}>
-        {preview && <img alt={'no picture'} className={s.img} src={preview} />}
-      </div>
-      <div className={s.containerButton}>
-        <Button
-          fullWidth
-          onClick={() => fileInputRef.current && fileInputRef.current.click()}
-          type={'button'}
-          variant={'secondary'}
-        >
-          <ImageOutline /> Upload Image
-        </Button>
-        <input
-          accept={'image/*'}
-          className={s.file}
-          onChange={handleChangeFile}
-          ref={fileInputRef}
-          style={{ display: 'none' }}
-          type={'file'}
-        />
-      </div>
-    </div>
-  )
-}
-
-ImageUploader.displayName = 'ImageUploader'
-
-/*
 import { ChangeEvent, KeyboardEvent, useId, useRef, useState } from 'react'
 import { Control, FieldPath, FieldValues, useController } from 'react-hook-form'
 
@@ -134,7 +76,7 @@ export const ControlledTextFieldFile = <TFieldValues extends FieldValues>(
           <label className={s.label} htmlFor={finalId} ref={ref}>
             <ImageOutline /> Upload Image
             <input
-              accept={'image/!*'}
+              accept={'image/*'}
               className={s.file}
               type={'file'}
               {...field}
@@ -152,4 +94,3 @@ export const ControlledTextFieldFile = <TFieldValues extends FieldValues>(
 }
 
 ControlledTextFieldFile.displayName = 'ControlledTextFieldFile'
-*/
