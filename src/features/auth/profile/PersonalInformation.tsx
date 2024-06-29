@@ -1,6 +1,8 @@
 import { Edit2Outline, LogOut } from '@/assets/icons/components'
 import { Button, Card, Typography } from '@/common/components'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { CameraIcon } from '@radix-ui/react-icons'
+import { z } from 'zod'
 
 import s from './personalInformation.module.scss'
 
