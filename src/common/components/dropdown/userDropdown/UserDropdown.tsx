@@ -24,7 +24,7 @@ export const UserDropdown = ({
   onSelectProfile,
 }: UserDropdownProps) => {
   if (!avatar) {
-    avatar = 'https://avatars.githubusercontent.com/u/1196875?v=4'
+    avatar = 'https://avatars.githubusercontent.com/u'
   }
 
   return (
