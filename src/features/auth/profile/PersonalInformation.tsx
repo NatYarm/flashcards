@@ -2,7 +2,7 @@ import { ChangeEvent, useId, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
-import { Edit2Outline, ImageOutline, LogOut } from '@/assets/icons/components'
+import { Edit2Outline, LogOut } from '@/assets/icons/components'
 import { Button, Card, ControlledTextField, Typography } from '@/common/components'
 import { fileSchema, text } from '@/common/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -15,9 +15,7 @@ type Props = {
   email: string
   img?: string
   name: string
-  onImageUpload: (url: string) => void
   onSubmit: (data: ProfileFormData) => void
-  uploadImage: (file: File) => Promise<string>
 }
 
 const loginSchema = z.object({
@@ -27,16 +25,9 @@ const loginSchema = z.object({
 
 export type ProfileFormData = z.infer<typeof loginSchema>
 
-export const PersonalInformation = ({
-  email,
-  img,
-  name,
-  onImageUpload,
-  onSubmit,
-  uploadImage,
-}: Props) => {
+export const PersonalInformation = ({ email, img, name, onSubmit }: Props) => {
   const [isEditingName, setIsEditingName] = useState(false)
-  const { control, handleSubmit } = useForm<ProfileFormData>({
+  const { control, handleSubmit, setValue } = useForm<ProfileFormData>({
     defaultValues: {
       avatar: img || 'https://avatars.githubusercontent.com/u',
       name: name,
@@ -50,13 +41,15 @@ export const PersonalInformation = ({
   const fileInputRef = useRef<HTMLInputElement | null>(null)
 
   const handleChangeFile = async (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0]
-      // Загрузка файла на сервер и получение URL
-      const uploadedImageUrl = await uploadImage(file)
+    if (preview) {
+      URL.revokeObjectURL(preview)
+    }
 
-      setPreview(uploadedImageUrl)
-      onImageUpload(uploadedImageUrl)
+    if (e.target.files && e.target.files[0]) {
+      const img = URL.createObjectURL(e.target.files[0])
+
+      setPreview(img)
+      setValue('avatar', e.target.files[0]) // Устанавливаем значение для avatar
     }
   }
 
@@ -71,11 +64,11 @@ export const PersonalInformation = ({
         Personal Information
       </Typography>
       <form id={formId} onSubmit={handleSubmit(handleNameChanged)}>
-        {isEditingName ? (
+        {!isEditingName ? (
           <div>
             <div className={s.photoContainer}>
               <div>
-                <img alt={'avatar'} src={img} />
+                <img alt={'avatar'} src={preview || img} />
                 <button
                   className={s.editAvatarButton}
                   onClick={() => fileInputRef.current && fileInputRef.current.click()}
@@ -96,7 +89,11 @@ export const PersonalInformation = ({
               <Typography as={'h2'} className={s.name} variant={'h2'}>
                 {name}
               </Typography>
-              <button className={s.editNameButton} type={'submit'}>
+              <button
+                className={s.editNameButton}
+                onClick={() => setIsEditingName(true)}
+                type={'button'}
+              >
                 <Edit2Outline />
               </button>
             </div>
@@ -119,13 +116,7 @@ export const PersonalInformation = ({
           <div>
             <div className={s.photoContainer}>
               <div>
-                <img alt={'avatar'} src={img} />
-                <button
-                  className={s.editAvatarButton}
-                  onClick={() => fileInputRef.current && fileInputRef.current.click()}
-                >
-                  <CameraIcon />
-                </button>
+                <img alt={'avatar'} src={preview || img} />
               </div>
             </div>
             <ControlledTextField
