@@ -12,11 +12,11 @@ import { DeckModalFormValues } from '../DeckModal'
 
 export const useUpdateDeck = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
-  const { clearFilters } = useDecksSearchParams()
-  const [updateDeck] = useUpdateDeckMutation()
   const [deckToEdit, setDeckToEdit] = useState<Deck | null>(null)
+  const [updateDeck] = useUpdateDeckMutation()
+  const { clearFilters } = useDecksSearchParams()
 
-  const handleEditClick = (deck: Deck) => {
+  const onEditClick = (deck: Deck) => {
     setDeckToEdit(deck)
     setIsEditModalOpen(true)
   }
@@ -39,8 +39,8 @@ export const useUpdateDeck = () => {
   return {
     deckToEdit,
     handleDeckUpdate,
-    handleEditClick,
     isEditModalOpen,
+    onEditClick,
     setDeckToEdit,
     setIsEditModalOpen,
   }

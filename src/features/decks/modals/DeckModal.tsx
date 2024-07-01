@@ -57,7 +57,9 @@ export const DeckModal = ({
         </Button>
         <ControlledCheckbox control={control} label={'Private'} name={'isPrivate'} />
         <div className={s.buttonsContainer}>
-          <Button variant={'secondary'}>Cancel</Button>
+          <Button onClick={() => modalProps.onOpenChange?.(false)} variant={'secondary'}>
+            Cancel
+          </Button>
           <Button>Save Deck</Button>
         </div>
       </form>
