@@ -1,7 +1,7 @@
 import { Page } from '@/common/components'
-import { PersonalInformation, ProfileFormData } from '@/features/auth/profile'
+import { PersonalInformation } from '@/features/auth/profile'
 
-import { useGetMeQuery, useUpdateMeMutation } from '../api/authApi'
+import { useGetMeQuery } from '../api/authApi'
 
 export const ProfilePage = () => {
   const { data } = useGetMeQuery()
