@@ -17,7 +17,7 @@
 
 .disabled {
   color: var(--color-dark-100);
-  cursor: default;
+  pointer-events: none;
 }
 
 .privateDeck {

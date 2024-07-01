@@ -70,7 +70,7 @@ export const useDecksSearchParams = () => {
 
   const clearFilters = () => {
     setSort(null)
-    setCardsRange([0, maxCardsInDeck ?? null])
+    setCardsRange([0, maxCardsInDeck])
     setSearchParams({})
   }
 
