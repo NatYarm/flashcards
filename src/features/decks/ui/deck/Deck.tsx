@@ -30,7 +30,7 @@ export const Deck = () => {
         <div className={s.headingSecondRow}>
           <div>
             <div className={s.info}>
-              <Typography className={s.h1} variant={'h1'}>
+              <Typography as={'h1'} className={s.h1} variant={'h1'}>
                 Number2
               </Typography>
             </div>

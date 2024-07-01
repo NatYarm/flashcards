@@ -5,7 +5,7 @@ import { PersonalInformation } from './'
 const meta = {
   component: PersonalInformation,
   tags: ['autodocs'],
-  title: 'Profile/PersonalInformation',
+  title: 'Profile/Personal information',
 } satisfies Meta<typeof PersonalInformation>
 
 export default meta
@@ -16,17 +16,14 @@ export const Default: Story = {
     avatar: 'https://picsum.photos/200',
     email: 'your_email@domain.com',
     name: 'John Doe',
-    onSubmit: () => {
-      console.info('personal info changed')
+    onAvatarChange: () => {
+      console.info('avatar changed')
+    },
+    onLogout: () => {
+      console.info('logout')
+    },
+    onNameChange: () => {
+      console.info('name changed')
     },
   },
-  // onAvatarChange: () => {
-  //   console.info('avatar changed')
-  // },
-  // onLogout: () => {
-  //   console.info('logout')
-  // },
-  // onNameChange: () => {
-  //   console.info('name changed')
-  // },
 }

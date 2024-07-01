@@ -21,10 +21,6 @@ export type TextFieldProps = {
   errorMessage?: string
   label?: string
   labelProps?: ComponentProps<'label'>
-  /**
-   * Callback that is called when the clear button is clicked
-   * If not provided clears the internal value via ref and calls onValueChange with an empty string
-   */
   onClearInput?: () => void
   onValueChange?: (value: string) => void
 } & ComponentPropsWithoutRef<'input'>
