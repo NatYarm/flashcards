@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { Edit2Outline, LogOut } from '@/assets/icons/components'
 import { Button, Card, ControlledTextField, Typography } from '@/common/components'
 import { fileSchema, text } from '@/common/utils'
+import { useUpdateMeMutation } from '@/features/auth/api/authApi'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { CameraIcon } from '@radix-ui/react-icons'
 import { z } from 'zod'
@@ -15,7 +16,6 @@ type Props = {
   email: string
   img?: string
   name: string
-  onSubmit: (data: ProfileFormData) => void
 }
 
 const loginSchema = z.object({
@@ -25,7 +25,8 @@ const loginSchema = z.object({
 
 export type ProfileFormData = z.infer<typeof loginSchema>
 
-export const PersonalInformation = ({ email, img, name, onSubmit }: Props) => {
+export const PersonalInformation = ({ email, img, name }: Props) => {
+  const [updateProfilePage] = useUpdateMeMutation()
   const [isEditingName, setIsEditingName] = useState(false)
   const { control, handleSubmit, setValue } = useForm<ProfileFormData>({
     defaultValues: {
@@ -34,11 +35,20 @@ export const PersonalInformation = ({ email, img, name, onSubmit }: Props) => {
     },
     resolver: zodResolver(loginSchema),
   })
+
+  const onSubmitProfile = (formData: ProfileFormData) => {
+    const avatar = typeof formData.avatar === 'string' ? null : formData.avatar
+
+    updateProfilePage({ ...formData, avatar })
+  }
+
   const formId = useId()
   const navigate = useNavigate()
 
   const [preview, setPreview] = useState<null | string>(null)
   const fileInputRef = useRef<HTMLInputElement | null>(null)
+
+  console.log('preview', preview)
 
   const handleChangeFile = async (e: ChangeEvent<HTMLInputElement>) => {
     if (preview) {
@@ -49,12 +59,13 @@ export const PersonalInformation = ({ email, img, name, onSubmit }: Props) => {
       const img = URL.createObjectURL(e.target.files[0])
 
       setPreview(img)
-      setValue('avatar', e.target.files[0]) // Устанавливаем значение для avatar
+      updateProfilePage({ avatar: e.target.files[0] })
+      //setValue('avatar', e.target.files[0]) // Устанавливаем значение для avatar
     }
   }
 
   const handleNameChanged = (data: ProfileFormData) => {
-    onSubmit(data)
+    //onSubmit(data)
     setIsEditingName(!isEditingName)
   }
 
@@ -63,7 +74,7 @@ export const PersonalInformation = ({ email, img, name, onSubmit }: Props) => {
       <Typography as={'h1'} className={s.title} variant={'h1'}>
         Personal Information
       </Typography>
-      <form id={formId} onSubmit={handleSubmit(handleNameChanged)}>
+      <form id={formId} onSubmit={handleSubmit(onSubmitProfile)}>
         {!isEditingName ? (
           <div>
             <div className={s.photoContainer}>
@@ -71,7 +82,11 @@ export const PersonalInformation = ({ email, img, name, onSubmit }: Props) => {
                 <img alt={'avatar'} src={preview || img} />
                 <button
                   className={s.editAvatarButton}
-                  onClick={() => fileInputRef.current && fileInputRef.current.click()}
+                  onClick={e => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    fileInputRef.current && fileInputRef.current.click()
+                  }}
                 >
                   <CameraIcon />
                 </button>
@@ -108,7 +123,7 @@ export const PersonalInformation = ({ email, img, name, onSubmit }: Props) => {
                 }}
                 variant={'secondary'}
               >
-                <LogOut /> Back
+                <LogOut /> Logout
               </Button>
             </div>
           </div>
