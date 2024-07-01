@@ -18,12 +18,12 @@ type Props = {
   name: string
 }
 
-const loginSchema = z.object({
+const profileSchema = z.object({
   avatar: z.union([fileSchema, z.string()]),
   name: text.optional(),
 })
 
-export type ProfileFormData = z.infer<typeof loginSchema>
+export type ProfileFormData = z.infer<typeof profileSchema>
 
 export const PersonalInformation = ({ email, img, name }: Props) => {
   const [updateProfilePage] = useUpdateMeMutation()
@@ -33,8 +33,11 @@ export const PersonalInformation = ({ email, img, name }: Props) => {
       avatar: img || 'https://avatars.githubusercontent.com/u',
       name: name,
     },
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(profileSchema),
   })
+
+  const navigate = useNavigate()
+  const fileInputRef = useRef<HTMLInputElement | null>(null)
 
   const onSubmitProfile = (formData: ProfileFormData) => {
     const avatar = typeof formData.avatar === 'string' ? null : formData.avatar
@@ -42,20 +45,27 @@ export const PersonalInformation = ({ email, img, name }: Props) => {
     updateProfilePage({ ...formData, avatar })
   }
 
-  const navigate = useNavigate()
-
-  const fileInputRef = useRef<HTMLInputElement | null>(null)
-
   const handleChangeFile = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      updateProfilePage({ avatar: e.target.files[0] })
+      await updateProfilePage({ avatar: e.target.files[0] })
     }
   }
 
-  const handleNameChanged = handleSubmit(data => {
-    updateProfilePage({ name: data.name })
+  const handleNameChanged = handleSubmit(async data => {
+    await updateProfilePage({ name: data.name })
     setIsEditingName(!isEditingName)
   })
+
+  const handleEditAvatarClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    e.stopPropagation()
+    fileInputRef.current?.click()
+  }
+
+  const handleLogout = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    navigate(-1)
+  }
 
   return (
     <Card className={s.card}>
@@ -68,14 +78,7 @@ export const PersonalInformation = ({ email, img, name }: Props) => {
             <div className={s.photoContainer}>
               <div>
                 <img alt={'avatar'} src={img} />
-                <button
-                  className={s.editAvatarButton}
-                  onClick={e => {
-                    e.preventDefault()
-                    e.stopPropagation()
-                    fileInputRef.current && fileInputRef.current.click()
-                  }}
-                >
+                <button className={s.editAvatarButton} onClick={handleEditAvatarClick}>
                   <CameraIcon />
                 </button>
                 <input
@@ -104,13 +107,7 @@ export const PersonalInformation = ({ email, img, name }: Props) => {
               {email}
             </Typography>
             <div className={s.buttonContainer}>
-              <Button
-                onClick={e => {
-                  e.preventDefault()
-                  navigate(-1)
-                }}
-                variant={'secondary'}
-              >
+              <Button onClick={handleLogout} variant={'secondary'}>
                 <LogOut /> Logout
               </Button>
             </div>
