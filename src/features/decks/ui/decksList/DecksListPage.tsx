@@ -9,16 +9,20 @@ import {
   TextField,
   Typography,
 } from '@/common/components'
+
 import { useDecksSearchParams } from '@/features/decks/services'
+
 
 import s from './decksListPage.module.scss'
 
 import { useGetMeQuery } from '../../../auth/api/authApi'
+
 import { DeckModal } from '../../modals/DeckModal'
 import { DeleteDeckModal } from '../../modals/DeleteDeckModal'
 import { useCreateNewDeck } from '../../modals/hooks/useCreateNewDeck'
 import { useDeleteDeck } from '../../modals/hooks/useDeleteDeck'
 import { useUpdateDeck } from '../../modals/hooks/useUpdateDeck'
+
 import { DecksTable } from './decksTable/DecksTable'
 
 export const DecksListPage = () => {

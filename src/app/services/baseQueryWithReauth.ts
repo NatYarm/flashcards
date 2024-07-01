@@ -72,17 +72,6 @@ export const baseQueryWithReauth: BaseQueryFn<
       } finally {
         release()
       }
-      /*const refreshResult = await baseQuery(
-        { method: 'POST', url: '/v1/auth/refresh-token' },
-        api,
-        extraOptions
-      )
-
-      if (refreshResult.meta?.response?.status === 204) {
-        // retry the initial query
-        result = await baseQuery(args, api, extraOptions)
-      }
-      release()*/
     } else {
       await mutex.waitForUnlock()
       result = await baseQuery(args, api, extraOptions)

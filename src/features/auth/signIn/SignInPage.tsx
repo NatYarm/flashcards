@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
@@ -12,22 +13,22 @@ export const SignInPage = () => {
   const [signIn, signInResult] = useSignInMutation()
   const { isLoading, isSuccess } = useGetMeQuery()
   const navigate = useNavigate()
+
   const handleSignIn = (data: SignIn) => {
     signIn(data).unwrap()
   }
 
+  useEffect(() => {
+    if (signInResult.error) {
+      toast.error((signInResult.error as LoginError).data.message ?? 'You are not logged in')
+    }
+    if (signInResult.isSuccess || isSuccess) {
+      navigate(path.base)
+    }
+  }, [signInResult.error, signInResult.isSuccess, isSuccess, navigate])
+
   if (signInResult.isLoading || isLoading) {
     return <Loader />
-  }
-
-  if (signInResult.error) {
-    toast.error((signInResult.error as LoginError).data.message ?? 'You are not logged in')
-  }
-  if (signInResult.isSuccess) {
-    navigate(path.base)
-  }
-  if (isSuccess) {
-    navigate(path.base)
   }
 
   return (
