@@ -60,7 +60,6 @@ export const PersonalInformation = ({ email, img, name }: Props) => {
 
       setPreview(img)
       updateProfilePage({ avatar: e.target.files[0] })
-      //setValue('avatar', e.target.files[0]) // Устанавливаем значение для avatar
     }
   }
 
@@ -74,81 +73,81 @@ export const PersonalInformation = ({ email, img, name }: Props) => {
       <Typography as={'h1'} className={s.title} variant={'h1'}>
         Personal Information
       </Typography>
-      <form id={formId} onSubmit={handleSubmit(onSubmitProfile)}>
-        {!isEditingName ? (
-          <div>
-            <div className={s.photoContainer}>
-              <div>
-                <img alt={'avatar'} src={preview || img} />
-                <button
-                  className={s.editAvatarButton}
-                  onClick={e => {
-                    e.preventDefault()
-                    e.stopPropagation()
-                    fileInputRef.current && fileInputRef.current.click()
-                  }}
-                >
-                  <CameraIcon />
-                </button>
-                <input
-                  accept={'image/*'}
-                  className={s.file}
-                  onChange={handleChangeFile}
-                  ref={fileInputRef}
-                  style={{ display: 'none' }}
-                  type={'file'}
-                />
-              </div>
-            </div>
-            <div className={s.nameWithEditButton}>
-              <Typography as={'h2'} className={s.name} variant={'h2'}>
-                {name}
-              </Typography>
+      {/*<form id={formId} onSubmit={handleSubmit(onSubmitProfile)}>*/}
+      {!isEditingName ? (
+        <div>
+          <div className={s.photoContainer}>
+            <div>
+              <img alt={'avatar'} src={preview || img} />
               <button
-                className={s.editNameButton}
-                onClick={() => setIsEditingName(true)}
-                type={'button'}
-              >
-                <Edit2Outline />
-              </button>
-            </div>
-            <Typography className={s.email} variant={'body2'}>
-              {email}
-            </Typography>
-            <div className={s.buttonContainer}>
-              <Button
+                className={s.editAvatarButton}
                 onClick={e => {
                   e.preventDefault()
-                  navigate(-1)
+                  e.stopPropagation()
+                  fileInputRef.current && fileInputRef.current.click()
                 }}
-                variant={'secondary'}
               >
-                <LogOut /> Logout
-              </Button>
+                <CameraIcon />
+              </button>
+              <input
+                accept={'image/*'}
+                className={s.file}
+                onChange={handleChangeFile}
+                ref={fileInputRef}
+                style={{ display: 'none' }}
+                type={'file'}
+              />
             </div>
           </div>
-        ) : (
-          <div>
-            <div className={s.photoContainer}>
-              <div>
-                <img alt={'avatar'} src={preview || img} />
-              </div>
-            </div>
-            <ControlledTextField
-              autoComplete={'off'}
-              autoFocus
-              className={s.inputName}
-              control={control}
-              label={'NickName'}
-              name={'name'}
-              type={'text'}
-            />
-            <Button className={s.saveButton} fullWidth type={'submit'}>
-              Save Changes
+          <div className={s.nameWithEditButton}>
+            <Typography as={'h2'} className={s.name} variant={'h2'}>
+              {name}
+            </Typography>
+            <button
+              className={s.editNameButton}
+              onClick={() => setIsEditingName(true)}
+              type={'button'}
+            >
+              <Edit2Outline />
+            </button>
+          </div>
+          <Typography className={s.email} variant={'body2'}>
+            {email}
+          </Typography>
+          <div className={s.buttonContainer}>
+            <Button
+              onClick={e => {
+                e.preventDefault()
+                navigate(-1)
+              }}
+              variant={'secondary'}
+            >
+              <LogOut /> Logout
             </Button>
           </div>
-        )}
-      </form>
+        </div>
+      ) : (
+        <div>
+          <div className={s.photoContainer}>
+            <div>
+              <img alt={'avatar'} src={preview || img} />
+            </div>
+          </div>
+          <ControlledTextField
+            autoComplete={'off'}
+            autoFocus
+            className={s.inputName}
+            control={control}
+            label={'NickName'}
+            name={'name'}
+            type={'text'}
+          />
+          <Button className={s.saveButton} fullWidth type={'submit'}>
+            Save Changes
+          </Button>
+        </div>
+      )}
+      {/*</form>*/}
     </Card>
   )
 }
