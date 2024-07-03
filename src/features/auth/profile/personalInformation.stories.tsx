@@ -13,17 +13,8 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    avatar: 'https://picsum.photos/200',
     email: 'your_email@domain.com',
+    img: 'https://picsum.photos/200',
     name: 'John Doe',
-    onAvatarChange: () => {
-      console.info('avatar changed')
-    },
-    onLogout: () => {
-      console.info('logout')
-    },
-    onNameChange: () => {
-      console.info('name changed')
-    },
   },
 }
