@@ -5,25 +5,27 @@ import { Button } from '@/common/components/button'
 import { Card } from '@/common/components/card'
 import { ControlledTextField } from '@/common/components/controlled'
 import { Typography } from '@/common/components/typography'
+import { path } from '@/common/enums'
 import { emailSchema } from '@/common/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import s from './recoverPassword.module.scss'
 
-const loginScheme = z.object({
+const loginSchema = z.object({
   email: emailSchema,
 })
 
-type FormType = z.infer<typeof loginScheme>
+type FormType = z.infer<typeof loginSchema>
 
 type Props = {
+  isLoading: boolean
   onSubmit: (data: FormType) => void
 }
 
-export const RecoverPassword = ({ onSubmit }: Props) => {
+export const RecoverPassword = ({ isLoading, onSubmit }: Props) => {
   const { control, handleSubmit } = useForm<FormType>({
-    resolver: zodResolver(loginScheme),
+    resolver: zodResolver(loginSchema),
   })
 
   const formSubmitHandler = handleSubmit(onSubmit)
@@ -40,13 +42,13 @@ export const RecoverPassword = ({ onSubmit }: Props) => {
             Enter your email address and we will send you further instructions
           </Typography>
         </div>
-        <Button fullWidth type={'submit'}>
-          Send Instructions
+        <Button disabled={isLoading} fullWidth type={'submit'}>
+          {isLoading ? 'Sending...' : 'Send Instructions'}
         </Button>
       </form>
       <div className={s.footer}>
         <Typography variant={'body2'}>Did you remember your password?</Typography>
-        <Typography as={Link} className={s.signUpLink} to={'/sign-in'} variant={'link1'}>
+        <Typography as={Link} className={s.signUpLink} to={path.signIn} variant={'link1'}>
           Try logging in
         </Typography>
       </div>
