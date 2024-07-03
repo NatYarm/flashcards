@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { Button } from '@/common/components/button'
 import { Card } from '@/common/components/card'
@@ -28,7 +28,12 @@ export const RecoverPassword = ({ isLoading, onSubmit }: Props) => {
     resolver: zodResolver(loginSchema),
   })
 
-  const formSubmitHandler = handleSubmit(onSubmit)
+  const navigate = useNavigate()
+
+  const formSubmitHandler = handleSubmit(async data => {
+    await onSubmit(data)
+    navigate(path.email)
+  })
 
   return (
     <Card className={s.card}>
