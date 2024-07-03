@@ -8,6 +8,7 @@ import {
 
 import { path } from '@/common/enums'
 import { useGetMeQuery } from '@/features/auth/api/authApi'
+import { CheckEmail } from '@/features/auth/checkEmail'
 import { ProfilePage } from '@/features/auth/profile/ProfilePage'
 import { RecoveryPasswordPage } from '@/features/auth/recoverPassword'
 import { SignInPage } from '@/features/auth/signIn/SignInPage'
@@ -31,6 +32,10 @@ export const publicRoutes: RouteObject[] = [
       {
         element: <RecoveryPasswordPage />,
         path: path.recoveryPassword,
+      },
+      {
+        element: <CheckEmail />,
+        path: path.email,
       },
     ],
     element: <Outlet />,
