@@ -45,7 +45,7 @@ export const publicRoutes: RouteObject[] = [
 const privateRoutes: RouteObject[] = [
   {
     element: <DecksListPage />,
-    path: path.base,
+    path: path.decks,
   },
   {
     element: <Deck />,
