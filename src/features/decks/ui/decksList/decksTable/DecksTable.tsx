@@ -23,7 +23,7 @@ type Props = {
   decks: Deck[] | undefined
   onDeleteClick: (id: string, deckName: string) => void
   onEditClick: (deck: Deck) => void
-  // onFavoriteToggle: (id: string, isFavorite: boolean) => void
+  //onFavoriteToggle: (id: string, isFavorite: boolean) => void
   onSort?: (key: Sort) => void
   sort?: Sort
 }
@@ -42,13 +42,13 @@ export const DecksTable = ({
 
       <TableBody>
         {decks?.map(deck => {
-          const isMyDeck = deck.author.id === currentUserId
+          const isPrivateDeck = deck.author.id === currentUserId
 
           return (
             <TableRow className={s.row} key={deck.id}>
               <TableCell>
                 <NavLink
-                  className={clsx(s.nameCell, { [s.myDeck]: isMyDeck })}
+                  className={clsx(s.nameCell, { [s.myDeck]: isPrivateDeck })}
                   to={`/decks/${deck.id}`}
                 >
                   <img alt={deck.name} className={s.cover} src={deck.cover ?? placeholderImg} />
@@ -61,12 +61,15 @@ export const DecksTable = ({
               <TableCell>{deck.author.name}</TableCell>
               <TableCell>
                 <div className={s.iconsContainer}>
-                  <Button as={Link} to={`/decks/${deck.id}/learn`} variant={'icon'}>
-                    <PlayCircleOutline
-                      className={clsx(s.icon, { [s.disabled]: deck.cardsCount === 0 })}
-                    />
+                  <Button
+                    as={Link}
+                    className={clsx({ [s.disabled]: deck.cardsCount === 0 })}
+                    to={`/decks/${deck.id}/learn`}
+                    variant={'icon'}
+                  >
+                    <PlayCircleOutline className={s.icon} />
                   </Button>
-                  {isMyDeck && (
+                  {isPrivateDeck && (
                     <>
                       <Button onClick={() => onEditClick(deck)} variant={'icon'}>
                         <Edit2Outline className={s.icon} />

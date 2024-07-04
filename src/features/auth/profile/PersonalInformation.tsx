@@ -1,4 +1,4 @@
-import { ChangeEvent, useRef, useState } from 'react'
+import { ChangeEvent, MouseEvent, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
@@ -31,7 +31,7 @@ export const PersonalInformation = ({ email, img, name }: Props) => {
   const { control, handleSubmit } = useForm<ProfileFormData>({
     defaultValues: {
       avatar: img || 'https://avatars.githubusercontent.com/u',
-      name: name,
+      name,
     },
     resolver: zodResolver(profileSchema),
   })
@@ -56,13 +56,13 @@ export const PersonalInformation = ({ email, img, name }: Props) => {
     setIsEditingName(!isEditingName)
   })
 
-  const handleEditAvatarClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleEditAvatarClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     e.stopPropagation()
     fileInputRef.current?.click()
   }
 
-  const handleLogout = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleLogout = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     navigate(-1)
   }
@@ -78,7 +78,11 @@ export const PersonalInformation = ({ email, img, name }: Props) => {
             <div className={s.photoContainer}>
               <div>
                 <img alt={'avatar'} src={img} />
-                <button className={s.editAvatarButton} onClick={handleEditAvatarClick}>
+                <button
+                  className={s.editAvatarButton}
+                  onClick={handleEditAvatarClick}
+                  type={'button'}
+                >
                   <CameraIcon />
                 </button>
                 <input

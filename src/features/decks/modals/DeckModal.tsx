@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form'
 
-import { Image } from '@/assets/icons/components'
+import defaultCard from '@/assets/img/defaultCard.jpg'
 import {
   Button,
   ControlledCheckbox,
@@ -14,6 +14,8 @@ import { z } from 'zod'
 
 import s from './deckModal.module.scss'
 
+import { ControlledInputFile } from '../../../common/components/controlled/controlledInputFile/ControlledInputFile'
+
 const deckSchema = z.object({
   cover: z.union([fileSchema, z.string(), z.null()]).optional(),
   isPrivate: z.boolean(),
@@ -23,11 +25,15 @@ const deckSchema = z.object({
 export type DeckModalFormValues = z.infer<typeof deckSchema>
 
 type Props = {
+  cancelText?: string
+  confirmText?: string
   defaultValues?: DeckModalFormValues
   onConfirm: (data: DeckModalFormValues) => void
 } & Pick<ModalProps, 'onCancel' | 'onOpenChange' | 'open' | 'title'>
 
 export const DeckModal = ({
+  cancelText = 'Cancel',
+  confirmText = 'OK',
   defaultValues = { isPrivate: false, name: '' },
   onCancel,
   onConfirm,
@@ -51,16 +57,14 @@ export const DeckModal = ({
     <Modal onCancel={handleCancel} onConfirm={onSubmit} title={'Create new deck'} {...modalProps}>
       <form className={s.modalContent} onSubmit={onSubmit}>
         <ControlledTextField control={control} label={'Deck Name'} name={'name'} />
-        <Button fullWidth variant={'secondary'}>
-          <Image />
-          Upload Image
-        </Button>
+        <ControlledInputFile control={control} defaultDeckImage={defaultCard} name={'cover'} />
+
         <ControlledCheckbox control={control} label={'Private'} name={'isPrivate'} />
         <div className={s.buttonsContainer}>
           <Button onClick={() => modalProps.onOpenChange?.(false)} variant={'secondary'}>
-            Cancel
+            {cancelText}
           </Button>
-          <Button>Save Deck</Button>
+          <Button>{confirmText}</Button>
         </div>
       </form>
     </Modal>

@@ -9,46 +9,21 @@ import {
   TextField,
   Typography,
 } from '@/common/components'
-
 import { useDecksSearchParams } from '@/features/decks/services'
-
 
 import s from './decksListPage.module.scss'
 
 import { useGetMeQuery } from '../../../auth/api/authApi'
-
 import { DeckModal } from '../../modals/DeckModal'
 import { DeleteDeckModal } from '../../modals/DeleteDeckModal'
 import { useCreateNewDeck } from '../../modals/hooks/useCreateNewDeck'
 import { useDeleteDeck } from '../../modals/hooks/useDeleteDeck'
 import { useUpdateDeck } from '../../modals/hooks/useUpdateDeck'
-
 import { DecksTable } from './decksTable/DecksTable'
 
 export const DecksListPage = () => {
   const { data: me } = useGetMeQuery()
   const currentUserId = me?.id
-
-  const {
-    creatingDeck,
-    handleCreateDeck,
-    onCancelCreateDeck,
-    setShowCreateModal,
-    showCreateModal,
-  } = useCreateNewDeck()
-  const { deckToEdit, handleDeckUpdate, isEditModalOpen, onEditClick, setIsEditModalOpen } =
-    useUpdateDeck()
-
-  const {
-    deckName,
-    deckToDeleteId,
-    deletingDeck,
-    handleDeckDelete,
-    isDeleteModalOpen,
-    onCancelDelete,
-    onDeleteClick,
-    setIsDeleteModalOpen,
-  } = useDeleteDeck()
 
   const {
     cardsRange,
@@ -73,6 +48,34 @@ export const DecksListPage = () => {
     tabs,
   } = useDecksSearchParams()
 
+  const {
+    creatingDeck,
+    handleCreateDeck,
+    onCancelCreateDeck,
+    setShowCreateModal,
+    showCreateModal,
+  } = useCreateNewDeck(clearFilters)
+
+  const {
+    deckToEdit,
+    handleDeckUpdate,
+    isEditModalOpen,
+    onCancelUpdateDeck,
+    onEditClick,
+    setIsEditModalOpen,
+  } = useUpdateDeck(clearFilters)
+
+  const {
+    deckName,
+    deckToDeleteId,
+    deletingDeck,
+    handleDeckDelete,
+    isDeleteModalOpen,
+    onCancelDelete,
+    onDeleteClick,
+    setIsDeleteModalOpen,
+  } = useDeleteDeck(clearFilters)
+
   const openCreateDeckModal = () => {
     setShowCreateModal(true)
   }
@@ -93,12 +96,13 @@ export const DecksListPage = () => {
     <Page>
       {deckToEdit && (
         <DeckModal
+          confirmText={'Update deck'}
           defaultValues={{
             cover: deckToEdit.cover,
             isPrivate: deckToEdit.isPrivate,
             name: deckToEdit.name,
           }}
-          onCancel={onCancelCreateDeck}
+          onCancel={onCancelUpdateDeck}
           onConfirm={handleDeckUpdate}
           onOpenChange={setIsEditModalOpen}
           open={isEditModalOpen}
@@ -122,7 +126,8 @@ export const DecksListPage = () => {
           Add New Deck
         </Button>
         <DeckModal
-          onCancel={() => setShowCreateModal(false)}
+          confirmText={'Save Deck'}
+          onCancel={onCancelCreateDeck}
           onConfirm={handleCreateDeck}
           onOpenChange={setShowCreateModal}
           open={showCreateModal}

@@ -1,16 +1,10 @@
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 
-import {
-  CreateDeckArgs,
-  ErrorResponse,
-  useCreateDeckMutation,
-  useDecksSearchParams,
-} from '../../services'
+import { CreateDeckArgs, ErrorResponse, useCreateDeckMutation } from '../../services'
 
-export const useCreateNewDeck = () => {
+export const useCreateNewDeck = (clearFilters: () => void) => {
   const [showCreateModal, setShowCreateModal] = useState(false)
-  const { clearFilters } = useDecksSearchParams()
 
   const [createDeck, { isLoading: creatingDeck }] = useCreateDeckMutation()
 
@@ -21,6 +15,7 @@ export const useCreateNewDeck = () => {
   const handleCreateDeck = async (data: CreateDeckArgs) => {
     try {
       await createDeck(data).unwrap()
+      debugger
       setShowCreateModal(false)
       clearFilters()
     } catch (e) {

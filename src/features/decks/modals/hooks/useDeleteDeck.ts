@@ -1,15 +1,13 @@
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 
-import { ErrorResponse, useDecksSearchParams, useDeleteDeckMutation } from '../../services'
+import { ErrorResponse, useDeleteDeckMutation } from '../../services'
 
-export const useDeleteDeck = () => {
+export const useDeleteDeck = (clearFilters: () => void) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [deleteDeck, { isLoading: deletingDeck }] = useDeleteDeckMutation()
   const [deckToDeleteId, setDeckToDeleteId] = useState<null | string>(null)
   const [deckName, setDeckName] = useState<null | string>(null)
-
-  const { clearFilters } = useDecksSearchParams()
 
   const onDeleteClick = (id: string, deckName: string) => {
     setIsDeleteModalOpen(true)
