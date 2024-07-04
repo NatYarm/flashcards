@@ -14,6 +14,7 @@ export const RecoveryPasswordPage = () => {
   const handleRecoveryPassword = async (data: { email: string }) => {
     try {
       await recoveryPassword(data).unwrap()
+
       setMessage('Instructions have been sent to your email.')
       setError(null)
       toast.success('Instructions have been sent to your email.')
