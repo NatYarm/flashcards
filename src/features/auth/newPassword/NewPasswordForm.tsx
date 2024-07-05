@@ -1,26 +1,28 @@
 import { useForm } from 'react-hook-form'
 
+import { ControlledTextField } from '@/common/components'
 import { Button } from '@/common/components/button'
 import { Card } from '@/common/components/card'
-import { ControlledInput } from '@/common/components/controlled/controlledInput'
 import { Typography } from '@/common/components/typography'
 import { passwordSchema } from '@/common/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
 
-import s from './newPassword.module.scss'
-
-import { FormData } from '../loginForm'
+import s from './newPasswordForm.module.scss'
 
 type Props = {
-  onSubmit: (data: FormData) => void
+  onSubmit: (data: NewPassword) => void
 }
 
-export const NewPassword = (props: Props) => {
-  const { control, handleSubmit } = useForm<FormData>({
-    resolver: zodResolver(passwordSchema),
+const newPasswordSchema = z.object({ password: passwordSchema })
+
+export type NewPassword = z.infer<typeof newPasswordSchema>
+export const NewPasswordForm = ({ onSubmit }: Props) => {
+  const { control, handleSubmit } = useForm<NewPassword>({
+    resolver: zodResolver(newPasswordSchema),
   })
 
-  const handleFormSubmitted = handleSubmit(props.onSubmit)
+  const handleFormSubmitted = handleSubmit(onSubmit)
 
   return (
     <Card className={s.card}>
@@ -29,9 +31,9 @@ export const NewPassword = (props: Props) => {
       </Typography>
       <form className={s.form} onSubmit={handleFormSubmitted}>
         <div className={s.controlled}>
-          <ControlledInput
+          <ControlledTextField
             control={control}
-            label={'Password'}
+            label={'password'}
             name={'password'}
             type={'password'}
           />
