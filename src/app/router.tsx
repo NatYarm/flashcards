@@ -44,8 +44,12 @@ export const publicRoutes: RouteObject[] = [
 
 const privateRoutes: RouteObject[] = [
   {
-    element: <DecksListPage />,
+    element: <Navigate to={path.decks} />,
     path: path.base,
+  },
+  {
+    element: <DecksListPage />,
+    path: path.decks,
   },
   {
     element: <Deck />,
