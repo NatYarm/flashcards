@@ -8,7 +8,7 @@ import {
 
 import { path } from '@/common/enums'
 import { useGetMeQuery } from '@/features/auth/api/authApi'
-import { CheckEmail } from '@/features/auth/checkEmail'
+import { PageNewPassword } from '@/features/auth/newPassword/PageNewPassword'
 import { ProfilePage } from '@/features/auth/profile/ProfilePage'
 import { RecoveryPasswordPage } from '@/features/auth/recoverPassword'
 import { SignInPage } from '@/features/auth/signIn/SignInPage'
@@ -16,6 +16,7 @@ import { SignUpPage } from '@/features/auth/signUp/SignUpPage'
 import { LearnCardsPage } from '@/features/cards/LearnCardsPage'
 import { Deck } from '@/features/decks/ui/deck/Deck'
 import { DecksListPage } from '@/features/decks/ui/decksList/DecksListPage'
+import { Error } from '@/features/error/Error'
 import { Layout } from '@/features/layout/Layout'
 
 export const publicRoutes: RouteObject[] = [
@@ -34,8 +35,8 @@ export const publicRoutes: RouteObject[] = [
         path: path.recoveryPassword,
       },
       {
-        element: <CheckEmail />,
-        path: path.email,
+        element: <PageNewPassword />,
+        path: path.newPassword,
       },
     ],
     element: <Outlet />,
@@ -81,6 +82,7 @@ export const router = createBrowserRouter([
       ...publicRoutes,
     ],
     element: <Layout />,
+    errorElement: <Error />,
     path: path.base,
   },
 ])
