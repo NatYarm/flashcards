@@ -3,7 +3,6 @@ export enum path {
   cards = '/cards',
   deck = '/deck',
   decks = '/decks',
-  email = '/email',
   error = '/error',
   newPassword = '/new-password',
   profile = '/profile',
