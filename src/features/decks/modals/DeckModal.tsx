@@ -1,10 +1,10 @@
 import { useForm } from 'react-hook-form'
 
-import { Image } from '@/assets/icons/components'
 import {
   Button,
   ControlledCheckbox,
   ControlledTextField,
+  ControlledTextFieldFile,
   Modal,
   ModalProps,
 } from '@/common/components'
@@ -13,6 +13,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import s from './deckModal.module.scss'
+
+import defaultDeckImage from '../../../assets/img/defaultCard.jpg'
 
 const deckSchema = z.object({
   cover: z.union([fileSchema, z.string(), z.null()]).optional(),
@@ -51,16 +53,18 @@ export const DeckModal = ({
     <Modal onCancel={handleCancel} onConfirm={onSubmit} title={'Create new deck'} {...modalProps}>
       <form className={s.modalContent} onSubmit={onSubmit}>
         <ControlledTextField control={control} label={'Deck Name'} name={'name'} />
-        <Button fullWidth variant={'secondary'}>
-          <Image />
-          Upload Image
-        </Button>
-        <ControlledCheckbox control={control} label={'Private'} name={'isPrivate'} />
+        <ControlledTextFieldFile
+          control={control}
+          defaultDeckImage={defaultDeckImage}
+          name={'cover'}
+        />
+
+        <ControlledCheckbox control={control} label={'Private pack'} name={'isPrivate'} />
         <div className={s.buttonsContainer}>
           <Button onClick={() => modalProps.onOpenChange?.(false)} variant={'secondary'}>
             Cancel
           </Button>
-          <Button>Save Deck</Button>
+          <Button>Add new deck</Button>
         </div>
       </form>
     </Modal>

@@ -1,7 +1,11 @@
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 
-import { ErrorResponse, useDecksSearchParams, useDeleteDeckMutation } from '../../services'
+import {
+  ErrorResponse,
+  useDecksSearchParams,
+  useDeleteDeckMutation,
+} from '@/features/decks/services'
 
 export const useDeleteDeck = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)

@@ -14,6 +14,7 @@ import {
 } from '@/common/components/table'
 import { TextField } from '@/common/components/textField'
 import { Typography } from '@/common/components/typography'
+import { path } from '@/common/enums'
 
 import s from './deck.module.scss'
 
@@ -23,7 +24,7 @@ export const Deck = () => {
   return (
     <div className={s.container} style={{ marginTop: '24px' }}>
       <div className={s.heading}>
-        <Link className={`${s.button} ${s.primary} ${s.backBtn}`} to={'/'}>
+        <Link className={`${s.button} ${s.primary} ${s.backBtn}`} to={path.base}>
           <ArrowBackOutline />
           Back to Decks List
         </Link>
