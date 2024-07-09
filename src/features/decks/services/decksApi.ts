@@ -5,6 +5,7 @@ import {
   Deck,
   DecksListResponse,
   DeleteDeckArgs,
+  GetDeckById,
   GetDecksArgs,
   MinMaxCards,
   UpdateDeckArgs,
@@ -15,17 +16,38 @@ export const decksApi = baseApi.injectEndpoints({
     return {
       createDeck: builder.mutation<Deck, CreateDeckArgs>({
         invalidatesTags: ['Decks', 'MinMaxCards'],
-        query: args => ({
-          body: args,
-          method: 'POST',
-          url: 'v1/decks',
-        }),
+        query: ({ cover, isPrivate, name }) => {
+          const formData = new FormData()
+
+          if (name) {
+            formData.append('name', name)
+          }
+          if (isPrivate) {
+            formData.append('isPrivate', isPrivate.toString())
+          }
+          if (cover) {
+            formData.append('cover', cover)
+          }
+
+          return {
+            body: formData,
+            method: 'POST',
+            url: `v1/decks`,
+          }
+        },
       }),
 
       deleteDeck: builder.mutation<void, DeleteDeckArgs>({
         invalidatesTags: ['Decks', 'MinMaxCards'],
         query: ({ id }) => ({
           method: 'DELETE',
+          url: `v1/decks/${id}`,
+        }),
+      }),
+
+      getDeck: builder.query<Deck, GetDeckById>({
+        providesTags: ['Deck'],
+        query: ({ id }) => ({
           url: `v1/decks/${id}`,
         }),
       }),
@@ -46,12 +68,28 @@ export const decksApi = baseApi.injectEndpoints({
       }),
 
       updateDeck: builder.mutation<Deck, UpdateDeckArgs>({
-        invalidatesTags: ['Decks'],
-        query: ({ id, ...body }) => ({
-          body,
-          method: 'PATCH',
-          url: `v1/decks/${id}`,
-        }),
+        invalidatesTags: ['Decks', 'MinMaxCards', 'Deck'],
+        query: ({ cover, id, isPrivate, name }) => {
+          const formData = new FormData()
+
+          if (name) {
+            formData.append('name', name)
+          }
+          if (isPrivate !== undefined) {
+            formData.append('isPrivate', isPrivate.toString())
+          }
+          if (cover) {
+            formData.append('cover', cover)
+          } else if (cover === null) {
+            formData.append('cover', '')
+          }
+
+          return {
+            body: formData,
+            method: 'PATCH',
+            url: `v1/decks/${id}`,
+          }
+        },
       }),
     }
   },
@@ -60,6 +98,7 @@ export const decksApi = baseApi.injectEndpoints({
 export const {
   useCreateDeckMutation,
   useDeleteDeckMutation,
+  useGetDeckQuery,
   useGetDecksMinMaxCardsQuery,
   useGetDecksQuery,
   useUpdateDeckMutation,

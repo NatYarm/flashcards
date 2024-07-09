@@ -6,7 +6,7 @@ import {
   ErrorResponse,
   useCreateDeckMutation,
   useDecksSearchParams,
-} from '../../services'
+} from '@/features/decks/services'
 
 export const useCreateNewDeck = () => {
   const [showCreateModal, setShowCreateModal] = useState(false)
