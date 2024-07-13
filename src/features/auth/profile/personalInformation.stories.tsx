@@ -16,14 +16,5 @@ export const Default: Story = {
     email: 'your_email@domain.com',
     img: 'https://picsum.photos/200',
     name: 'John Doe',
-    // onAvatarChange: () => {
-    //   console.info('avatar changed')
-    // },
-    // onLogout: () => {
-    //   console.info('logout')
-    // },
-    // onNameChange: () => {
-    //   console.info('name changed')
-    // },
   },
 }

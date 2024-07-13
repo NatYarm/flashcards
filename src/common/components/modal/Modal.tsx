@@ -5,8 +5,6 @@ import * as RadixDialog from '@radix-ui/react-dialog'
 
 import s from './modal.module.scss'
 
-import { Typography } from '../typography'
-
 export type ModalProps = {
   children: ReactNode
   onCancel?: () => void

@@ -56,13 +56,16 @@ export const DeckModal = ({
     <Modal title={'Create New Deck'} {...modalProps}>
       <form className={s.modalContent} onSubmit={onSubmit}>
         <ControlledTextField control={control} label={'Deck Name'} name={'name'} />
+
         <ControlledInputFile control={control} defaultImage={defaultCard} name={'cover'} />
 
         <ControlledCheckbox control={control} label={'Private'} name={'isPrivate'} />
+
         <div className={s.buttonsContainer}>
           <Button onClick={handleCancel} variant={'secondary'}>
             {cancelText}
           </Button>
+
           <Button>{confirmText}</Button>
         </div>
       </form>
