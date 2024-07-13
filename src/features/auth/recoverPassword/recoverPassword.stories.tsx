@@ -13,6 +13,7 @@ type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
   args: {
+    isLoading: false,
     onSubmit: (data: any) => console.info(data),
   },
 }

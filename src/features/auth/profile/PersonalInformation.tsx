@@ -61,9 +61,7 @@ export const PersonalInformation = ({ email, img, name }: Props) => {
     fileInputRef.current?.click()
   }
 
-
-  const handleLogout = (e: MouseEvent<HTMLButtonElement>) => {
-
+  const handleLogout = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     try {
       await LogOut().unwrap()
@@ -83,11 +81,7 @@ export const PersonalInformation = ({ email, img, name }: Props) => {
             <div className={s.photoContainer}>
               <div>
                 <img alt={'avatar'} src={img} />
-                <button
-                  className={s.editAvatarButton}
-                  onClick={handleEditAvatar}
-                  type={'button'}
-                >
+                <button className={s.editAvatarButton} onClick={handleEditAvatar} type={'button'}>
                   <CameraIcon />
                 </button>
                 <input
@@ -116,7 +110,7 @@ export const PersonalInformation = ({ email, img, name }: Props) => {
               {email}
             </Typography>
             <div className={s.buttonContainer}>
-              <Button onClick={handleLogoutClick} type={'button'} variant={'secondary'}>
+              <Button onClick={handleLogout} type={'button'} variant={'secondary'}>
                 <LogOutOutline /> Logout
               </Button>
             </div>

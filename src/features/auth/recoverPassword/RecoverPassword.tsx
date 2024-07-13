@@ -61,7 +61,7 @@ export const RecoverPassword = ({ isLoading, onSubmit }: Props) => {
             </Button>
           </form>
           <div className={s.footer}>
-            <Typography variant={'body2'}>Did you remember your password?</Typography>
+            <Typography variant={'body2'}>Remember your password?</Typography>
             <Typography as={Link} className={s.signUpLink} to={path.signIn} variant={'link1'}>
               Try logging in
             </Typography>
@@ -76,7 +76,7 @@ export const RecoverPassword = ({ isLoading, onSubmit }: Props) => {
             <Email />
           </div>
           <Typography className={s.instructions2} variant={'body1'}>
-            {`We’ve sent an Email with instructions to ${email}`}
+            {`We have sent an email with instructions to ${email}`}
           </Typography>
           <Button as={Link} fullWidth to={path.signIn}>
             Back to Sign In
