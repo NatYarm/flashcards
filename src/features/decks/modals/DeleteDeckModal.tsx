@@ -10,7 +10,7 @@ export const DeleteDeckModal = ({ deckName, onCancel, onConfirm, ...modalProps }
   return (
     <Modal onCancel={onCancel} onConfirm={onConfirm} title={'Delete Deck'} {...modalProps}>
       <Typography>
-        Do you really want to delete <strong>{deckName}</strong>
+        Do you really want to delete <strong>{deckName}</strong>?
       </Typography>
       <Typography>All cards will be deleted.</Typography>
       <div className={s.buttonsContainer}>

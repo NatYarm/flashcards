@@ -22,9 +22,13 @@ export const decksApi = baseApi.injectEndpoints({
           if (name) {
             formData.append('name', name)
           }
+
+
           if (isPrivate) {
             formData.append('isPrivate', isPrivate.toString())
           }
+
+
           if (cover) {
             formData.append('cover', cover)
           }
@@ -32,7 +36,9 @@ export const decksApi = baseApi.injectEndpoints({
           return {
             body: formData,
             method: 'POST',
-            url: `v1/decks`,
+
+            url: 'v1/decks',
+
           }
         },
       }),
@@ -68,7 +74,9 @@ export const decksApi = baseApi.injectEndpoints({
       }),
 
       updateDeck: builder.mutation<Deck, UpdateDeckArgs>({
-        invalidatesTags: ['Decks', 'MinMaxCards', 'Deck'],
+
+        invalidatesTags: ['Decks', 'Deck', 'MinMaxCards'],
+
         query: ({ cover, id, isPrivate, name }) => {
           const formData = new FormData()
 
