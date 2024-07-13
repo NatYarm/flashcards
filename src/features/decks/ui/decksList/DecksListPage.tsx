@@ -74,7 +74,7 @@ export const DecksListPage = () => {
     onCancelDelete,
     onDeleteClick,
     setIsDeleteModalOpen,
-  } = useDeleteDeck(clearFilters)
+  } = useDeleteDeck()
 
   const openCreateDeckModal = () => {
     setShowCreateModal(true)

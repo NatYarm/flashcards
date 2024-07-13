@@ -3,7 +3,7 @@ import { toast } from 'react-toastify'
 
 import { ErrorResponse, useDeleteDeckMutation } from '../../services'
 
-export const useDeleteDeck = (clearFilters: () => void) => {
+export const useDeleteDeck = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [deleteDeck, { isLoading: deletingDeck }] = useDeleteDeckMutation()
   const [deckToDeleteId, setDeckToDeleteId] = useState<null | string>(null)
@@ -25,7 +25,6 @@ export const useDeleteDeck = (clearFilters: () => void) => {
       await deleteDeck({ id: deckToDeleteId ?? '' }).unwrap()
       setIsDeleteModalOpen(false)
       setDeckToDeleteId(null)
-      clearFilters()
     } catch (e) {
       const error = e as ErrorResponse
 

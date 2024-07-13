@@ -4,6 +4,7 @@ import defaultCard from '@/assets/img/defaultCard.jpg'
 import {
   Button,
   ControlledCheckbox,
+  ControlledInputFile,
   ControlledTextField,
   Modal,
   ModalProps,
@@ -13,8 +14,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import s from './deckModal.module.scss'
-
-import { ControlledInputFile } from '../../../common/components/controlled/controlledInputFile/ControlledInputFile'
 
 const deckSchema = z.object({
   cover: z.union([fileSchema, z.string(), z.null()]).optional(),
@@ -45,23 +44,23 @@ export const DeckModal = ({
   })
 
   const handleCancel = () => {
+    onCancel?.()
     reset()
   }
   const onSubmit = handleSubmit(data => {
     onConfirm(data)
-    modalProps.onOpenChange?.(false)
     reset()
   })
 
   return (
-    <Modal onCancel={handleCancel} onConfirm={onSubmit} title={'Create new deck'} {...modalProps}>
+    <Modal title={'Create New Deck'} {...modalProps}>
       <form className={s.modalContent} onSubmit={onSubmit}>
         <ControlledTextField control={control} label={'Deck Name'} name={'name'} />
-        <ControlledInputFile control={control} defaultDeckImage={defaultCard} name={'cover'} />
+        <ControlledInputFile control={control} defaultImage={defaultCard} name={'cover'} />
 
         <ControlledCheckbox control={control} label={'Private'} name={'isPrivate'} />
         <div className={s.buttonsContainer}>
-          <Button onClick={() => modalProps.onOpenChange?.(false)} variant={'secondary'}>
+          <Button onClick={handleCancel} variant={'secondary'}>
             {cancelText}
           </Button>
           <Button>{confirmText}</Button>

@@ -1,4 +1,5 @@
 export * from './controlledCheckbox'
 export * from './controlledInput'
+export * from './controlledInputFile'
 export * from './controlledRadioGroup'
 export * from './controlledTextField'
