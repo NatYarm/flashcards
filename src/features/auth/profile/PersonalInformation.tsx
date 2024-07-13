@@ -31,7 +31,7 @@ export const PersonalInformation = ({ email, img, name }: Props) => {
   const { control, handleSubmit } = useForm<ProfileFormData>({
     defaultValues: {
       avatar: img || 'https://avatars.githubusercontent.com/u',
-      name: name,
+      name,
     },
     resolver: zodResolver(profileSchema),
   })
@@ -55,13 +55,15 @@ export const PersonalInformation = ({ email, img, name }: Props) => {
     setIsEditingName(!isEditingName)
   })
 
-  const handleEditAvatarClick = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleEditAvatar = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     e.stopPropagation()
     fileInputRef.current?.click()
   }
 
-  const handleLogoutClick = async (e: MouseEvent<HTMLButtonElement>) => {
+
+  const handleLogout = (e: MouseEvent<HTMLButtonElement>) => {
+
     e.preventDefault()
     try {
       await LogOut().unwrap()
@@ -83,7 +85,7 @@ export const PersonalInformation = ({ email, img, name }: Props) => {
                 <img alt={'avatar'} src={img} />
                 <button
                   className={s.editAvatarButton}
-                  onClick={handleEditAvatarClick}
+                  onClick={handleEditAvatar}
                   type={'button'}
                 >
                   <CameraIcon />

@@ -22,15 +22,12 @@ export const Modal = ({ children, title, ...rest }: ModalProps) => {
       <RadixDialog.Portal>
         <RadixDialog.Overlay className={s.overlay} />
         <RadixDialog.Content className={s.content}>
-          <RadixDialog.Description className={s.header}>
-            <RadixDialog.Title asChild />
-            <Typography as={'h2'} variant={'h2'}>
-              {title}
-            </Typography>
-            <RadixDialog.Close className={s.closeButton}>
+          <RadixDialog.Title className={s.header}>
+            {title}
+            <RadixDialog.Close asChild className={s.closeButton}>
               <Close className={s.closeIcon} />
             </RadixDialog.Close>
-          </RadixDialog.Description>
+          </RadixDialog.Title>
           {children}
         </RadixDialog.Content>
       </RadixDialog.Portal>

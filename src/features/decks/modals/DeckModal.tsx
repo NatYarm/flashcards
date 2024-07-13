@@ -1,8 +1,12 @@
 import { useForm } from 'react-hook-form'
 
+
+import defaultCard from '@/assets/img/defaultCard.jpg'
+
 import {
   Button,
   ControlledCheckbox,
+  ControlledInputFile,
   ControlledTextField,
   ControlledTextFieldFile,
   Modal,
@@ -25,11 +29,15 @@ const deckSchema = z.object({
 export type DeckModalFormValues = z.infer<typeof deckSchema>
 
 type Props = {
+  cancelText?: string
+  confirmText?: string
   defaultValues?: DeckModalFormValues
   onConfirm: (data: DeckModalFormValues) => void
 } & Pick<ModalProps, 'onCancel' | 'onOpenChange' | 'open' | 'title'>
 
 export const DeckModal = ({
+  cancelText = 'Cancel',
+  confirmText = 'OK',
   defaultValues = { isPrivate: false, name: '' },
   onCancel,
   onConfirm,
@@ -41,30 +49,30 @@ export const DeckModal = ({
   })
 
   const handleCancel = () => {
+    onCancel?.()
     reset()
   }
   const onSubmit = handleSubmit(data => {
     onConfirm(data)
-    modalProps.onOpenChange?.(false)
     reset()
   })
 
   return (
-    <Modal onCancel={handleCancel} onConfirm={onSubmit} title={'Create new deck'} {...modalProps}>
+    <Modal title={'Create New Deck'} {...modalProps}>
       <form className={s.modalContent} onSubmit={onSubmit}>
         <ControlledTextField control={control} label={'Deck Name'} name={'name'} />
-        <ControlledTextFieldFile
-          control={control}
-          defaultDeckImage={defaultDeckImage}
-          name={'cover'}
-        />
 
-        <ControlledCheckbox control={control} label={'Private pack'} name={'isPrivate'} />
+        <ControlledInputFile control={control} defaultImage={defaultCard} name={'cover'} />
+
+        <ControlledCheckbox control={control} label={'Private'} name={'isPrivate'} />
+
         <div className={s.buttonsContainer}>
-          <Button onClick={() => modalProps.onOpenChange?.(false)} variant={'secondary'}>
-            Cancel
+          <Button onClick={handleCancel} variant={'secondary'}>
+            {cancelText}
           </Button>
-          <Button>Add new deck</Button>
+
+          <Button>{confirmText}</Button>
+
         </div>
       </form>
     </Modal>

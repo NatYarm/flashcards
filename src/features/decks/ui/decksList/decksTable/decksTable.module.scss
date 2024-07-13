@@ -38,6 +38,10 @@
     text-decoration: underline;
   }
 
+  &:visited {
+    color: var(--color-accent-500);
+  }
+
   img {
     height: 50px;
     width: 70px;

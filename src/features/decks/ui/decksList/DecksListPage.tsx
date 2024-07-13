@@ -26,27 +26,6 @@ export const DecksListPage = () => {
   const currentUserId = me?.id
 
   const {
-    creatingDeck,
-    handleCreateDeck,
-    onCancelCreateDeck,
-    setShowCreateModal,
-    showCreateModal,
-  } = useCreateNewDeck()
-  const { deckToEdit, handleDeckUpdate, isEditModalOpen, onEditClick, setIsEditModalOpen } =
-    useUpdateDeck()
-
-  const {
-    deckName,
-    deckToDeleteId,
-    deletingDeck,
-    handleDeckDelete,
-    isDeleteModalOpen,
-    onCancelDelete,
-    onDeleteClick,
-    setIsDeleteModalOpen,
-  } = useDeleteDeck()
-
-  const {
     cardsRange,
     clearFilters,
     currentPage,
@@ -69,6 +48,34 @@ export const DecksListPage = () => {
     tabs,
   } = useDecksSearchParams()
 
+  const {
+    creatingDeck,
+    handleCreateDeck,
+    onCancelCreateDeck,
+    setShowCreateModal,
+    showCreateModal,
+  } = useCreateNewDeck(clearFilters)
+
+  const {
+    deckToEdit,
+    handleDeckUpdate,
+    isEditModalOpen,
+    onCancelUpdateDeck,
+    onEditClick,
+    setIsEditModalOpen,
+  } = useUpdateDeck(clearFilters)
+
+  const {
+    deckName,
+    deckToDeleteId,
+    deletingDeck,
+    handleDeckDelete,
+    isDeleteModalOpen,
+    onCancelDelete,
+    onDeleteClick,
+    setIsDeleteModalOpen,
+  } = useDeleteDeck()
+
   const openCreateDeckModal = () => {
     setShowCreateModal(true)
   }
@@ -89,12 +96,13 @@ export const DecksListPage = () => {
     <Page>
       {deckToEdit && (
         <DeckModal
+          confirmText={'Update deck'}
           defaultValues={{
             cover: deckToEdit.cover,
             isPrivate: deckToEdit.isPrivate,
             name: deckToEdit.name,
           }}
-          onCancel={onCancelCreateDeck}
+          onCancel={onCancelUpdateDeck}
           onConfirm={handleDeckUpdate}
           onOpenChange={setIsEditModalOpen}
           open={isEditModalOpen}
@@ -118,7 +126,8 @@ export const DecksListPage = () => {
           Add New Deck
         </Button>
         <DeckModal
-          onCancel={() => setShowCreateModal(false)}
+          confirmText={'Save Deck'}
+          onCancel={onCancelCreateDeck}
           onConfirm={handleCreateDeck}
           onOpenChange={setShowCreateModal}
           open={showCreateModal}
