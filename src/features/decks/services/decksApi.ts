@@ -5,6 +5,7 @@ import {
   Deck,
   DecksListResponse,
   DeleteDeckArgs,
+  GetDeckById,
   GetDecksArgs,
   MinMaxCards,
   UpdateDeckArgs,
@@ -42,6 +43,13 @@ export const decksApi = baseApi.injectEndpoints({
         invalidatesTags: ['Decks', 'MinMaxCards'],
         query: ({ id }) => ({
           method: 'DELETE',
+          url: `v1/decks/${id}`,
+        }),
+      }),
+
+      getDeck: builder.query<Deck, GetDeckById>({
+        providesTags: ['Deck'],
+        query: ({ id }) => ({
           url: `v1/decks/${id}`,
         }),
       }),
@@ -92,6 +100,7 @@ export const decksApi = baseApi.injectEndpoints({
 export const {
   useCreateDeckMutation,
   useDeleteDeckMutation,
+  useGetDeckQuery,
   useGetDecksMinMaxCardsQuery,
   useGetDecksQuery,
   useUpdateDeckMutation,

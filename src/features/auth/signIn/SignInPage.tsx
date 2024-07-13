@@ -23,7 +23,7 @@ export const SignInPage = () => {
       toast.error((signInResult.error as LoginError).data.message ?? 'You are not logged in')
     }
     if (signInResult.isSuccess || isSuccess) {
-      navigate(path.base)
+      navigate(path.decks)
     }
   }, [signInResult.error, signInResult.isSuccess, isSuccess, navigate])
 

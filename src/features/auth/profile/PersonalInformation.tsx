@@ -1,11 +1,10 @@
 import { ChangeEvent, MouseEvent, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
 
-import { Edit2Outline, LogOut } from '@/assets/icons/components'
+import { Edit2Outline, LogOutOutline } from '@/assets/icons/components'
 import { Button, Card, ControlledTextField, Typography } from '@/common/components'
 import { fileSchema, text } from '@/common/utils'
-import { useUpdateMeMutation } from '@/features/auth/api/authApi'
+import { useLogOutMutation, useUpdateMeMutation } from '@/features/auth/api/authApi'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { CameraIcon } from '@radix-ui/react-icons'
 import { z } from 'zod'
@@ -27,6 +26,7 @@ export type ProfileFormData = z.infer<typeof profileSchema>
 
 export const PersonalInformation = ({ email, img, name }: Props) => {
   const [updateProfilePage] = useUpdateMeMutation()
+  const [LogOut] = useLogOutMutation()
   const [isEditingName, setIsEditingName] = useState(false)
   const { control, handleSubmit } = useForm<ProfileFormData>({
     defaultValues: {
@@ -36,7 +36,6 @@ export const PersonalInformation = ({ email, img, name }: Props) => {
     resolver: zodResolver(profileSchema),
   })
 
-  const navigate = useNavigate()
   const fileInputRef = useRef<HTMLInputElement | null>(null)
 
   const onSubmitProfile = (formData: ProfileFormData) => {
@@ -56,15 +55,19 @@ export const PersonalInformation = ({ email, img, name }: Props) => {
     setIsEditingName(!isEditingName)
   })
 
-  const handleEditAvatarClick = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleEditAvatar = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     e.stopPropagation()
     fileInputRef.current?.click()
   }
 
-  const handleLogout = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleLogout = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    navigate(-1)
+    try {
+      await LogOut().unwrap()
+    } catch (error) {
+      console.error('Logout failed', error)
+    }
   }
 
   return (
@@ -78,11 +81,7 @@ export const PersonalInformation = ({ email, img, name }: Props) => {
             <div className={s.photoContainer}>
               <div>
                 <img alt={'avatar'} src={img} />
-                <button
-                  className={s.editAvatarButton}
-                  onClick={handleEditAvatarClick}
-                  type={'button'}
-                >
+                <button className={s.editAvatarButton} onClick={handleEditAvatar} type={'button'}>
                   <CameraIcon />
                 </button>
                 <input
@@ -111,8 +110,8 @@ export const PersonalInformation = ({ email, img, name }: Props) => {
               {email}
             </Typography>
             <div className={s.buttonContainer}>
-              <Button onClick={handleLogout} variant={'secondary'}>
-                <LogOut /> Logout
+              <Button onClick={handleLogout} type={'button'} variant={'secondary'}>
+                <LogOutOutline /> Logout
               </Button>
             </div>
           </div>
