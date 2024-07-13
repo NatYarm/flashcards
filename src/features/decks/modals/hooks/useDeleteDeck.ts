@@ -3,7 +3,6 @@ import { toast } from 'react-toastify'
 
 import { ErrorResponse, useDeleteDeckMutation } from '../../services'
 
-
 export const useDeleteDeck = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [deleteDeck, { isLoading: deletingDeck }] = useDeleteDeckMutation()
