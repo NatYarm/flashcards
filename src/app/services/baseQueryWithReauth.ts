@@ -16,7 +16,7 @@ const mutex = new Mutex()
 
 export const baseQuery = fetchBaseQuery({
   baseUrl: 'https://api.flashcards.andrii.es',
-  credentials: 'include',
+  //credentials: 'include',
   prepareHeaders: headers => {
     const token = localStorage.getItem('accessToken')
 

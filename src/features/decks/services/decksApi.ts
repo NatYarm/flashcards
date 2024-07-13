@@ -5,6 +5,7 @@ import {
   Deck,
   DecksListResponse,
   DeleteDeckArgs,
+  GetDeckById,
   GetDecksArgs,
   MinMaxCards,
   UpdateDeckArgs,
@@ -22,9 +23,11 @@ export const decksApi = baseApi.injectEndpoints({
             formData.append('name', name)
           }
 
+
           if (isPrivate) {
             formData.append('isPrivate', isPrivate.toString())
           }
+
 
           if (cover) {
             formData.append('cover', cover)
@@ -33,7 +36,9 @@ export const decksApi = baseApi.injectEndpoints({
           return {
             body: formData,
             method: 'POST',
+
             url: 'v1/decks',
+
           }
         },
       }),
@@ -42,6 +47,13 @@ export const decksApi = baseApi.injectEndpoints({
         invalidatesTags: ['Decks', 'MinMaxCards'],
         query: ({ id }) => ({
           method: 'DELETE',
+          url: `v1/decks/${id}`,
+        }),
+      }),
+
+      getDeck: builder.query<Deck, GetDeckById>({
+        providesTags: ['Deck'],
+        query: ({ id }) => ({
           url: `v1/decks/${id}`,
         }),
       }),
@@ -62,7 +74,9 @@ export const decksApi = baseApi.injectEndpoints({
       }),
 
       updateDeck: builder.mutation<Deck, UpdateDeckArgs>({
+
         invalidatesTags: ['Decks', 'Deck', 'MinMaxCards'],
+
         query: ({ cover, id, isPrivate, name }) => {
           const formData = new FormData()
 
@@ -92,6 +106,7 @@ export const decksApi = baseApi.injectEndpoints({
 export const {
   useCreateDeckMutation,
   useDeleteDeckMutation,
+  useGetDeckQuery,
   useGetDecksMinMaxCardsQuery,
   useGetDecksQuery,
   useUpdateDeckMutation,

@@ -1,11 +1,14 @@
 import { useForm } from 'react-hook-form'
 
+
 import defaultCard from '@/assets/img/defaultCard.jpg'
+
 import {
   Button,
   ControlledCheckbox,
   ControlledInputFile,
   ControlledTextField,
+  ControlledTextFieldFile,
   Modal,
   ModalProps,
 } from '@/common/components'
@@ -14,6 +17,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import s from './deckModal.module.scss'
+
+import defaultDeckImage from '../../../assets/img/defaultCard.jpg'
 
 const deckSchema = z.object({
   cover: z.union([fileSchema, z.string(), z.null()]).optional(),
@@ -56,14 +61,18 @@ export const DeckModal = ({
     <Modal title={'Create New Deck'} {...modalProps}>
       <form className={s.modalContent} onSubmit={onSubmit}>
         <ControlledTextField control={control} label={'Deck Name'} name={'name'} />
+
         <ControlledInputFile control={control} defaultImage={defaultCard} name={'cover'} />
 
         <ControlledCheckbox control={control} label={'Private'} name={'isPrivate'} />
+
         <div className={s.buttonsContainer}>
           <Button onClick={handleCancel} variant={'secondary'}>
             {cancelText}
           </Button>
+
           <Button>{confirmText}</Button>
+
         </div>
       </form>
     </Modal>
