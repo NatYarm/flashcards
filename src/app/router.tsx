@@ -49,26 +49,55 @@ export const publicRoutes: RouteObject[] = [
 
 const privateRoutes: RouteObject[] = [
   {
-    element: <Navigate to={path.decks} />,
-    path: path.base,
-  },
-  {
-    element: <DecksListPage />,
-    path: path.decks,
-  },
-  {
-    element: <Deck />,
-    path: `${path.decks}/:id`,
-  },
-  {
-    element: <LearnCardsPage />,
-    path: `${path.decks}/:id/learn`,
-  },
-  {
-    element: <ProfilePage />,
-    path: path.profile,
+    children: [
+      {
+        element: <DecksListPage />,
+        path: path.base,
+      },
+      {
+        element: <Deck />,
+        path: `${path.decks}/:id`,
+      },
+      {
+        element: <LearnCardsPage />,
+        path: `${path.decks}/:id/learn`,
+      },
+      {
+        element: <ProfilePage />,
+        path: path.profile,
+      },
+    ],
+    element: <Outlet />,
   },
 ]
+
+/*const privateRoutes: RouteObject[] = [
+  {
+    children: [
+      {
+        element: <Navigate to={path.decks} />,
+        path: path.base,
+      },
+      {
+        element: <DecksListPage />,
+        path: path.decks,
+      },
+      {
+        element: <Deck />,
+        path: `${path.decks}/:id`,
+      },
+      {
+        element: <LearnCardsPage />,
+        path: `${path.decks}/:id/learn`,
+      },
+      {
+        element: <ProfilePage />,
+        path: path.profile,
+      },
+    ],
+    element: <Outlet />,
+  },
+]*/
 
 const PrivateRoutes = () => {
   const { isSuccess } = useGetMeQuery()
