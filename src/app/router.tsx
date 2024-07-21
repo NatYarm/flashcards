@@ -38,6 +38,10 @@ export const publicRoutes: RouteObject[] = [
         element: <PageNewPassword />,
         path: path.newPassword,
       },
+      {
+        element: <Error />,
+        path: path.error,
+      },
     ],
     element: <Outlet />,
   },
@@ -82,7 +86,6 @@ export const router = createBrowserRouter([
       ...publicRoutes,
     ],
     element: <Layout />,
-    errorElement: <Error />,
     path: path.base,
   },
 ])
