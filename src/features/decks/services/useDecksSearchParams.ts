@@ -37,15 +37,15 @@ export const useDecksSearchParams = () => {
   //deck name search query
   const handleSearchChange = (value: string) => {
     if (value.length) {
-      searchParams.set('name', value)
+      searchParams.set('search', value)
     } else {
-      searchParams.delete('name')
+      searchParams.delete('search')
     }
     setSearchParams(searchParams)
   }
 
   const handleClearInput = () => {
-    searchParams.delete('name')
+    searchParams.delete('search')
     setSearchParams(searchParams)
   }
 
@@ -101,7 +101,7 @@ export const useDecksSearchParams = () => {
     itemsPerPage,
     maxCardsCount: cardsRange[1],
     minCardsCount: cardsRange[0],
-    name: searchParams.get('name') || undefined,
+    name: searchParams.get('search') || undefined,
     orderBy: sort ? `${sort.key}-${sort.direction}` : undefined,
   })
 

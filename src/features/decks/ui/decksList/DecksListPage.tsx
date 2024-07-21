@@ -133,11 +133,12 @@ export const DecksListPage = () => {
       <div className={s.filters}>
         <div className={s.searchField}>
           <TextField
-            onChange={e => handleSearchChange(e.currentTarget.value)}
             onClearInput={handleClearInput}
+            onValueChange={handleSearchChange}
+            /*onChange={e => handleSearchChange(e.currentTarget.value)}*/
             placeholder={'Search'}
             type={'search'}
-            value={searchParams.get('name') || ''}
+            value={searchParams.get('search') || ''}
           />
         </div>
 
