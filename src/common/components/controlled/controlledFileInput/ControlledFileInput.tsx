@@ -13,7 +13,7 @@ import { ImageOutline, TrashOutline } from '@/assets/icons/components'
 import { Typography } from '@/common/components'
 import { Button } from '@/common/components/button/Button'
 
-import s from './controlledInputFile.module.scss'
+import s from './controlledFileInput.module.scss'
 
 type Props<T extends FieldValues> = { defaultImage?: string } & Omit<
   ComponentPropsWithoutRef<'input'>,
@@ -21,7 +21,7 @@ type Props<T extends FieldValues> = { defaultImage?: string } & Omit<
 > &
   UseControllerProps<T>
 
-export const ControlledInputFile = <T extends FieldValues>(props: Props<T>) => {
+export const ControlledFileInput = <T extends FieldValues>(props: Props<T>) => {
   const { control, defaultImage, id, name, ...rest } = props
   const [preview, setPreview] = useState<null | string>(null)
   const ref = useRef<ElementRef<'label'> | null>(null)
