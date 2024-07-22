@@ -23,7 +23,6 @@ export const useDecksSearchParams = () => {
 
   const minCardsInDeck = cardsInDeck?.min || 0
   const maxCardsInDeck = cardsInDeck?.max || 35
-  /*const maxCardsInDeck = cardsInDeck?.max || 50*/
   const [cardsRange, setCardsRange] = useState([minCardsInDeck, maxCardsInDeck])
 
   useEffect(() => {

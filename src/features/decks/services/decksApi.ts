@@ -34,14 +34,14 @@ export const decksApi = baseApi.injectEndpoints({
           return {
             body: formData,
             method: 'POST',
-
             url: 'v1/decks',
           }
         },
       }),
 
       deleteDeck: builder.mutation<void, DeleteDeckArgs>({
-        invalidatesTags: ['Decks', 'MinMaxCards'],
+        invalidatesTags: ['Decks'],
+        /*invalidatesTags: ['Decks', 'MinMaxCards'],*/
         query: ({ id }) => ({
           method: 'DELETE',
           url: `v1/decks/${id}`,

@@ -15,7 +15,6 @@ export const useCreateNewDeck = (clearFilters: () => void) => {
   const handleCreateDeck = async (data: CreateDeckArgs) => {
     try {
       await createDeck(data).unwrap()
-      debugger
       setShowCreateModal(false)
       clearFilters()
     } catch (e) {
