@@ -59,7 +59,8 @@ export const decksApi = baseApi.injectEndpoints({
         providesTags: ['Decks'],
         query: args => ({
           method: 'GET',
-          params: args ?? undefined,
+          params: { ...(args ?? {}), name: args?.name || undefined },
+          /*params: args ?? undefined,*/
           url: `v2/decks`,
         }),
       }),
