@@ -8,7 +8,7 @@ import { DeckModalFormValues } from '../DeckModal'
 export const useUpdateDeck = (clearFilters: () => void) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [deckToEdit, setDeckToEdit] = useState<Deck | null>(null)
-  const [updateDeck] = useUpdateDeckMutation()
+  const [updateDeck, { isLoading: updatingDeck }] = useUpdateDeckMutation()
 
   const onEditClick = (deck: Deck) => {
     setDeckToEdit(deck)
@@ -42,5 +42,6 @@ export const useUpdateDeck = (clearFilters: () => void) => {
     onEditClick,
     setDeckToEdit,
     setIsEditModalOpen,
+    updatingDeck,
   }
 }

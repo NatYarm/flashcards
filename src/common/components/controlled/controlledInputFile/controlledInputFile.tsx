@@ -10,7 +10,7 @@ import {
 import { FieldValues, UseControllerProps, useController } from 'react-hook-form'
 
 import { ImageOutline, TrashOutline } from '@/assets/icons/components'
-import { Typography } from '@/common/components'
+import {Typography} from '@/common/components'
 import { Button } from '@/common/components/button/Button'
 
 import s from './controlledInputFile.module.scss'
@@ -110,3 +110,5 @@ export const ControlledInputFile = <T extends FieldValues>(props: Props<T>) => {
     </div>
   )
 }
+
+ControlledInputFile.displayName = 'ControlledInputFile'

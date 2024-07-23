@@ -59,8 +59,8 @@ export const decksApi = baseApi.injectEndpoints({
         providesTags: ['Decks'],
         query: args => ({
           method: 'GET',
-          params: { ...(args ?? {}), name: args?.name || undefined },
-          /*params: args ?? undefined,*/
+          params: args ?? undefined,
+          /*params: { ...(args ?? {}), name: args?.name || undefined },*/
           url: `v2/decks`,
         }),
       }),
@@ -74,7 +74,6 @@ export const decksApi = baseApi.injectEndpoints({
 
       updateDeck: builder.mutation<Deck, UpdateDeckArgs>({
         invalidatesTags: ['Decks', 'Deck', 'MinMaxCards'],
-
         query: ({ cover, id, isPrivate, name }) => {
           const formData = new FormData()
 
