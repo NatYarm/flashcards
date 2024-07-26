@@ -3,8 +3,8 @@ import { useSearchParams } from 'react-router-dom'
 
 import { Sort, Tab } from '@/common/components'
 
+import { ErrorResponse } from '../../../common/types/decksTypes'
 import { useGetMeQuery } from '../../auth/api/authApi'
-import { ErrorResponse } from './decks.types'
 import { useGetDecksMinMaxCardsQuery, useGetDecksQuery } from './decksApi'
 
 export const useDecksSearchParams = () => {

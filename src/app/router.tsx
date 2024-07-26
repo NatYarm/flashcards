@@ -38,40 +38,12 @@ export const publicRoutes: RouteObject[] = [
         element: <PageNewPassword />,
         path: path.newPassword,
       },
-      {
-        element: <Error />,
-        path: path.error,
-      },
     ],
     element: <Outlet />,
   },
 ]
 
 const privateRoutes: RouteObject[] = [
-  {
-    children: [
-      {
-        element: <DecksListPage />,
-        path: path.base,
-      },
-      {
-        element: <Deck />,
-        path: `${path.decks}/:id`,
-      },
-      {
-        element: <LearnCardsPage />,
-        path: `${path.decks}/:id/learn`,
-      },
-      {
-        element: <ProfilePage />,
-        path: path.profile,
-      },
-    ],
-    element: <Outlet />,
-  },
-]
-
-/*const privateRoutes: RouteObject[] = [
   {
     children: [
       {
@@ -97,7 +69,7 @@ const privateRoutes: RouteObject[] = [
     ],
     element: <Outlet />,
   },
-]*/
+]
 
 const PrivateRoutes = () => {
   const { isSuccess } = useGetMeQuery()
@@ -113,6 +85,10 @@ export const router = createBrowserRouter([
         element: <PrivateRoutes />,
       },
       ...publicRoutes,
+      {
+        element: <Error />,
+        path: path.error,
+      },
     ],
     element: <Layout />,
     path: path.base,

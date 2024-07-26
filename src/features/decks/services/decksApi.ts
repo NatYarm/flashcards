@@ -1,19 +1,47 @@
 import { baseApi } from '@/app/services/baseApi'
-
 import {
+  CreateCardArgs,
+  CreateCardResponse,
   CreateDeckArgs,
   Deck,
   DecksListResponse,
   DeleteDeckArgs,
   GetDeckById,
+  GetDeckCards,
+  GetDeckCardsResponse,
   GetDecksArgs,
   MinMaxCards,
   UpdateDeckArgs,
-} from './decks.types'
+} from '@/common/types'
 
 export const decksApi = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
+      createCard: builder.mutation<CreateCardResponse, CreateCardArgs>({
+        invalidatesTags: ['Deck', 'Cards'],
+        query: ({ answer, answerImg, id, question, questionImg }) => {
+          const formData = new FormData()
+
+          if (answer) {
+            formData.append('answer', answer)
+          }
+          if (answerImg) {
+            formData.append('answerImg', answerImg)
+          }
+          if (question) {
+            formData.append('question', question)
+          }
+          if (questionImg) {
+            formData.append('questionImg', questionImg)
+          }
+
+          return {
+            body: formData,
+            method: 'POST',
+            url: `v1/decks/${id}/cards`,
+          }
+        },
+      }),
       createDeck: builder.mutation<Deck, CreateDeckArgs>({
         invalidatesTags: ['Decks', 'MinMaxCards'],
         query: ({ cover, isPrivate, name }) => {
@@ -38,7 +66,6 @@ export const decksApi = baseApi.injectEndpoints({
           }
         },
       }),
-
       deleteDeck: builder.mutation<void, DeleteDeckArgs>({
         invalidatesTags: ['Decks'],
         /*invalidatesTags: ['Decks', 'MinMaxCards'],*/
@@ -52,6 +79,21 @@ export const decksApi = baseApi.injectEndpoints({
         providesTags: ['Deck'],
         query: ({ id }) => ({
           url: `v1/decks/${id}`,
+        }),
+      }),
+
+      getDeckById: builder.query<Omit<Deck, 'author'>, GetDeckById>({
+        providesTags: ['Deck'],
+        query: ({ id }) => ({
+          url: `v1/decks/${id}`,
+        }),
+      }),
+
+      getDeckCards: builder.query<GetDeckCardsResponse, GetDeckCards>({
+        providesTags: ['Cards'],
+        query: ({ id, ...params }) => ({
+          params: params,
+          url: `v1/decks/${id}/cards`,
         }),
       }),
 
@@ -101,8 +143,11 @@ export const decksApi = baseApi.injectEndpoints({
 })
 
 export const {
+  useCreateCardMutation,
   useCreateDeckMutation,
   useDeleteDeckMutation,
+  useGetDeckByIdQuery,
+  useGetDeckCardsQuery,
   useGetDeckQuery,
   useGetDecksMinMaxCardsQuery,
   useGetDecksQuery,

@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 
-import { ErrorResponse, useDeleteDeckMutation } from '../../services'
+import { ErrorResponse } from '@/common/types'
+import { useDeleteDeckMutation } from '@/features/decks/services'
 
 export const useDeleteDeck = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
-  const [deleteDeck, { isLoading: deletingDeck }] = useDeleteDeckMutation()
+  const [deleteDeck, { isLoading: isLoadingDeleteDeck }] = useDeleteDeckMutation()
   const [deckToDeleteId, setDeckToDeleteId] = useState<null | string>(null)
   const [deckName, setDeckName] = useState<null | string>(null)
 
@@ -35,9 +36,9 @@ export const useDeleteDeck = () => {
   return {
     deckName,
     deckToDeleteId,
-    deletingDeck,
     handleDeckDelete,
     isDeleteModalOpen,
+    isLoadingDeleteDeck,
     onCancelDelete,
     onDeleteClick,
     setIsDeleteModalOpen,

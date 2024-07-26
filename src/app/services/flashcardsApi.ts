@@ -1,4 +1,4 @@
-import { DecksListResponse, GetDecksArgs } from '@/features/decks/services/decks.types'
+import { DecksListResponse, GetDecksArgs } from '@/common/types/decksTypes'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const flashcardsApi = createApi({
