@@ -104,5 +104,4 @@ export const ControlledInputFile = <T extends FieldValues>(props: Props<T>) => {
     </div>
   )
 }
-
 ControlledInputFile.displayName = 'ControlledInputFile'
