@@ -2,14 +2,21 @@ import { Link, NavLink } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import { ArrowBackOutline } from '@/assets/icons/components'
-import { Button, Input, Loader, Pagination, TextField, Typography } from '@/common/components'
+import { Button, Loader, Pagination, TextField, Typography } from '@/common/components'
 import { path } from '@/common/enums'
 import { ErrorResponse, ErrorResponseField, UpdateCardArgs } from '@/common/types'
 import { useCreateCard, useDeleteCard, useUpdateCard } from '@/features/cards/hooks'
 import { DeckModal, DeleteDeckModal } from '@/features/decks/modals'
 import { CardModal } from '@/features/decks/modals/cardModal/CardModal'
-import { useDeck, useDeleteDeck, useUpdateDeck } from '@/features/decks/modals/hooks'
+import {
+  useCreateNewDeck,
+  useDeck,
+  useDeleteDeck,
+  useUpdateDeck,
+} from '@/features/decks/modals/hooks'
 import { useDecksSearchParams } from '@/features/decks/services'
+import { CardsTable } from '@/features/decks/ui/deck/cardsTable/CardsTable'
+import { cardsColumns } from '@/features/decks/ui/deck/cardsTable/cardsColumns'
 import { DeckDropdown } from '@/features/decks/ui/deck/deckDropdown'
 
 import s from './deck.module.scss'
@@ -52,18 +59,28 @@ export const Deck = () => {
     dataUpdateTable,
     isLoadingUpdateCard,
     requestUpdate,
-    setIdTable,
+    setDataIdTable,
     setUpdateModal,
     setUpdateTable,
     updateModal,
   } = useUpdateCard()
 
-  const { handleDeckDelete, isDeleteModalOpen, isLoadingDeleteDeck, setIsDeleteModalOpen } =
-    useDeleteDeck()
+  const {
+    deckName,
+    handleDeckDelete,
+    isDeleteModalOpen,
+    isLoadingDeleteDeck,
+    onCancelDelete,
+    setIsDeleteModalOpen,
+  } = useDeleteDeck()
   const { createModalCard, isLoadingCreateCard, requestCreate, setCreateModalCard } =
     useCreateCard()
-  const { handleDeckUpdate, isEditModalOpen, isLoadingUpdateDeck, setIsEditModalOpen } =
-    useUpdateDeck(clearFilters)
+
+  const { isEditModalOpen, isLoadingUpdateDeck, setIsEditModalOpen } = useUpdateDeck(clearFilters)
+  /*const { handleDeckUpdate, isEditModalOpen, isLoadingUpdateDeck, setIsEditModalOpen } =
+    useUpdateDeck(clearFilters)*/
+
+  const { handleCreateDeck } = useCreateNewDeck(clearFilters)
 
   if (
     isLoadingDeck ||
@@ -104,7 +121,7 @@ export const Deck = () => {
   }
   const onEdit = ({ id, ...args }: UpdateCardArgs) => {
     setUpdateTable(args)
-    setIdTable(id)
+    setDataIdTable(id)
     setUpdateModal(true)
   }
 
@@ -176,9 +193,9 @@ export const Deck = () => {
                 value={searchParams.get('search') || ''}
               />
             </div>
-            <TableCardsList
+            <CardsTable
               cards={cards?.items}
-              columnsCards={columnsCards}
+              cardsColumns={cardsColumns}
               isMy={isMy}
               onDelete={onDelete}
               onEdit={onEdit}
@@ -205,44 +222,45 @@ export const Deck = () => {
         />
       </div>
       <DeleteDeckModal
-        onDelete={() => dataDeleteCard?.id && requestDeleteCard(dataDeleteCard?.id)}
+        deckName={deckName ?? 'Delete Card'}
+        onConfirm={() => dataDeleteCard?.id && requestDeleteCard(dataDeleteCard?.id)}
         onOpenChange={setDeleteModalCard}
         open={deleteModalCard}
-        text={`Do you really want to remove ${dataDeleteCard?.title}?\n` + `Card will be deleted.`}
-        title={'Delete Card'}
       />
       <CardModal
         defaultValues={dataUpdateTable}
+        onConfirm={requestUpdate}
         onOpenChange={setUpdateModal}
-        onSubmit={requestUpdate}
         open={updateModal}
         title={'Edit Card'}
       />
       <CardModal
+        onConfirm={requestCreate}
         onOpenChange={setCreateModalCard}
-        onSubmit={requestCreate}
         open={createModalCard}
         title={'Create Card'}
       />
-      <DeckModal
+       <DeckModal
         defaultValues={deck && { cover: deck?.cover, isPrivate: deck?.isPrivate, name: deck?.name }}
+        onConfirm={handleCreateDeck}
         onOpenChange={setIsEditModalOpen}
-        onSubmit={args => deck && handleDeckUpdate({ ...args, id: deck.id })}
         open={isEditModalOpen}
         title={'Edit Deck'}
       />
       <DeleteDeckModal
-        onDelete={() => deck && handleDeckDelete()}
+        deckName={deckName ?? 'Delete Deck'}
+        onCancel={onCancelDelete}
+        onConfirm={() => deck && handleDeckDelete()}
         onOpenChange={setIsDeleteModalOpen}
         open={isDeleteModalOpen}
-        text={`Do you really want to remove ${deck?.name}?\n` + 'All cards will be deleted.'}
-        title={'Delete Deck'}
       />
     </div>
   )
 }
 
 Deck.displayName = 'Deck'
+
+/*onConfirm={args => deck && handleDeckUpdate({ ...args, id: deck.id })}*/
 
 /*
 import { Link, useParams } from 'react-router-dom'

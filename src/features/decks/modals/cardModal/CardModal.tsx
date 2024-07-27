@@ -18,141 +18,244 @@ import { z } from 'zod'
 
 import s from './cardModal.module.scss'
 
-type DataKey = keyof CardForm
-
-type ModalProps = {
-  defaultValues?: UpdateCardBody
-  onOpenChange: (open: boolean) => void
-  onSubmit: (data: CardForm) => void
-  open: boolean
-  title: string
-} & Omit<ComponentPropsWithoutRef<typeof DialogPrimitive.Root>, 'onOpenChange' | 'open'>
-
-const CardSchema = z.object({
+const cardSchema = z.object({
   answer: text,
   answerImg: z.union([fileSchema, z.string(), z.null()]).optional(),
   question: text,
   questionImg: z.union([fileSchema, z.string(), z.null()]).optional(),
 })
 
-export type CardForm = z.infer<typeof CardSchema>
-export const CardModal = forwardRef<ElementRef<typeof DialogPrimitive.Content>, ModalProps>(
-  props => {
-    const { defaultValues, onOpenChange, onSubmit, open, title } = props
-    const [valueSelect, setValueSelect] = useState('Text')
+export type CardModalFormValues = z.infer<typeof cardSchema>
 
-    const { control, getValues, handleSubmit, reset } = useForm<CardForm>({
-      defaultValues: {},
-      resolver: zodResolver(CardSchema),
-    })
+type DataKey = keyof CardModalFormValues
 
-    useEffect(() => {
-      if (defaultValues) {
-        reset(defaultValues)
-        const startValue = defaultValues.questionImg || defaultValues.answerImg ? 'Image' : 'Text'
+type Props = {
+  cancelText?: string // Добавлено для кастомизации текста кнопок
+  confirmText?: string // Добавлено для кастомизации текста кнопок
+  defaultValues?: UpdateCardBody
+  onCancel?: () => void // Добавлено для унификации
+  onConfirm: (data: CardModalFormValues) => void
+  onOpenChange: (open: boolean) => void
+  // onSubmit: (data: CardModalFormValues) => void
+  open: boolean
+  title: string
+} & Omit<ComponentPropsWithoutRef<typeof DialogPrimitive.Root>, 'onOpenChange' | 'open'>
 
-        setValueSelect(startValue)
-      } else {
-        reset()
-        setValueSelect('Text')
-      }
-    }, [reset, defaultValues, open])
+export const CardModal = forwardRef<ElementRef<typeof DialogPrimitive.Content>, Props>(props => {
+  const {
+    cancelText = 'Cancel',
+    confirmText = 'Submit',
+    defaultValues,
+    onCancel,
+    onConfirm,
+    onOpenChange,
+    open,
+    title,
+  } = props
+  const [valueSelect, setValueSelect] = useState('Text')
 
-    const finalId = useId()
+  const { control, getValues, handleSubmit, reset } = useForm<CardModalFormValues>({
+    defaultValues: {},
+    resolver: zodResolver(cardSchema),
+  })
 
-    const onOpenChangeHandler = () => {
-      onOpenChange(false)
-    }
+  useEffect(() => {
+    if (defaultValues) {
+      reset(defaultValues)
+      const startValue = defaultValues.questionImg || defaultValues.answerImg ? 'Image' : 'Text'
 
-    const onHandleSubmit = (data: CardForm) => {
-      if (defaultValues) {
-        const currentValues = getValues()
-
-        for (const key in defaultValues) {
-          if (defaultValues[key as DataKey] === currentValues[key as DataKey]) {
-            delete data[key as DataKey]
-          }
-        }
-      }
-
-      onSubmit(data)
-
-      onOpenChange(false)
+      setValueSelect(startValue)
+    } else {
       reset()
       setValueSelect('Text')
     }
+  }, [reset, defaultValues, open])
 
-    const onValueChange = (value: string) => {
-      setValueSelect(value)
+  const finalId = useId()
+
+  /*const onOpenChangeHandler = () => {
+      onOpenChange(false)
+    }*/
+
+  const handleCancel = () => {
+    onCancel?.()
+    reset()
+  }
+
+  const onHandleSubmit = (data: CardModalFormValues) => {
+    if (defaultValues) {
+      const currentValues = getValues()
+
+      for (const key in defaultValues) {
+        if (defaultValues[key as DataKey] === currentValues[key as DataKey]) {
+          delete data[key as DataKey]
+        }
+      }
     }
 
-    const isImage = valueSelect !== 'Text'
+    onConfirm(data)
 
-    return (
-      <Modal onOpenChange={onOpenChange} open={open} title={title}>
-        <div className={s.container}>
-          <div className={s.select}>
-            <Select
-              label={'Choose A Question Format'}
-              onValueChange={onValueChange}
-              options={[
-                { label: 'Text', value: 'Text' },
-                { label: 'Image', value: 'Image' },
-              ]}
-              value={valueSelect}
-            />
-          </div>
-          <form className={s.form} id={finalId} onSubmit={handleSubmit(onHandleSubmit)}>
-            <div className={s.item}>
-              <Typography variant={'subtitle2'}>Question:</Typography>
-              <ControlledTextField
-                className={s.input}
-                control={control}
-                label={'Question'}
-                name={'question'}
-                placeholder={'Name'}
-                type={'text'}
-              />
-              {isImage && (
-                <ControlledInputFile
-                  control={control}
-                  defaultImage={defaultCardImage}
-                  name={'questionImg'}
-                />
-              )}
-            </div>
-            <div className={s.item}>
-              <Typography variant={'subtitle2'}>Answer:</Typography>
-              <ControlledTextField
-                className={s.input}
-                control={control}
-                label={'Answer'}
-                name={'answer'}
-                placeholder={'Name'}
-                type={'text'}
-              />
-              {isImage && (
-                <ControlledInputFile
-                  control={control}
-                  defaultImage={defaultCardImage}
-                  name={'answerImg'}
-                />
-              )}
-            </div>
-
-            <div className={s.containerButton}>
-              <Button onClick={onOpenChangeHandler} type={'button'} variant={'secondary'}>
-                Cancel
-              </Button>
-              <Button form={finalId} variant={'primary'}>
-                {title}
-              </Button>
-            </div>
-          </form>
-        </div>
-      </Modal>
-    )
+    onOpenChange(false)
+    reset()
+    setValueSelect('Text')
   }
-)
+
+  const onValueChange = (value: string) => {
+    setValueSelect(value)
+  }
+
+  const isImage = valueSelect !== 'Text'
+
+  return (
+    <Modal onOpenChange={onOpenChange} open={open} title={title}>
+      <div className={s.container}>
+        <div className={s.select}>
+          <Select
+            label={'Choose A Question Format'}
+            onValueChange={onValueChange}
+            options={[
+              { label: 'Text', value: 'Text' },
+              { label: 'Image', value: 'Image' },
+            ]}
+            value={valueSelect}
+          />
+        </div>
+        <form className={s.form} id={finalId} onSubmit={handleSubmit(onHandleSubmit)}>
+          <div className={s.item}>
+            <Typography variant={'subtitle2'}>Question:</Typography>
+            <ControlledTextField
+              className={s.input}
+              control={control}
+              label={'Question'}
+              name={'question'}
+              placeholder={'Name'}
+              type={'text'}
+            />
+            {isImage && (
+              <ControlledInputFile
+                control={control}
+                defaultImage={defaultCardImage}
+                name={'questionImg'}
+              />
+            )}
+          </div>
+          <div className={s.item}>
+            <Typography variant={'subtitle2'}>Answer:</Typography>
+            <ControlledTextField
+              className={s.input}
+              control={control}
+              label={'Answer'}
+              name={'answer'}
+              placeholder={'Name'}
+              type={'text'}
+            />
+            {isImage && (
+              <ControlledInputFile
+                control={control}
+                defaultImage={defaultCardImage}
+                name={'answerImg'}
+              />
+            )}
+          </div>
+
+          <div className={s.containerButton}>
+            <Button onClick={handleCancel} type={'button'} variant={'secondary'}>
+              {cancelText}
+            </Button>
+            <Button form={finalId} variant={'primary'}>
+              {confirmText}
+            </Button>
+          </div>
+        </form>
+      </div>
+    </Modal>
+  )
+})
 
 CardModal.displayName = 'CardModal'
+
+/*import { useForm } from 'react-hook-form'
+
+import defaultCardImage from '@/assets/img/defaultCard.jpg'
+import { Button, ControlledInputFile, ControlledTextField, Modal } from '@/common/components'
+import { fileSchema, text } from '@/common/utils'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
+
+import s from './cardModal.module.scss'
+
+const cardSchema = z.object({
+  answer: text,
+  answerImg: z.union([fileSchema, z.string(), z.null()]).optional(),
+  question: text,
+  questionImg: z.union([fileSchema, z.string(), z.null()]).optional(),
+})
+
+export type CardModalFormValues = z.infer<typeof cardSchema>
+
+type ModalProps = {
+  cancelText?: string // Добавлено для кастомизации текста кнопок
+  confirmText?: string // Добавлено для кастомизации текста кнопок
+  defaultValues?: CardModalFormValues
+  onCancel?: () => void // Добавлено для унификации
+  onConfirm: (data: CardModalFormValues) => void
+  open: boolean
+  title: string
+}
+
+export const CardModal = ({
+  cancelText = 'Cancel',
+  confirmText = 'Submit', // Изменено на 'Submit'
+  defaultValues,
+  onCancel,
+  onConfirm,
+  open,
+  title,
+}: ModalProps) => {
+  const { control, handleSubmit, reset } = useForm<CardModalFormValues>({
+    defaultValues,
+    resolver: zodResolver(cardSchema),
+  })
+
+  const onSubmit = handleSubmit(data => {
+    onConfirm(data)
+    reset()
+  })
+
+  return (
+    <Modal
+      onOpenChange={open => {
+        if (!open) {
+          onCancel?.()
+        }
+      }}
+      open={open}
+      title={title}
+    >
+      <form className={s.modalContent} onSubmit={onSubmit}>
+        <ControlledTextField control={control} label={'Question'} name={'question'} />
+        <ControlledInputFile
+          control={control}
+          defaultImage={defaultCardImage}
+          name={'questionImg'}
+        />
+        <ControlledTextField control={control} label={'Answer'} name={'answer'} />
+        <ControlledInputFile control={control} defaultImage={defaultCardImage} name={'answerImg'} />
+        <div className={s.buttonsContainer}>
+          <Button
+            onClick={() => {
+              onCancel?.()
+              reset()
+            }}
+            variant={'secondary'}
+          >
+            {cancelText}
+          </Button>
+          <Button type={'submit'} variant={'primary'}>
+            {confirmText}
+          </Button>
+        </div>
+      </form>
+    </Modal>
+  )
+}*/

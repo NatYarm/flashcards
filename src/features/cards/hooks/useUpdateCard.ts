@@ -8,7 +8,7 @@ export const useUpdateCard = () => {
   const [updateModal, setUpdateModal] = useState<boolean>(false)
   const [updateCard, { isLoading: isLoadingUpdateCard }] = useUpdateCardMutation()
   const [dataUpdateTable, setUpdateTable] = useState<UpdateCardBody>()
-  const [dataIdTable, setIdTable] = useState<string>()
+  const [dataIdTable, setDataIdTable] = useState<string>()
   const requestUpdate = async (args: UpdateCardBody) => {
     try {
       await updateCard({ ...args, id: dataIdTable ?? '' }).unwrap()
@@ -26,7 +26,7 @@ export const useUpdateCard = () => {
     dataUpdateTable,
     isLoadingUpdateCard,
     requestUpdate,
-    setIdTable,
+    setDataIdTable,
     setUpdateModal,
     setUpdateTable,
     updateModal,
