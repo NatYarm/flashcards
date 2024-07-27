@@ -6,6 +6,8 @@ import { Button, Input, Loader, Pagination, TextField, Typography } from '@/comm
 import { path } from '@/common/enums'
 import { ErrorResponse, ErrorResponseField, UpdateCardArgs } from '@/common/types'
 import { useCreateCard, useDeleteCard, useUpdateCard } from '@/features/cards/hooks'
+import { DeckModal, DeleteDeckModal } from '@/features/decks/modals'
+import { CardModal } from '@/features/decks/modals/cardModal/CardModal'
 import { useDeck, useDeleteDeck, useUpdateDeck } from '@/features/decks/modals/hooks'
 import { useDecksSearchParams } from '@/features/decks/services'
 import { DeckDropdown } from '@/features/decks/ui/deck/deckDropdown'
@@ -56,17 +58,12 @@ export const Deck = () => {
     updateModal,
   } = useUpdateCard()
 
-  const {
-    deckName,
-    handleDeckDelete,
-    isDeleteModalOpen,
-    isLoadingDeleteDeck,
-    onCancelDelete,
-    onDeleteClick,
-  } = useDeleteDeck()
+  const { handleDeckDelete, isDeleteModalOpen, isLoadingDeleteDeck, setIsDeleteModalOpen } =
+    useDeleteDeck()
   const { createModalCard, isLoadingCreateCard, requestCreate, setCreateModalCard } =
     useCreateCard()
-  const { isLoadingUpdateDeck } = useUpdateDeck(clearFilters)
+  const { handleDeckUpdate, isEditModalOpen, isLoadingUpdateDeck, setIsEditModalOpen } =
+    useUpdateDeck(clearFilters)
 
   if (
     isLoadingDeck ||
@@ -115,12 +112,11 @@ export const Deck = () => {
     setCreateModalCard(true)
   }
   const onDeleteDeck = () => {
-    onDeleteClick('deckId', 'Deck Name')
-    setDeleteModalDeck(true)
+    setIsDeleteModalOpen(true)
   }
 
   const onEditDeck = () => {
-    setUpdateModalDeck(true)
+    setIsEditModalOpen(true)
   }
 
   const contentSearch = Boolean(searchParams.get('question')) && !cards?.items?.length
@@ -179,16 +175,6 @@ export const Deck = () => {
                 type={'search'}
                 value={searchParams.get('search') || ''}
               />
-              {/* <Input
-                className={s.input}
-                iconEnd={<CloseOutline />}
-                iconStart={<Search />}
-                onChange={e => searchChangeHandle(e.currentTarget.value)}
-                onClickIconEnd={onClearClick}
-                placeholder={'Input search'}
-                type={InputType.search}
-                value={searchParams.get('question') || ''}
-              />*/}
             </div>
             <TableCardsList
               cards={cards?.items}
@@ -217,39 +203,38 @@ export const Deck = () => {
           perPageOptions={[5, 10, 20, 30]}
           totalPageCount={decks?.pagination?.totalPages || 1}
         />
-        {/*<Pagination totalCount={cards?.pagination.totalItems || 1} />{' '}*/}
       </div>
-      <ModalDelete
+      <DeleteDeckModal
         onDelete={() => dataDeleteCard?.id && requestDeleteCard(dataDeleteCard?.id)}
         onOpenChange={setDeleteModalCard}
         open={deleteModalCard}
         text={`Do you really want to remove ${dataDeleteCard?.title}?\n` + `Card will be deleted.`}
         title={'Delete Card'}
       />
-      <ModalCard
+      <CardModal
         defaultValues={dataUpdateTable}
         onOpenChange={setUpdateModal}
         onSubmit={requestUpdate}
         open={updateModal}
         title={'Edit Card'}
       />
-      <ModalCard
+      <CardModal
         onOpenChange={setCreateModalCard}
         onSubmit={requestCreate}
         open={createModalCard}
         title={'Create Card'}
       />
-      <ModalDeck
+      <DeckModal
         defaultValues={deck && { cover: deck?.cover, isPrivate: deck?.isPrivate, name: deck?.name }}
-        onOpenChange={setUpdateModalDeck}
-        onSubmit={args => deck && requestUpdateDeck({ ...args, id: deck.id })}
-        open={updateModalDeck}
+        onOpenChange={setIsEditModalOpen}
+        onSubmit={args => deck && handleDeckUpdate({ ...args, id: deck.id })}
+        open={isEditModalOpen}
         title={'Edit Deck'}
       />
-      <ModalDelete
-        onDelete={() => deck && requestDeleteDeck(deck.id)}
-        onOpenChange={setDeleteModalDeck}
-        open={deleteModalDeck}
+      <DeleteDeckModal
+        onDelete={() => deck && handleDeckDelete()}
+        onOpenChange={setIsDeleteModalOpen}
+        open={isDeleteModalOpen}
         text={`Do you really want to remove ${deck?.name}?\n` + 'All cards will be deleted.'}
         title={'Delete Deck'}
       />
