@@ -131,17 +131,13 @@ export const Deck = () => {
 
   return (
     <div className={s.main}>
-      <Typography
-        as={NavLink}
-        className={`${s.button} ${s.primary} ${s.backBtn}`}
-        to={`${path.decks}`}
-      >
+      <Typography as={NavLink} className={`${s.button}`} to={`${path.decks}`} variant={'body2'}>
         <ArrowBackOutline /> Back to Decks List
       </Typography>
 
       <div className={s.container}>
         {contentNotCardInDeck ? (
-          <div className={s.emptyCardsBlock}>
+          <div className={s.emptyCards}>
             <Typography as={'h1'} variant={'h1'}>
               {deck?.name}
             </Typography>
@@ -156,28 +152,31 @@ export const Deck = () => {
           </div>
         ) : (
           <div className={s.container}>
-            <div className={s.titleBlock}>
-              <div className={s.containerMyDeck}>
-                <Typography as={'h1'} variant={'h1'}>
-                  {deck?.name}
-                </Typography>
-                {isMy && (
-                  <DeckDropdown
-                    deckId={deck?.id}
-                    onDeleteDeck={onDeleteDeck}
-                    onEditDeck={onEditDeck}
-                  />
+            <div className={s.titleCoverBlock}>
+              <div className={s.titleBlock}>
+                <div className={s.containerMyDeck}>
+                  <Typography as={'h1'} variant={'h1'}>
+                    {deck?.name}
+                  </Typography>
+                  {isMy && (
+                    <DeckDropdown
+                      deckId={deck?.id}
+                      onDeleteDeck={onDeleteDeck}
+                      onEditDeck={onEditDeck}
+                    />
+                  )}
+                </div>
+                {isMy ? (
+                  <Button onClick={onAddCard}>Add New Card</Button>
+                ) : (
+                  <Button as={Link} to={`/decks/${deck?.id || ''}/learn`}>
+                    Learn to deck
+                  </Button>
                 )}
               </div>
-              {isMy ? (
-                <Button onClick={onAddCard}>Add New Card</Button>
-              ) : (
-                <Button as={Link} to={`/decks/${deck?.id || ''}/learn`}>
-                  Learn to deck
-                </Button>
-              )}
+              {deck?.cover && <img alt={'Image Deck'} className={s.img} src={deck?.cover} />}
             </div>
-            {deck?.cover && <img alt={'Image Deck'} className={s.img} src={deck?.cover} />}
+
             <div className={s.inputContainer}>
               <TextField
                 onClearInput={handleClearInput}
