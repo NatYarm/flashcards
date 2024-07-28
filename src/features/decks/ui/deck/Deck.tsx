@@ -65,20 +65,11 @@ export const Deck = () => {
     updateModal,
   } = useUpdateCard()
 
-  const {
-    deckName,
-    handleDeckDelete,
-    isDeleteModalOpen,
-    isLoadingDeleteDeck,
-    onCancelDelete,
-    setIsDeleteModalOpen,
-  } = useDeleteDeck()
+  const { deckName, isDeleteModalOpen, isLoadingDeleteDeck, setIsDeleteModalOpen } = useDeleteDeck()
   const { createModalCard, isLoadingCreateCard, requestCreate, setCreateModalCard } =
     useCreateCard()
 
   const { isEditModalOpen, isLoadingUpdateDeck, setIsEditModalOpen } = useUpdateDeck(clearFilters)
-  /*const { handleDeckUpdate, isEditModalOpen, isLoadingUpdateDeck, setIsEditModalOpen } =
-    useUpdateDeck(clearFilters)*/
 
   const { handleCreateDeck } = useCreateNewDeck(clearFilters)
 
@@ -136,12 +127,15 @@ export const Deck = () => {
     setIsEditModalOpen(true)
   }
 
-  const contentSearch = Boolean(searchParams.get('question')) && !cards?.items?.length
   const contentNotCardInDeck = !cards?.items?.length && Boolean(!searchParams.get('question'))
 
   return (
     <div className={s.main}>
-      <Typography as={NavLink} className={`${s.button} ${s.primary} ${s.backBtn}`} to={path.decks}>
+      <Typography
+        as={NavLink}
+        className={`${s.button} ${s.primary} ${s.backBtn}`}
+        to={`${path.decks}`}
+      >
         <ArrowBackOutline /> Back to Decks List
       </Typography>
 
@@ -202,24 +196,19 @@ export const Deck = () => {
               onSort={setSort}
               sort={sort}
             />
-            {contentSearch && (
-              <Typography className={s.emptySearch} variant={'body1'}>
-                Unfortunately, your search returned no results. Try changing the request.
-              </Typography>
-            )}
+            <div className={s.paginationSettings}>
+              <Pagination
+                className={s.pagination}
+                currentPage={currentPage || 1}
+                itemsPerPage={itemsPerPage}
+                onPageChange={handlePageChange}
+                onPerPageChange={handleItemsPerPageChange}
+                perPageOptions={[5, 10, 20, 30]}
+                totalPageCount={decks?.pagination?.totalPages || 1}
+              />
+            </div>
           </div>
         )}
-      </div>
-      <div className={s.paginationSettings}>
-        <Pagination
-          className={s.pagination}
-          currentPage={currentPage || 1}
-          itemsPerPage={itemsPerPage}
-          onPageChange={handlePageChange}
-          onPerPageChange={handleItemsPerPageChange}
-          perPageOptions={[5, 10, 20, 30]}
-          totalPageCount={decks?.pagination?.totalPages || 1}
-        />
       </div>
       <DeleteDeckModal
         deckName={deckName ?? 'Delete Card'}
@@ -240,7 +229,7 @@ export const Deck = () => {
         open={createModalCard}
         title={'Create Card'}
       />
-       <DeckModal
+      <DeckModal
         defaultValues={deck && { cover: deck?.cover, isPrivate: deck?.isPrivate, name: deck?.name }}
         onConfirm={handleCreateDeck}
         onOpenChange={setIsEditModalOpen}
@@ -249,8 +238,8 @@ export const Deck = () => {
       />
       <DeleteDeckModal
         deckName={deckName ?? 'Delete Deck'}
-        onCancel={onCancelDelete}
-        onConfirm={() => deck && handleDeckDelete()}
+        onConfirm={onDeleteDeck}
+        /*onConfirm={() => deck && handleDeckDelete()}*/
         onOpenChange={setIsDeleteModalOpen}
         open={isDeleteModalOpen}
       />
