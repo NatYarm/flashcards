@@ -84,7 +84,13 @@ export const ControlledInputFile = <T extends FieldValues>(props: Props<T>) => {
             Delete <TrashOutline />
           </Button>
         )}
-        <Button fullWidth onKeyDown={onEnterPress} type={'button'} variant={'secondary'}>
+        <Button
+          fullWidth
+          //onClick={onUploadImgClick}
+          onKeyDown={onEnterPress}
+          type={'button'}
+          variant={'secondary'}
+        >
           <label className={s.label} htmlFor={finalId} ref={ref}>
             <ImageOutline /> Upload Image
             <input
