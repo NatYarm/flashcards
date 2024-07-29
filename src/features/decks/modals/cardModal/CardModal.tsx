@@ -73,10 +73,6 @@ export const CardModal = forwardRef<ElementRef<typeof DialogPrimitive.Content>, 
 
   const finalId = useId()
 
-  /*const onOpenChangeHandler = () => {
-      onOpenChange(false)
-    }*/
-
   const handleCancel = () => {
     onCancel?.()
     reset()
@@ -104,7 +100,6 @@ export const CardModal = forwardRef<ElementRef<typeof DialogPrimitive.Content>, 
     setValueSelect(value)
   }
 
-  /*const isImage = valueSelect !== 'Text'*/
   const isImage = valueSelect === 'Image'
 
   return (
