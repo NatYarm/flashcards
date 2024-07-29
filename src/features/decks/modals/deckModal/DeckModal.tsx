@@ -4,7 +4,7 @@ import defaultCard from '@/assets/img/defaultCard.jpg'
 import {
   Button,
   ControlledCheckbox,
-  ControlledInputFile,
+  ControlledFileInput,
   ControlledTextField,
   Modal,
   ModalProps,
@@ -57,7 +57,7 @@ export const DeckModal = ({
       <form className={s.modalContent} onSubmit={onSubmit}>
         <ControlledTextField control={control} label={'New deck name'} name={'name'} />
 
-        <ControlledInputFile control={control} defaultImage={defaultCard} name={'cover'} />
+        <ControlledFileInput control={control} defaultImage={defaultCard} name={'cover'} />
 
         <ControlledCheckbox control={control} label={'Private'} name={'isPrivate'} />
 
