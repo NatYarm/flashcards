@@ -1,28 +1,25 @@
 import { useNavigate } from 'react-router-dom'
 
-import { Edit2Outline, PlayCircleOutline, TrashOutline } from '@/assets/icons/components'
-import { Avatar } from '@/common/components/avatar'
+import {
+  Edit2Outline,
+  MoreVerticalOutline,
+  PlayCircleOutline,
+  TrashOutline,
+} from '@/assets/icons/components'
 import { DropdownMenu, DropdownSeparator } from '@/common/components/dropdown'
 import { DropdownMenuItem } from '@/common/components/dropdown/dropdownItem/DropdownMenuItem'
 import { DefaultDescription } from '@/common/components/dropdown/dropdownItem/defaultDescription/DefaultDescription'
-import { UserDropdownTrigger } from '@/common/components/dropdown/userDropdown/userDropdownTrigger/UserDropdownTrigger'
 import { path } from '@/common/enums'
 
 import s from './deckDropdown.module.scss'
 
 export type DeckDropdownProps = {
-  avatar?: string
   deckId?: string | undefined
   onDeleteDeck?: () => void
   onEditDeck?: () => void
 }
 
-export const DeckDropdown = ({
-  avatar = '',
-  deckId,
-  onDeleteDeck,
-  onEditDeck,
-}: DeckDropdownProps) => {
+export const DeckDropdown = ({ deckId, onDeleteDeck, onEditDeck }: DeckDropdownProps) => {
   const navigate = useNavigate()
 
   const onLearnDeck = () => {
@@ -30,13 +27,8 @@ export const DeckDropdown = ({
   }
 
   return (
-    <DropdownMenu trigger={<UserDropdownTrigger src={avatar} />}>
-      <DropdownMenuItem>
-        <Avatar src={avatar} />
-      </DropdownMenuItem>
-
-      <DropdownSeparator />
-      <DropdownMenuItem onSelect={onLearnDeck}>
+    <DropdownMenu trigger={<MoreVerticalOutline className={s.iconMenu} />}>
+      <DropdownMenuItem className={s.menuItem} onSelect={onLearnDeck}>
         <PlayCircleOutline className={s.icon} />
         <DefaultDescription text={'Learn'} />
       </DropdownMenuItem>
