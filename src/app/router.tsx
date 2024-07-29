@@ -45,24 +45,29 @@ export const publicRoutes: RouteObject[] = [
 
 const privateRoutes: RouteObject[] = [
   {
-    element: <Navigate to={path.decks} />,
-    path: path.base,
-  },
-  {
-    element: <DecksListPage />,
-    path: path.decks,
-  },
-  {
-    element: <Deck />,
-    path: `${path.decks}/:id`,
-  },
-  {
-    element: <LearnCardsPage />,
-    path: `${path.decks}/:id/learn`,
-  },
-  {
-    element: <ProfilePage />,
-    path: path.profile,
+    children: [
+      {
+        element: <Navigate to={path.decks} />,
+        path: path.base,
+      },
+      {
+        element: <DecksListPage />,
+        path: path.decks,
+      },
+      {
+        element: <Deck />,
+        path: `${path.decks}/:id`,
+      },
+      {
+        element: <LearnCardsPage />,
+        path: `${path.decks}/:id/learn`,
+      },
+      {
+        element: <ProfilePage />,
+        path: path.profile,
+      },
+    ],
+    element: <Outlet />,
   },
 ]
 
@@ -80,9 +85,12 @@ export const router = createBrowserRouter([
         element: <PrivateRoutes />,
       },
       ...publicRoutes,
+      {
+        element: <Error />,
+        path: path.error,
+      },
     ],
     element: <Layout />,
-    errorElement: <Error />,
     path: path.base,
   },
 ])

@@ -55,7 +55,7 @@ export const DeckModal = ({
   return (
     <Modal title={'Create New Deck'} {...modalProps}>
       <form className={s.modalContent} onSubmit={onSubmit}>
-        <ControlledTextField control={control} label={'Deck Name'} name={'name'} />
+        <ControlledTextField control={control} label={'New deck name'} name={'name'} />
 
         <ControlledFileInput control={control} defaultImage={defaultCard} name={'cover'} />
 

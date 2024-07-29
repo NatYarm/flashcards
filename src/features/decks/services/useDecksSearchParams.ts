@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 import { Sort, Tab } from '@/common/components'
+import { ErrorResponse } from '@/common/types'
+import { useGetMeQuery } from '@/features/auth/api/authApi'
 
-import { useGetMeQuery } from '../../auth/api/authApi'
-import { ErrorResponse } from './decks.types'
 import { useGetDecksMinMaxCardsQuery, useGetDecksQuery } from './decksApi'
 
 export const useDecksSearchParams = () => {
@@ -22,7 +22,7 @@ export const useDecksSearchParams = () => {
   } = useGetDecksMinMaxCardsQuery()
 
   const minCardsInDeck = cardsInDeck?.min || 0
-  const maxCardsInDeck = cardsInDeck?.max || 50
+  const maxCardsInDeck = cardsInDeck?.max || 35
   const [cardsRange, setCardsRange] = useState([minCardsInDeck, maxCardsInDeck])
 
   useEffect(() => {
@@ -33,22 +33,20 @@ export const useDecksSearchParams = () => {
     setCardsRange(value)
   }
 
-  //deck name search query
   const handleSearchChange = (value: string) => {
     if (value.length) {
-      searchParams.set('name', value)
+      searchParams.set('search', value)
     } else {
-      searchParams.delete('name')
+      searchParams.delete('search')
     }
     setSearchParams(searchParams)
   }
 
   const handleClearInput = () => {
-    searchParams.delete('name')
+    searchParams.delete('search')
     setSearchParams(searchParams)
   }
 
-  // tabs query
   const tabs: Tab[] = [
     { disabled: false, title: 'My decks', value: 'my' },
     { disabled: false, title: 'All decks', value: 'all' },
@@ -72,7 +70,6 @@ export const useDecksSearchParams = () => {
     setSearchParams(searchParams)
   }
 
-  //current page query
   const currentPage = Number(searchParams.get('currentPage') || 1)
   const handlePageChange = (page: number) => {
     searchParams.set('currentPage', page.toString())
@@ -100,7 +97,7 @@ export const useDecksSearchParams = () => {
     itemsPerPage,
     maxCardsCount: cardsRange[1],
     minCardsCount: cardsRange[0],
-    name: searchParams.get('name') || undefined,
+    name: searchParams.get('search') || undefined,
     orderBy: sort ? `${sort.key}-${sort.direction}` : undefined,
   })
 

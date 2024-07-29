@@ -46,8 +46,8 @@ export const DecksListPage = () => {
   } = useDecksSearchParams()
 
   const {
-    creatingDeck,
     handleCreateDeck,
+    isLoadingCreateDeck,
     onCancelCreateDeck,
     setShowCreateModal,
     showCreateModal,
@@ -65,9 +65,9 @@ export const DecksListPage = () => {
   const {
     deckName,
     deckToDeleteId,
-    deletingDeck,
     handleDeckDelete,
     isDeleteModalOpen,
+    isLoadingDeleteDeck,
     onCancelDelete,
     onDeleteClick,
     setIsDeleteModalOpen,
@@ -77,7 +77,7 @@ export const DecksListPage = () => {
     setShowCreateModal(true)
   }
 
-  if (decksLoading || deletingDeck || creatingDeck) {
+  if (decksLoading || isLoadingDeleteDeck || isLoadingCreateDeck) {
     return <Loader />
   }
 
@@ -119,7 +119,7 @@ export const DecksListPage = () => {
         <Typography as={'h1'} variant={'h1'}>
           Decks List
         </Typography>
-        <Button disabled={creatingDeck} onClick={openCreateDeckModal}>
+        <Button disabled={isLoadingCreateDeck} onClick={openCreateDeckModal}>
           Add New Deck
         </Button>
         <DeckModal
@@ -133,11 +133,12 @@ export const DecksListPage = () => {
       <div className={s.filters}>
         <div className={s.searchField}>
           <TextField
-            onChange={e => handleSearchChange(e.currentTarget.value)}
             onClearInput={handleClearInput}
+            onValueChange={handleSearchChange}
+            /*onChange={e => handleSearchChange(e.currentTarget.value)}*/
             placeholder={'Search'}
             type={'search'}
-            value={searchParams.get('name') || ''}
+            value={searchParams.get('search') || ''}
           />
         </div>
 

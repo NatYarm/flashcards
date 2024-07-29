@@ -1,3 +1,5 @@
+import { Card } from '@/common/types/cardsTypes'
+
 export type DecksListResponse = {
   items: Deck[]
   pagination: Pagination
@@ -46,6 +48,11 @@ export type GetDeckCards = {
   itemsPerPage?: number
   orderBy?: string
   question?: string
+}
+
+export type GetDeckCardsResponse = {
+  items: Card[]
+  pagination: Pagination
 }
 
 export type GetDeckById = {

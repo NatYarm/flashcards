@@ -1,14 +1,15 @@
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 
-import { Deck, ErrorResponse, useUpdateDeckMutation } from '@/features/decks/services'
+import { Deck, ErrorResponse } from '@/common/types'
+import { useUpdateDeckMutation } from '@/features/decks/services'
 
-import { DeckModalFormValues } from '../DeckModal'
+import { DeckModalFormValues } from '../deckModal/DeckModal'
 
 export const useUpdateDeck = (clearFilters: () => void) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [deckToEdit, setDeckToEdit] = useState<Deck | null>(null)
-  const [updateDeck] = useUpdateDeckMutation()
+  const [updateDeck, { isLoading: isLoadingUpdateDeck }] = useUpdateDeckMutation()
 
   const onEditClick = (deck: Deck) => {
     setDeckToEdit(deck)
@@ -38,6 +39,7 @@ export const useUpdateDeck = (clearFilters: () => void) => {
     deckToEdit,
     handleDeckUpdate,
     isEditModalOpen,
+    isLoadingUpdateDeck,
     onCancelUpdateDeck,
     onEditClick,
     setDeckToEdit,

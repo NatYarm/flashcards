@@ -14,7 +14,7 @@ export const Error = forwardRef<ElementRef<'div'>, ErrorProps>((props, ref) => {
   const { className, ...rest } = props
 
   return (
-    <Page>
+    <Page mt={'130px'}>
       <div className={clsx(s.container, className)} {...rest} ref={ref}>
         <img alt={'Error'} src={Error404} />
         <Typography as={'h2'} variant={'body1'}>
