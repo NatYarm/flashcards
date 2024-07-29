@@ -1,2 +1,2 @@
-export * from './DeckModal'
-export * from './DeleteDeckModal'
+export * from './deckModal/DeckModal'
+export * from './deleteDeckModal/DeleteDeckModal'

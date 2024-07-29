@@ -1,136 +1,247 @@
-import { Link, useParams } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
-import { ArrowBackOutline, Edit2Outline, Eye, Star, TrashOutline } from '@/assets/icons/components'
-import KeyboardArrowUp from '@/assets/icons/components/KeyboardArrowUp'
-import defaultCard from '@/assets/img/defaultCard.jpg'
-import { Button } from '@/common/components/button'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeadCell,
-  TableRow,
-} from '@/common/components/table'
-import { TextField } from '@/common/components/textField'
-import { Typography } from '@/common/components/typography'
+import { ArrowBackOutline } from '@/assets/icons/components'
+import { Button, Loader, Pagination, TextField, Typography } from '@/common/components'
 import { path } from '@/common/enums'
+import { ErrorResponse, ErrorResponseField, UpdateCardArgs } from '@/common/types'
+import { useCreateCard, useDeleteCard, useUpdateCard } from '@/features/cards/hooks'
+import { DeckModal, DeleteDeckModal } from '@/features/decks/modals'
+import { CardModal } from '@/features/decks/modals/cardModal/CardModal'
+import {
+  useCreateNewDeck,
+  useDeck,
+  useDeleteDeck,
+  useUpdateDeck,
+} from '@/features/decks/modals/hooks'
+import { useDecksSearchParams } from '@/features/decks/services'
+import { CardsTable } from '@/features/decks/ui/deck/cardsTable/CardsTable'
+import { cardsColumns } from '@/features/decks/ui/deck/cardsTable/cardsColumns'
+import { DeckDropdown } from '@/features/decks/ui/deck/deckDropdown'
 
 import s from './deck.module.scss'
 
 export const Deck = () => {
-  const { deckId } = useParams()
+  const {
+    clearFilters,
+    currentPage,
+    handleClearInput,
+    handleItemsPerPageChange,
+    handlePageChange,
+    handleSearchChange,
+    itemsPerPage,
+  } = useDecksSearchParams()
+
+  const {
+    cards,
+    cardsError,
+    deck,
+    deckError,
+    isLoadingCards,
+    isLoadingDeck,
+    isMy,
+    searchParams,
+    setSort,
+    sort,
+  } = useDeck()
+
+  const {
+    dataDeleteCard,
+    deleteModalCard,
+    isLoadingDeleteCard,
+    requestDeleteCard,
+    setDataDeleteCard,
+    setDeleteModalCard,
+  } = useDeleteCard()
+
+  const {
+    dataUpdateTable,
+    isLoadingUpdateCard,
+    requestUpdate,
+    setDataIdTable,
+    setUpdateModal,
+    setUpdateTable,
+    updateModal,
+  } = useUpdateCard()
+
+  const { deckName, isDeleteModalOpen, isLoadingDeleteDeck, setIsDeleteModalOpen } = useDeleteDeck()
+  const { createModalCard, isLoadingCreateCard, requestCreate, setCreateModalCard } =
+    useCreateCard()
+
+  const { isEditModalOpen, isLoadingUpdateDeck, setIsEditModalOpen } = useUpdateDeck(clearFilters)
+
+  const { handleCreateDeck } = useCreateNewDeck(clearFilters)
+
+  if (
+    isLoadingDeck ||
+    isLoadingCards ||
+    isLoadingDeleteCard ||
+    isLoadingUpdateCard ||
+    isLoadingCreateCard ||
+    isLoadingDeleteDeck ||
+    isLoadingUpdateDeck
+  ) {
+    return (
+      <div className={s.preloader}>
+        <Loader />
+      </div>
+    )
+  }
+
+  if (deckError || cardsError) {
+    if (deckError) {
+      const errDeck = deckError as ErrorResponse
+      const Error = errDeck.data.errorMessages.reduce((acc, error) => {
+        return acc + String(error)
+      }, '')
+
+      toast.error(Error ?? 'Registration failed')
+    }
+
+    if (cardsError) {
+      const error = cardsError as ErrorResponseField
+
+      toast.error(error.data.message ?? 'Registration failed')
+    }
+  }
+
+  const onDelete = (idCard: string, question: string) => {
+    setDeleteModalCard(true)
+    setDataDeleteCard({ id: idCard, title: question })
+  }
+  const onEdit = ({ id, ...args }: UpdateCardArgs) => {
+    setUpdateTable(args)
+    setDataIdTable(id)
+    setUpdateModal(true)
+  }
+
+  const onAddCard = () => {
+    setCreateModalCard(true)
+  }
+  const onDeleteDeck = () => {
+    setIsDeleteModalOpen(true)
+  }
+
+  const onEditDeck = () => {
+    setIsEditModalOpen(true)
+  }
+
+  const contentNotCardInDeck = !cards?.items?.length && Boolean(!searchParams.get('question'))
 
   return (
-    <div className={s.container} style={{ marginTop: '24px' }}>
-      <div className={s.heading}>
-        <Link className={`${s.button} ${s.primary} ${s.backBtn}`} to={path.base}>
-          <ArrowBackOutline />
-          Back to Decks List
-        </Link>
-        <div className={s.headingSecondRow}>
-          <div>
-            <div className={s.info}>
-              <Typography as={'h1'} className={s.h1} variant={'h1'}>
-                Number2
+    <div className={s.main}>
+      <Typography as={NavLink} className={`${s.button}`} to={`${path.decks}`} variant={'body2'}>
+        <ArrowBackOutline /> Back to Decks List
+      </Typography>
+
+      <div className={s.container}>
+        {contentNotCardInDeck ? (
+          <div className={s.emptyCards}>
+            <Typography as={'h1'} variant={'h1'}>
+              {deck?.name}
+            </Typography>
+            {deck?.cover && <img alt={'Image Deck'} className={s.img} src={deck?.cover} />}
+            <div className={s.emptyText}>
+              <Typography as={'p'} variant={'body1'}>
+                This deck is empty.
+                {isMy && ' Click add new card to fill this deck'}
               </Typography>
-            </div>
-            <div className={s.imageContainer}>
-              <img alt={'img'} src={defaultCard} />
+              {isMy && <Button onClick={onAddCard}>Add New Card</Button>}
             </div>
           </div>
-          <div className={s.switchButton}>
-            <Button as={Link} to={`/decks/${deckId}/learn`}>
-              Learn Cards
-            </Button>
-          </div>
-        </div>
-        <div className={s.fieldWrapper}>
-          <TextField placeholder={'input search'} type={'search'} />
-        </div>
-      </div>
-      <Table className={`${s.table} ${s.tableRoot}`}>
-        <TableHead className={s.thead}>
-          <TableRow className={s.row}>
-            <TableHeadCell className={`${s.headCell} ${s.tableHeadCellCards}`}>
-              <div className={s.answer}>
-                <button className={`${s.subtitle2} ${s.nameSortBtn}`}>Question</button>
-              </div>
-            </TableHeadCell>
-            <TableHeadCell className={`${s.headCell} ${s.tableHeadCellCards}`}>
-              <div className={s.answer}>
-                <button className={`${s.subtitle2} ${s.nameSortBtn}`}>Answer</button>
-                <Eye />
-                {/*<div className={s.boxEye}>
-                  <Eye />
-                </div>*/}
-              </div>
-            </TableHeadCell>
-            <TableHeadCell className={`${s.headCell} ${s.tableHeadCellCards}`}>
-              <div className={s.answer}>
-                <button className={`${s.subtitle2} ${s.nameSortBtn}`}>Last Updated</button>
-                <KeyboardArrowUp />
-              </div>
-            </TableHeadCell>
-            <TableHeadCell className={`${s.headCell} ${s.tableHeadCellCards}`}>
-              <div className={s.answer}>
-                <button className={`${s.subtitle2} ${s.nameSortBtn}`}>Grade</button>
-              </div>
-            </TableHeadCell>
-            <TableHeadCell className={`${s.headCell} ${s.lastTableHeadCell}`}></TableHeadCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          <TableRow className={s.row}>
-            <TableCell className={s.cell}>
-              <div className={s.imgWrapper}>
-                <div className={s.wrapperCoverImg}>
-                  <img
-                    alt={'default card img'}
-                    className={`${s.coverImg} ${s.wrapperCoverImg} ${s.withImg}`}
-                    src={defaultCard}
-                  />
-                </div>
-                <p className={s.body1}>ddd</p>
-              </div>
-            </TableCell>
-            <TableCell className={`${s.cell} ${s.sell}`}>
-              <div className={s.blur}>
-                <div className={s.imgWrapper}>
-                  <div className={s.wrapperCoverImg}>
-                    <img
-                      alt={'default card img'}
-                      className={`${s.coverImg} ${s.wrapperCoverImg} ${s.withImg}`}
-                      src={defaultCard}
+        ) : (
+          <div className={s.container}>
+            <div className={s.titleCoverBlock}>
+              <div className={s.titleBlock}>
+                <div className={s.containerMyDeck}>
+                  <Typography as={'h1'} variant={'h1'}>
+                    {deck?.name}
+                  </Typography>
+                  {isMy && (
+                    <DeckDropdown
+                      deckId={deck?.id}
+                      onDeleteDeck={onDeleteDeck}
+                      onEditDeck={onEditDeck}
                     />
-                  </div>
-                  <p className={s.body1}>ddd</p>
+                  )}
                 </div>
+                {isMy ? (
+                  <Button onClick={onAddCard}>Add New Card</Button>
+                ) : (
+                  <Button as={Link} to={`/decks/${deck?.id || ''}/learn`}>
+                    Learn to deck
+                  </Button>
+                )}
               </div>
-            </TableCell>
-            <TableCell className={s.cell}>
-              <p className={s.body1}>16.06.24</p>
-            </TableCell>
-            <TableCell className={`${s.cell} ${s.grade}`}>
-              <Star className={s.star} />
-              <Star className={s.star} />
-              <Star className={s.star} />
-              <Star className={s.star} />
-              <Star className={s.star} />
-            </TableCell>
-            <TableCell className={s.cell}>
-              <div className={s.iconBtns}>
-                <button className={`${s.button} ${s.primary} ${s.btn}`}>
-                  <Edit2Outline />
-                </button>
-                <button className={`${s.button} ${s.primary} ${s.btn}`}>
-                  <TrashOutline />
-                </button>
-              </div>
-            </TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
+              {deck?.cover && <img alt={'Image Deck'} className={s.img} src={deck?.cover} />}
+            </div>
+
+            <div className={s.inputContainer}>
+              <TextField
+                onClearInput={handleClearInput}
+                onValueChange={handleSearchChange}
+                placeholder={'Search'}
+                type={'search'}
+                value={searchParams.get('search') || ''}
+              />
+            </div>
+            <CardsTable
+              cards={cards?.items}
+              cardsColumns={cardsColumns}
+              isMy={isMy}
+              onDelete={onDelete}
+              onEdit={onEdit}
+              onSort={setSort}
+              sort={sort}
+            />
+            <div className={s.paginationSettings}>
+              <Pagination
+                className={s.pagination}
+                currentPage={currentPage || 1}
+                itemsPerPage={itemsPerPage}
+                onPageChange={handlePageChange}
+                onPerPageChange={handleItemsPerPageChange}
+                perPageOptions={[5, 10, 20, 30]}
+                totalPageCount={cards?.pagination?.totalPages || 1}
+              />
+            </div>
+          </div>
+        )}
+      </div>
+      <DeleteDeckModal
+        deckName={deckName ?? 'Delete Card'}
+        onConfirm={() => dataDeleteCard?.id && requestDeleteCard(dataDeleteCard?.id)}
+        onOpenChange={setDeleteModalCard}
+        open={deleteModalCard}
+      />
+      <CardModal
+        defaultValues={dataUpdateTable}
+        onConfirm={requestUpdate}
+        onOpenChange={setUpdateModal}
+        open={updateModal}
+        title={'Edit Card'}
+      />
+      <CardModal
+        onConfirm={requestCreate}
+        onOpenChange={setCreateModalCard}
+        open={createModalCard}
+        title={'Create Card'}
+      />
+      <DeckModal
+        defaultValues={deck && { cover: deck?.cover, isPrivate: deck?.isPrivate, name: deck?.name }}
+        onConfirm={handleCreateDeck}
+        onOpenChange={setIsEditModalOpen}
+        open={isEditModalOpen}
+        title={'Edit Deck'}
+      />
+      <DeleteDeckModal
+        deckName={deckName ?? 'Delete Deck'}
+        onConfirm={onDeleteDeck}
+        onOpenChange={setIsDeleteModalOpen}
+        open={isDeleteModalOpen}
+      />
     </div>
   )
 }
+
+Deck.displayName = 'Deck'

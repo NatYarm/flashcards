@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 
-import { CreateDeckArgs, ErrorResponse, useCreateDeckMutation } from '../../services'
+import { CreateDeckArgs, ErrorResponse } from '@/common/types'
+import { useCreateDeckMutation } from '@/features/decks/services'
 
 export const useCreateNewDeck = (clearFilters: () => void) => {
   const [showCreateModal, setShowCreateModal] = useState(false)
 
-  const [createDeck, { isLoading: creatingDeck }] = useCreateDeckMutation()
+  const [createDeck, { isLoading: isLoadingCreateDeck }] = useCreateDeckMutation()
 
   const onCancelCreateDeck = () => {
     setShowCreateModal(false)
@@ -24,5 +25,11 @@ export const useCreateNewDeck = (clearFilters: () => void) => {
     }
   }
 
-  return { creatingDeck, handleCreateDeck, onCancelCreateDeck, setShowCreateModal, showCreateModal }
+  return {
+    handleCreateDeck,
+    isLoadingCreateDeck,
+    onCancelCreateDeck,
+    setShowCreateModal,
+    showCreateModal,
+  }
 }

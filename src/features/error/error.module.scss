@@ -6,7 +6,8 @@
   gap: 30px;
 
   img {
-    width: 450px;
-    height: 190px;
+    object-fit: cover;
+    width: 100%;
+    max-width: 450px;
   }
 }

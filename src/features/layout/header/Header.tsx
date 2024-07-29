@@ -30,10 +30,6 @@ export const Header = (props: HeaderProps) => {
           <img alt={'logo'} className={s.logo} src={logo} />
         </Typography>
 
-        {/* <Typography as={'b'} className={s.title}>
-          <i>Educational Project</i>
-        </Typography>*/}
-
         {isAuth ? (
           <UserDropdown
             avatar={avatar}
