@@ -30,10 +30,10 @@ export type CardModalFormValues = z.infer<typeof cardSchema>
 type DataKey = keyof CardModalFormValues
 
 type Props = {
-  cancelText?: string // Добавлено для кастомизации текста кнопок
-  confirmText?: string // Добавлено для кастомизации текста кнопок
+  cancelText?: string
+  confirmText?: string
   defaultValues?: UpdateCardBody
-  onCancel?: () => void // Добавлено для унификации
+  onCancel?: () => void
   onConfirm: (data: CardModalFormValues) => void
   onOpenChange: (open: boolean) => void
   // onSubmit: (data: CardModalFormValues) => void
