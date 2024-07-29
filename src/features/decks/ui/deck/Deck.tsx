@@ -25,7 +25,6 @@ export const Deck = () => {
   const {
     clearFilters,
     currentPage,
-    decks,
     handleClearInput,
     handleItemsPerPageChange,
     handlePageChange,
@@ -203,7 +202,7 @@ export const Deck = () => {
                 onPageChange={handlePageChange}
                 onPerPageChange={handleItemsPerPageChange}
                 perPageOptions={[5, 10, 20, 30]}
-                totalPageCount={decks?.pagination?.totalPages || 1}
+                totalPageCount={cards?.pagination?.totalPages || 1}
               />
             </div>
           </div>
