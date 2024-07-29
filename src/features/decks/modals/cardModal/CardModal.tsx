@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import defaultCardImage from '@/assets/img/defaultCard.jpg'
 import {
   Button,
-  ControlledInputFile,
+  ControlledFileInput,
   ControlledTextField,
   Modal,
   Select,
@@ -128,7 +128,7 @@ export const CardModal = forwardRef<ElementRef<typeof DialogPrimitive.Content>, 
               type={'text'}
             />
             {isImage && (
-              <ControlledInputFile
+              <ControlledFileInput
                 control={control}
                 defaultImage={defaultCardImage}
                 name={'questionImg'}
@@ -146,7 +146,7 @@ export const CardModal = forwardRef<ElementRef<typeof DialogPrimitive.Content>, 
               type={'text'}
             />
             {isImage && (
-              <ControlledInputFile
+              <ControlledFileInput
                 control={control}
                 defaultImage={defaultCardImage}
                 name={'answerImg'}
