@@ -52,7 +52,8 @@ export const CardModal = forwardRef<ElementRef<typeof DialogPrimitive.Content>, 
     open,
     title,
   } = props
-  const [valueSelect, setValueSelect] = useState('Text')
+
+  const [valueSelect, setValueSelect] = useState('Image')
 
   const { control, getValues, handleSubmit, reset } = useForm<CardModalFormValues>({
     defaultValues: {},
