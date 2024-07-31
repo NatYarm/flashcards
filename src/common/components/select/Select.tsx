@@ -14,8 +14,10 @@ export type SelectOptions = { label: string; value: string }
 type SelectProps = {
   className?: string
   label?: string
+  onValueChange: (value: string) => void
   options: SelectOptions[]
   placeholder?: string
+  value: string
   variant?: 'default' | 'small'
 } & ComponentPropsWithoutRef<typeof RadixSelect.Root>
 
@@ -41,7 +43,9 @@ export const Select = forwardRef<ElementRef<typeof RadixSelect.Root>, SelectProp
           disabled={disabled}
           ref={ref}
         >
-          <RadixSelect.Value placeholder={placeholder} />
+          <RadixSelect.Value placeholder={placeholder}>
+            {value ? options.find(option => option.value === value)?.label : placeholder}
+          </RadixSelect.Value>
           <RadixSelect.Icon className={s.selectIcon}>
             <ChevronDownIcon />
           </RadixSelect.Icon>

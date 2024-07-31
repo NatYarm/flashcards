@@ -36,137 +36,140 @@ type Props = {
   onCancel?: () => void
   onConfirm: (data: CardModalFormValues) => void
   onOpenChange: (open: boolean) => void
-  // onSubmit: (data: CardModalFormValues) => void
   open: boolean
   title: string
 } & Omit<ComponentPropsWithoutRef<typeof DialogPrimitive.Root>, 'onOpenChange' | 'open'>
 
-export const CardModal = forwardRef<ElementRef<typeof DialogPrimitive.Content>, Props>(props => {
-  const {
-    cancelText = 'Cancel',
-    confirmText = 'Submit',
-    defaultValues,
-    onCancel,
-    onConfirm,
-    onOpenChange,
-    open,
-    title,
-  } = props
+export const CardModal = forwardRef<ElementRef<typeof DialogPrimitive.Content>, Props>(
+  (props, ref) => {
+    const {
+      cancelText = 'Cancel',
+      confirmText = 'Add New Card',
+      defaultValues,
+      onCancel,
+      onConfirm,
+      onOpenChange,
+      open,
+      title,
+    } = props
 
-  const [valueSelect, setValueSelect] = useState('Image')
+    const [selectedOption, setSelectedOption] = useState<string>('text')
 
-  const { control, getValues, handleSubmit, reset } = useForm<CardModalFormValues>({
-    defaultValues: {},
-    resolver: zodResolver(cardSchema),
-  })
+    const { control, getValues, handleSubmit, reset } = useForm<CardModalFormValues>({
+      defaultValues: {},
+      resolver: zodResolver(cardSchema),
+    })
 
-  useEffect(() => {
-    if (defaultValues) {
-      reset(defaultValues)
-      const startValue = defaultValues.questionImg || defaultValues.answerImg ? 'Image' : 'Text'
+    useEffect(() => {
+      if (defaultValues) {
+        reset(defaultValues)
+        const startValue = defaultValues.questionImg || defaultValues.answerImg ? 'Image' : 'Text'
 
-      setValueSelect(startValue)
-    } else {
+        setSelectedOption(startValue)
+      } else {
+        reset()
+        setSelectedOption('Text')
+      }
+    }, [reset, defaultValues, open])
+
+    const finalId = useId()
+
+    const handleCancel = () => {
+      onCancel?.()
       reset()
-      setValueSelect('Text')
     }
-  }, [reset, defaultValues, open])
 
-  const finalId = useId()
+    const onHandleSubmit = (data: CardModalFormValues) => {
+      if (defaultValues) {
+        const currentValues = getValues()
 
-  const handleCancel = () => {
-    onCancel?.()
-    reset()
-  }
-
-  const onHandleSubmit = (data: CardModalFormValues) => {
-    if (defaultValues) {
-      const currentValues = getValues()
-
-      for (const key in defaultValues) {
-        if (defaultValues[key as DataKey] === currentValues[key as DataKey]) {
-          delete data[key as DataKey]
+        for (const key in defaultValues) {
+          if (defaultValues[key as DataKey] === currentValues[key as DataKey]) {
+            delete data[key as DataKey]
+          }
         }
       }
+
+      onConfirm(data)
+
+      onOpenChange(false)
+      reset()
+      setSelectedOption('Text')
     }
 
-    onConfirm(data)
+    const handleSelectChange = (value: string) => {
+      setSelectedOption(value)
+    }
 
-    onOpenChange(false)
-    reset()
-    setValueSelect('Text')
-  }
+    const isImage = selectedOption === 'Image'
 
-  const onValueChange = (value: string) => {
-    setValueSelect(value)
-  }
+    const selectOptions = [
+      { label: 'Text', value: 'Text' },
+      { label: 'Image', value: 'Image' },
+    ]
 
-  const isImage = valueSelect === 'Image'
+    return (
+      <Modal onOpenChange={onOpenChange} open={open} ref={ref} title={title}>
+        <div className={s.container}>
+          <div className={s.select}>
+            <Select
+              label={'Choose A Question Format'}
+              onValueChange={handleSelectChange}
+              options={selectOptions}
+              value={selectedOption}
+            />
+          </div>
+          <form className={s.form} id={finalId} onSubmit={handleSubmit(onHandleSubmit)}>
+            <div className={s.item}>
+              <Typography variant={'subtitle2'}>Question:</Typography>
+              <ControlledTextField
+                className={s.input}
+                control={control}
+                label={'Question'}
+                name={'question'}
+                placeholder={'Name'}
+                type={'text'}
+              />
+              {isImage && (
+                <ControlledFileInput
+                  control={control}
+                  defaultImage={defaultCardImage}
+                  name={'questionImg'}
+                />
+              )}
+            </div>
+            <div className={s.item}>
+              <Typography variant={'subtitle2'}>Answer:</Typography>
+              <ControlledTextField
+                className={s.input}
+                control={control}
+                label={'Answer'}
+                name={'answer'}
+                placeholder={'Name'}
+                type={'text'}
+              />
+              {isImage && (
+                <ControlledFileInput
+                  control={control}
+                  defaultImage={defaultCardImage}
+                  name={'answerImg'}
+                />
+              )}
+            </div>
 
-  return (
-    <Modal onOpenChange={onOpenChange} open={open} title={title}>
-      <div className={s.container}>
-        <div className={s.select}>
-          <Select
-            label={'Choose A Question Format'}
-            onValueChange={onValueChange}
-            options={[
-              { label: 'Text', value: 'Text' },
-              { label: 'Image', value: 'Image' },
-            ]}
-            value={valueSelect}
-          />
+            <div className={s.containerButton}>
+              <Button onClick={handleCancel} type={'button'} variant={'secondary'}>
+                {cancelText}
+              </Button>
+              <Button form={finalId} variant={'primary'}>
+                {confirmText}
+              </Button>
+            </div>
+          </form>
         </div>
-        <form className={s.form} id={finalId} onSubmit={handleSubmit(onHandleSubmit)}>
-          <div className={s.item}>
-            <Typography variant={'subtitle2'}>Question:</Typography>
-            <ControlledTextField
-              className={s.input}
-              control={control}
-              label={'Question'}
-              name={'question'}
-              placeholder={'Name'}
-              type={'text'}
-            />
-            {isImage && (
-              <ControlledFileInput
-                control={control}
-                defaultImage={defaultCardImage}
-                name={'questionImg'}
-              />
-            )}
-          </div>
-          <div className={s.item}>
-            <Typography variant={'subtitle2'}>Answer:</Typography>
-            <ControlledTextField
-              className={s.input}
-              control={control}
-              label={'Answer'}
-              name={'answer'}
-              placeholder={'Name'}
-              type={'text'}
-            />
-            {isImage && (
-              <ControlledFileInput
-                control={control}
-                defaultImage={defaultCardImage}
-                name={'answerImg'}
-              />
-            )}
-          </div>
-
-          <div className={s.containerButton}>
-            <Button onClick={handleCancel} type={'button'} variant={'secondary'}>
-              {cancelText}
-            </Button>
-            <Button form={finalId} variant={'primary'}>
-              {confirmText}
-            </Button>
-          </div>
-        </form>
-      </div>
-    </Modal>
-  )
-})
+      </Modal>
+    )
+  }
+)
 
 CardModal.displayName = 'CardModal'

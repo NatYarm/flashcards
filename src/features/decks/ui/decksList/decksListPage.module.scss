@@ -1,26 +1,29 @@
 .pageHeader {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   width: 100%;
 }
 
 .filters {
   display: flex;
+  gap: 24px;
   align-items: end;
   justify-content: space-between;
-  gap: 24px;
-  margin-bottom: 36px;
+
   margin-top: 20px;
+  margin-bottom: 36px;
 }
 
 .searchField {
   width: 300px;
 }
+
 .spinner {
-  margin-top: 100px;
   z-index: 100;
+  margin-top: 100px;
 }
+
 .pagination {
   display: flex;
   justify-content: center;
