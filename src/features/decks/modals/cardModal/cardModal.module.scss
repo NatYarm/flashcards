@@ -1,9 +1,11 @@
 .container {
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 24px;
 
-  //max-height: 590px;
+  max-height: 590px;
+  padding: 24px;
 }
 
 .form {
