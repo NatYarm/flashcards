@@ -7,15 +7,12 @@
 
 .content {
   position: fixed;
-
-  //z-index: 999;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 
   width: 90vw;
   max-width: 542px;
-  padding: 0 24px 24px;
 
   background-color: var(--color-dark-700);
   border: 1px solid var(--color-dark-500);
