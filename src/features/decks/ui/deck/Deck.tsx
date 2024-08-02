@@ -225,7 +225,7 @@ export const Deck = () => {
         onConfirm={requestCreate}
         onOpenChange={setCreateModalCard}
         open={createModalCard}
-        title={'Create Card'}
+        title={'Add New Card'}
       />
       <DeckModal
         defaultValues={deck && { cover: deck?.cover, isPrivate: deck?.isPrivate, name: deck?.name }}

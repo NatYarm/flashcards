@@ -1,3 +1,11 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  //max-height: 590px;
+}
+
 .form {
   display: flex;
   flex-direction: column;
@@ -7,14 +15,8 @@
   height: 100%;
 }
 
-.container {
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-
-  max-height: 590px;
-  padding: 24px;
+.input {
+  width: 100%;
 }
 
 .item {
@@ -27,22 +29,4 @@
   display: flex;
   justify-content: space-between;
   margin-top: 12px;
-}
-
-::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--color-dark-500);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-accent-500);
-  border-radius: 2px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-accent-300);
 }

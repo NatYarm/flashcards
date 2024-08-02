@@ -1,21 +1,21 @@
 .overlay {
   position: fixed;
   inset: 0;
-  background: var(--color-dark-900);
   opacity: 0.7;
+  background: var(--color-dark-900);
 }
 
 .content {
   position: fixed;
-  z-index: 999;
+
+  //z-index: 999;
   top: 50%;
   left: 50%;
-
   transform: translate(-50%, -50%);
 
   width: 90vw;
   max-width: 542px;
-  padding: 0 24px 24px 24px;
+  padding: 0 24px 24px;
 
   background-color: var(--color-dark-700);
   border: 1px solid var(--color-dark-500);
@@ -26,18 +26,18 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 12px;
+
+  padding-bottom: 18px;
 
   border-bottom: 1px solid var(--color-dark-500);
 }
 
 .closeButton {
   all: unset;
-
   cursor: pointer;
-
   display: flex;
 }
+
 .closeIcon {
   width: 24px;
   height: 24px;
