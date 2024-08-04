@@ -3,7 +3,6 @@ import { ComponentPropsWithoutRef, ElementRef, ReactNode, forwardRef } from 'rea
 import { Close } from '@/assets/icons/components'
 import { Typography } from '@/common/components'
 import * as RadixDialog from '@radix-ui/react-dialog'
-import * as DialogPrimitive from '@radix-ui/react-dialog'
 
 import s from './modal.module.scss'
 
@@ -24,11 +23,11 @@ export const Modal = forwardRef<ElementRef<typeof RadixDialog.Content>, ModalPro
           <RadixDialog.Overlay className={s.overlay} />
           <RadixDialog.Content className={s.content} ref={ref}>
             <div className={s.header}>
-              <DialogPrimitive.Title asChild>
+              <RadixDialog.Title asChild>
                 <Typography as={'h2'} variant={'h2'}>
                   {title}
                 </Typography>
-              </DialogPrimitive.Title>
+              </RadixDialog.Title>
               <RadixDialog.Close asChild className={s.closeButton}>
                 <Close className={s.closeIcon} />
               </RadixDialog.Close>
