@@ -22,7 +22,7 @@ import { DeckDropdown } from '@/features/decks/ui/deck/deckDropdown'
 import s from './deck.module.scss'
 
 export const Deck = () => {
-  const { clearFilters, handleClearInput, handleSearchChange } = useDecksSearchParams()
+  const { clearFilters } = useDecksSearchParams()
 
   const {
     cards,
@@ -33,7 +33,9 @@ export const Deck = () => {
     isLoadingCards,
     isLoadingDeck,
     isMy,
+    onClearClick,
     pageSizeHandler, // Добавлен вызов pageSizeHandler из useDeck
+    searchChangeHandle,
     searchParams,
     setSort,
     sort,
@@ -172,11 +174,11 @@ export const Deck = () => {
 
             <div className={s.inputContainer}>
               <TextField
-                onClearInput={handleClearInput}
-                onValueChange={handleSearchChange}
-                placeholder={'Search'}
+                onClearInput={onClearClick}
+                onValueChange={searchChangeHandle}
+                placeholder={'question'}
                 type={'search'}
-                value={searchParams.get('search') || ''}
+                value={searchParams.get('question') || ''}
               />
             </div>
             <CardsTable
@@ -195,10 +197,6 @@ export const Deck = () => {
                 itemsPerPage={Number(searchParams.get('itemsPerPage')) || 5} // Добавлен вызов pageSizeHandler из useDeck
                 onPageChange={currentPageHandler} // Используем currentPageHandler из useDeck
                 onPerPageChange={pageSizeHandler} // Используем pageSizeHandler из useDeck
-                //currentPage={currentPage || 1}
-                //itemsPerPage={itemsPerPage}
-                //onPageChange={handlePageChange}
-                //onPerPageChange={handleItemsPerPageChange}
                 perPageOptions={[5, 10, 20, 30]}
                 totalPageCount={cards?.pagination?.totalPages || 1}
               />
