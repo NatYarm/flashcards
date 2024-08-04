@@ -49,11 +49,21 @@ export const useDeck = () => {
   }, [searchParams, setSearchParams])
 
   // Обработчик изменения параметра 'itemsPerPage' в строке запроса
-  const pageSizeHandler = useCallback(
+  /*const pageSizeHandler = useCallback(
     (itemsPerPage: string) => {
       const updatedSearchParams = new URLSearchParams(searchParams)
 
       updatedSearchParams.set('itemsPerPage', itemsPerPage)
+      setSearchParams(updatedSearchParams)
+    },
+    [searchParams, setSearchParams]
+  )*/
+  const pageSizeHandler = useCallback(
+    (itemsPerPage: number) => {
+      // Изменение типа параметра на number
+      const updatedSearchParams = new URLSearchParams(searchParams)
+
+      updatedSearchParams.set('itemsPerPage', itemsPerPage.toString()) // Преобразование number в string
       setSearchParams(updatedSearchParams)
     },
     [searchParams, setSearchParams]
@@ -94,7 +104,7 @@ export const useDeck = () => {
   } = useGetDeckCardsQuery({
     currentPage: Number(searchParams.get('currentPage')) || 1,
     id: params?.id ?? '',
-    itemsPerPage: Number(searchParams.get('itemsPerPage')) || 10,
+    itemsPerPage: Number(searchParams.get('itemsPerPage')) || 5,
     orderBy: sortedString || undefined,
     question: debouncedSearch.get('question') || undefined,
   })
