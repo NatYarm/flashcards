@@ -22,24 +22,20 @@ import { DeckDropdown } from '@/features/decks/ui/deck/deckDropdown'
 import s from './deck.module.scss'
 
 export const Deck = () => {
-  const {
-    clearFilters,
-    currentPage,
-    handleClearInput,
-    handleItemsPerPageChange,
-    handlePageChange,
-    handleSearchChange,
-    itemsPerPage,
-  } = useDecksSearchParams()
+  const { clearFilters } = useDecksSearchParams()
 
   const {
     cards,
     cardsError,
+    currentPageHandler, // Добавлен вызов currentPageHandler из useDeck
     deck,
     deckError,
     isLoadingCards,
     isLoadingDeck,
     isMy,
+    onClearClick,
+    pageSizeHandler, // Добавлен вызов pageSizeHandler из useDeck
+    searchChangeHandle,
     searchParams,
     setSort,
     sort,
@@ -178,11 +174,11 @@ export const Deck = () => {
 
             <div className={s.inputContainer}>
               <TextField
-                onClearInput={handleClearInput}
-                onValueChange={handleSearchChange}
-                placeholder={'Search'}
+                onClearInput={onClearClick}
+                onValueChange={searchChangeHandle}
+                placeholder={'question'}
                 type={'search'}
-                value={searchParams.get('search') || ''}
+                value={searchParams.get('question') || ''}
               />
             </div>
             <CardsTable
@@ -197,10 +193,10 @@ export const Deck = () => {
             <div className={s.paginationSettings}>
               <Pagination
                 className={s.pagination}
-                currentPage={currentPage || 1}
-                itemsPerPage={itemsPerPage}
-                onPageChange={handlePageChange}
-                onPerPageChange={handleItemsPerPageChange}
+                currentPage={Number(searchParams.get('currentPage')) || 1} // Добавлен вызов currentPageHandler из useDeck
+                itemsPerPage={Number(searchParams.get('itemsPerPage')) || 5} // Добавлен вызов pageSizeHandler из useDeck
+                onPageChange={currentPageHandler} // Используем currentPageHandler из useDeck
+                onPerPageChange={pageSizeHandler} // Используем pageSizeHandler из useDeck
                 perPageOptions={[5, 10, 20, 30]}
                 totalPageCount={cards?.pagination?.totalPages || 1}
               />
