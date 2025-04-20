@@ -1,0 +1,46 @@
+import { ComponentPropsWithoutRef, ReactNode, forwardRef } from 'react'
+
+import * as RadixDropdownMenu from '@radix-ui/react-dropdown-menu'
+import clsx from 'clsx'
+
+import s from './dropdown.module.scss'
+
+type DropdownMenuProps = {
+  align?: 'center' | 'end' | 'start'
+  children?: ReactNode
+  sideOffset?: number
+  trigger?: ReactNode
+} & ComponentPropsWithoutRef<typeof RadixDropdownMenu.Root>
+
+export const DropdownMenu = forwardRef<HTMLDivElement, DropdownMenuProps>(
+  ({ align = 'end', children, modal = false, sideOffset = 8, trigger, ...rest }, ref) => {
+    return (
+      <RadixDropdownMenu.Root {...rest}>
+        <RadixDropdownMenu.Trigger className={s.trigger} ref={ref as any}>
+          {trigger}
+        </RadixDropdownMenu.Trigger>
+
+        <RadixDropdownMenu.Portal>
+          <RadixDropdownMenu.Content align={align} className={s.content} sideOffset={sideOffset}>
+            {children}
+            <RadixDropdownMenu.Arrow className={s.arrow} />
+          </RadixDropdownMenu.Content>
+        </RadixDropdownMenu.Portal>
+      </RadixDropdownMenu.Root>
+    )
+  }
+)
+
+export const DropdownSeparator = ({
+  className,
+  ...rest
+}: ComponentPropsWithoutRef<typeof RadixDropdownMenu.Separator>) => {
+  return <RadixDropdownMenu.Separator className={clsx(s.separator, className)} {...rest} />
+}
+
+export const DropdownMenuLabel = ({
+  className,
+  ...props
+}: ComponentPropsWithoutRef<typeof RadixDropdownMenu.Label>) => (
+  <RadixDropdownMenu.Label className={clsx(s.label, className)} {...props} />
+)
