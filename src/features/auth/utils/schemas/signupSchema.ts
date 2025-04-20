@@ -9,5 +9,5 @@ export const signupSchema = z
   })
   .refine(arg => arg.password === arg.confirmPassword, {
     message: 'Passwords do not match. Try again.',
-    path: ['passwordConfirmation'],
+    path: ['confirmPassword'],
   })

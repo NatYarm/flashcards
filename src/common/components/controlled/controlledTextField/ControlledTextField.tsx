@@ -7,26 +7,26 @@ export type ControlledTextFieldProps<TFieldValues extends FieldValues> = {
   name: FieldPath<TFieldValues>
 } & Omit<TextFieldProps, 'id' | 'onChange' | 'value'>
 
-export const ControlledTextField = <TFieldValues extends FieldValues>(
-  props: ControlledTextFieldProps<TFieldValues>
-) => {
+export const ControlledTextField = <TFieldValues extends FieldValues>({
+  control,
+  name,
+  ...rest
+}: ControlledTextFieldProps<TFieldValues>) => {
   const {
     field,
     fieldState: { error },
   } = useController({
-    control: props.control,
-    name: props.name,
+    control,
+    name,
   })
 
-  return <TextField {...props} {...field} errorMessage={error?.message} id={props.name} />
-}
-
-{
-  /* <AuthForm title="Sign Up" type="signup">
-<TextField label="username" />
-<TextField label="email" />
-<TextField label="password" type="password" />
-<TextField label="confirm password" type="password" />
-<Checkbox label="I agree to the Terms of Service and Privacy" />
-</AuthForm> */
+  return (
+    <TextField
+      {...rest}
+      {...field}
+      value={field.value ?? ''}
+      errorMessage={error?.message}
+      id={name}
+    />
+  )
 }

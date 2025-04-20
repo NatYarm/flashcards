@@ -25,5 +25,5 @@ export const fileSchema = z.instanceof(File).refine(file => file.size < 1000000,
 
 export const text = z
   .string()
-  .min(3, { message: 'The field must contain more than 3 character' })
+  .min(3, { message: 'The field must contain more than 3 characters' })
   .max(30, { message: 'The field must not contain more than 30 characters' })
