@@ -26,10 +26,6 @@ export const SignUpPage = () => {
   }
 
   useEffect(() => {
-    if (isLoading) {
-      return
-    }
-
     if (isError && error) {
       const err = error as SignErrorResponse
       const errorMessage = err.data.errorMessages.join(' ') || 'Registration failed'

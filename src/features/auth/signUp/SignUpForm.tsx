@@ -1,10 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 
-import { Button } from '@/common/components/button'
-import { Card } from '@/common/components/card'
-import { ControlledTextField } from '@/common/components/controlled'
-import { Typography } from '@/common/components/typography'
+import { Button, Card, ControlledTextField, Typography } from '@/common/components'
 import { path } from '@/common/enums'
 import { signupSchema } from '@/features/auth/utils/schemas'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -21,6 +18,8 @@ type Props = {
 export const SignUpForm = ({ onSubmit }: Props) => {
   const { control, handleSubmit } = useForm<SignUp>({
     resolver: zodResolver(signupSchema),
+    mode: 'onBlur',
+    reValidateMode: 'onChange',
   })
 
   const formSubmitHandler = handleSubmit(onSubmit)
