@@ -10,16 +10,15 @@ import { z } from 'zod'
 
 import s from './newPasswordForm.module.scss'
 
+type NewPassword = { password: z.infer<typeof passwordSchema> }
+
 type Props = {
   onSubmit: (data: NewPassword) => void
 }
 
-const newPasswordSchema = z.object({ password: passwordSchema })
-
-export type NewPassword = z.infer<typeof newPasswordSchema>
 export const NewPasswordForm = ({ onSubmit }: Props) => {
   const { control, handleSubmit } = useForm<NewPassword>({
-    resolver: zodResolver(newPasswordSchema),
+    resolver: zodResolver(passwordSchema),
   })
 
   const handleFormSubmitted = handleSubmit(onSubmit)
