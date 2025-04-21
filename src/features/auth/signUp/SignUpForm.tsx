@@ -1,30 +1,15 @@
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 
-import { Button } from '@/common/components/button'
-import { Card } from '@/common/components/card'
-import { ControlledTextField } from '@/common/components/controlled'
-import { Typography } from '@/common/components/typography'
+import { Button, Card, ControlledTextField, Typography } from '@/common/components'
 import { path } from '@/common/enums'
-import { confirmPasswordSchema, emailSchema, passwordSchema, passwordsMatch } from '@/common/utils'
+import { signupSchema } from '@/features/auth/utils/schemas'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import s from './signUpForm.module.scss'
 
-const loginScheme = z
-  .object({
-    confirmPassword: confirmPasswordSchema,
-    email: emailSchema,
-    password: passwordSchema,
-  })
-  .superRefine((data, ctx) => {
-    const issues = passwordsMatch(data)
-
-    issues.forEach(issue => ctx.addIssue(issue))
-  })
-
-export type SignUp = z.infer<typeof loginScheme>
+export type SignUp = z.infer<typeof signupSchema>
 
 type Props = {
   onSubmit: (data: SignUp) => void
@@ -32,7 +17,9 @@ type Props = {
 
 export const SignUpForm = ({ onSubmit }: Props) => {
   const { control, handleSubmit } = useForm<SignUp>({
-    resolver: zodResolver(loginScheme),
+    resolver: zodResolver(signupSchema),
+    mode: 'onBlur',
+    reValidateMode: 'onChange',
   })
 
   const formSubmitHandler = handleSubmit(onSubmit)

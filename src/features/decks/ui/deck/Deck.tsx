@@ -210,6 +210,7 @@ export const Deck = () => {
         onOpenChange={setDeleteModalCard}
         open={deleteModalCard}
       />
+
       <CardModal
         defaultValues={dataUpdateTable}
         onConfirm={requestUpdate}

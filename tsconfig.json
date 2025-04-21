@@ -24,6 +24,10 @@
       "@/*": ["./src/*"]
     }
   },
+  "rules": {
+    "no-unused-vars": "warn",
+    "@typescript/no-unused-vars": "warn"
+  },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
