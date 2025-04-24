@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { Tools } from '@/common/components/table/ui/tools/Tools'
-import { withRouter } from 'storybook-addon-remix-react-router'
 
 const meta = {
   component: Tools,
-  decorators: [withRouter],
+  //decorators: [withRouter],
   parameters: {
     layout: 'centered',
   },
