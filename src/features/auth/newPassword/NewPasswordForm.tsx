@@ -10,7 +10,7 @@ import { z } from 'zod'
 
 import s from './newPasswordForm.module.scss'
 
-type NewPassword = { password: z.infer<typeof passwordSchema> }
+export type NewPassword = { password: z.infer<typeof passwordSchema> }
 
 type Props = {
   onSubmit: (data: NewPassword) => void

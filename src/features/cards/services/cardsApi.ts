@@ -34,7 +34,6 @@ const cardsApi = baseApi.injectEndpoints({
             formData.append('answer', answer)
           }
           if (answerImg) {
-            debugger
             formData.append('answerImg', answerImg)
           } else if (answerImg === null) {
             formData.append('answerImg', '')

@@ -10,7 +10,6 @@ import { Label } from '../label/Label'
 export type Tab = {
   disabled?: boolean
   title: string
-  /** A unique value that associates the trigger with a content. */
   value: string
 }
 
@@ -59,7 +58,6 @@ export const Tabs = ({
 
 export type TabContentProps = {
   children: ReactNode
-  /** A unique value that associates the trigger with a content. */
   value: string
 }
 
