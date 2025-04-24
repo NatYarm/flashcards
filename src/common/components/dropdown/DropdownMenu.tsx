@@ -13,7 +13,7 @@ type DropdownMenuProps = {
 } & ComponentPropsWithoutRef<typeof RadixDropdownMenu.Root>
 
 export const DropdownMenu = forwardRef<HTMLDivElement, DropdownMenuProps>(
-  ({ align = 'end', children, modal = false, sideOffset = 8, trigger, ...rest }, ref) => {
+  ({ align = 'end', children, sideOffset = 8, trigger, ...rest }, ref) => {
     return (
       <RadixDropdownMenu.Root {...rest}>
         <RadixDropdownMenu.Trigger className={s.trigger} ref={ref as any}>
