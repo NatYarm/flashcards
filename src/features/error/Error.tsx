@@ -18,7 +18,7 @@ export const Error = forwardRef<ElementRef<'div'>, ErrorProps>((props, ref) => {
       <div className={clsx(s.container, className)} {...rest} ref={ref}>
         <img alt={'Error'} src={Error404} />
         <Typography as={'h2'} variant={'body1'}>
-          Sorry! Page not found!
+          Page not found!
         </Typography>
         <Button as={'a'} href={path.base}>
           Back to home page
