@@ -7,7 +7,7 @@ import clsx from 'clsx'
 import s from './select.module.scss'
 
 import { Label } from '../label/Label'
-import { SelectItem } from './selectItem'
+import { SelectItem } from './SelectItem'
 
 export type SelectOptions = { label: string; value: string }
 

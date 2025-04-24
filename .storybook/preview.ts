@@ -4,7 +4,7 @@ import '../src/styles/index.scss'
 import { themes } from '@storybook/theming'
 import type { Preview } from '@storybook/react'
 import { reactRouterParameters, withRouter } from 'storybook-addon-react-router-v6'
- 
+
 const preview: Preview = {
   parameters: {
     actions: { argTypesRegex: '^on[A-Z].*' },
@@ -34,7 +34,7 @@ const preview: Preview = {
     },
   },
 
-  tags: ['autodocs']
+  tags: ['autodocs'],
 }
 
 export const decorators = [withRouter]

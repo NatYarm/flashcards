@@ -4,17 +4,12 @@ import { Link } from 'react-router-dom'
 import { Button, Card, Typography } from '@/common/components'
 import { ControlledCheckbox, ControlledTextField } from '@/common/components/controlled'
 import { path } from '@/common/enums'
-import { emailSchema, passwordSchema, rememberMeSchema } from '@/common/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import s from './signInForm.module.scss'
 
-const loginSchema = z.object({
-  email: emailSchema,
-  password: passwordSchema,
-  rememberMe: rememberMeSchema,
-})
+import { loginSchema } from '../utils/schemas'
 
 export type SignIn = z.infer<typeof loginSchema>
 

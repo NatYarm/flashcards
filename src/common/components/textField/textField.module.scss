@@ -78,7 +78,7 @@
   }
 }
 
-.showpassword {
+.showPassword {
   cursor: pointer;
 
   position: absolute;
@@ -103,7 +103,7 @@
 }
 
 .clearInput {
-  composes: showpassword;
+  @extend .showPassword;
   display: flex;
   align-items: center;
   justify-content: center;
