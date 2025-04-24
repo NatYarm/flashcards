@@ -20,13 +20,13 @@ export const ContainerImageText = forwardRef<ElementRef<'a'>, ContainerNameProps
   return link ? (
     <div title={text}>
       <NavLink className={clsx(s.link, s.container)} ref={ref} to={link} {...rest}>
-        {image && <img alt={'Image'} className={s.img} src={img || defaultImg} />}
+        {image && <img className={s.img} src={img || defaultImg} />}
         <Typography className={s.text}>{text}</Typography>
       </NavLink>
     </div>
   ) : (
     <div className={s.container} title={text}>
-      {image && <img alt={'Image'} className={s.img} src={img || defaultImg} />}
+      {image && <img className={s.img} src={img || defaultImg} />}
       <Typography className={s.text}>{text}</Typography>
     </div>
   )
