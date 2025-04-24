@@ -1,19 +1,20 @@
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/700.css'
-import '../src/styles/index.scss'
+import React from 'react'
+import { MemoryRouter } from 'react-router-dom'
 import { themes } from '@storybook/theming'
-import type { Preview } from '@storybook/react'
-import { reactRouterParameters, withRouter } from 'storybook-addon-react-router-v6'
+import type { Decorator, Preview } from '@storybook/react'
+import '../src/styles/index.scss'
+
+const withRouter: Decorator = Story => (
+  <MemoryRouter initialEntries={['/']}>
+    <Story />
+  </MemoryRouter>
+)
 
 const preview: Preview = {
   parameters: {
     actions: { argTypesRegex: '^on[A-Z].*' },
-    reactRouter: reactRouterParameters({
-      routing: {
-        handle: 'Nav',
-        path: '*',
-      },
-    }),
     docs: {
       theme: themes.dark,
     },
@@ -33,9 +34,8 @@ const preview: Preview = {
       },
     },
   },
-
+  decorators: [withRouter],
   tags: ['autodocs'],
 }
 
-export const decorators = [withRouter]
 export default preview
