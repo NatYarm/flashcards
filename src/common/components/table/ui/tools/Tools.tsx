@@ -27,10 +27,10 @@ export const Tools = forwardRef<ElementRef<'div'>, ToolsProps>(
         )}
         {canUseTool && (
           <>
-            <button className={s.button} onClick={() => onEdit?.(id)}>
+            <button type={'button'} className={s.button} onClick={() => onEdit?.(id)}>
               <Edit2Outline className={s.icon} />
             </button>
-            <button className={s.button} onClick={() => onDelete?.(id)}>
+            <button type={'button'} className={s.button} onClick={() => onDelete?.(id)}>
               <TrashOutline className={s.icon} />
             </button>
           </>

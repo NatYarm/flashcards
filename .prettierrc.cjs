@@ -1,8 +1,11 @@
+/** @type {import('prettier').Config} */
 module.exports = {
-  ...require('@it-incubator/prettier-config'),
-  //override settings here
-  rules: {
-    "no-unused-vars": "warn",
-    "@typescript/no-unused-vars": "warn"
-  },
-};
+  semi: false,
+  singleQuote: true,
+  trailingComma: 'es5',
+  printWidth: 100,
+  tabWidth: 2,
+  endOfLine: 'auto',
+  arrowParens: 'avoid',
+}
+
