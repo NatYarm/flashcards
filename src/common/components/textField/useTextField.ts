@@ -1,4 +1,4 @@
-import { ChangeEvent, useId, useRef, useState } from 'react'
+import { ChangeEvent, useEffect, useId, useRef, useState } from 'react'
 
 type UsetTextFieldProps = {
   id?: string
@@ -23,6 +23,11 @@ export const useTextField = ({
 
   const [revealPassword, setRevealPassword] = useState(false)
   const [inputValue, setInputValue] = useState(initialValue)
+
+  // Sync internal state with external value changes
+  useEffect(() => {
+    setInputValue(initialValue)
+  }, [initialValue])
 
   const isPassword = type === 'password'
   const isSearchField = type === 'search'

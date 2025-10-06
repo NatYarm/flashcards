@@ -16,13 +16,25 @@ export type SignIn = z.infer<typeof loginSchema>
 type Props = {
   onSubmit: (data: SignIn) => void
 }
-
 export const SignInForm = ({ onSubmit }: Props) => {
-  const { control, handleSubmit } = useForm<SignIn>({
+  const { control, handleSubmit, reset } = useForm<SignIn>({
     resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+      rememberMe: false,
+    },
   })
 
   const formSubmitHandler = handleSubmit(onSubmit)
+
+  const fillDemoCredentials = () => {
+    reset({
+      email: 'demo@demo.com',
+      password: 'Pass123!',
+      rememberMe: false,
+    })
+  }
 
   return (
     <Card className={s.card}>
@@ -51,6 +63,15 @@ export const SignInForm = ({ onSubmit }: Props) => {
         <Button fullWidth type={'submit'}>
           Sign In
         </Button>
+        <Button
+          fullWidth
+          type={'button'}
+          variant={'secondary'}
+          onClick={fillDemoCredentials}
+          style={{ marginTop: '20px' }}
+        >
+          Fill Demo Credentials
+        </Button>
       </form>
       <div className={s.footer}>
         <Typography variant={'body2'}>Don&apos;t have an account?</Typography>
@@ -61,3 +82,48 @@ export const SignInForm = ({ onSubmit }: Props) => {
     </Card>
   )
 }
+
+// export const SignInForm = ({ onSubmit }: Props) => {
+//   const { control, handleSubmit } = useForm<SignIn>({
+//     resolver: zodResolver(loginSchema),
+//   })
+
+//   const formSubmitHandler = handleSubmit(onSubmit)
+
+//   return (
+//     <Card className={s.card}>
+//       <Typography className={s.title} variant={'h1'}>
+//         Sign In
+//       </Typography>
+//       <form className={s.form} onSubmit={formSubmitHandler}>
+//         <div className={s.controlled}>
+//           <ControlledTextField control={control} label={'Email'} name={'email'} />
+//           <ControlledTextField
+//             control={control}
+//             label={'Password'}
+//             name={'password'}
+//             type={'password'}
+//           />
+//           <ControlledCheckbox control={control} label={'Remember me'} name={'rememberMe'} />
+//           <Typography
+//             as={Link}
+//             className={s.recoverPasswordLink}
+//             to={path.recoveryPassword}
+//             variant={'body2'}
+//           >
+//             Forgot Password?
+//           </Typography>
+//         </div>
+//         <Button fullWidth type={'submit'}>
+//           Sign In
+//         </Button>
+//       </form>
+//       <div className={s.footer}>
+//         <Typography variant={'body2'}>Don&apos;t have an account?</Typography>
+//         <Typography as={Link} className={s.signUpLink} to={path.signUp} variant={'link1'}>
+//           Sign Up
+//         </Typography>
+//       </div>
+//     </Card>
+//   )
+// }
